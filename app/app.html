@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html {{ HTML_ATTRS }}>
+<head {{ HEAD_ATTRS }}>
+  <script>
+  (function () {
+    //  Обработка событий
+
+    window.addEventListener('unhandledrejection', (e) => {
+      bugReport(e)
+    }, true)
+
+    window.addEventListener('error', function (e) {
+      bugReport(e)
+    }, true)
+
+    /**
+     * Функция для формирования и отправки отчета об ошибке
+     * @param e {Event} - Событие ошибки
+     * @returns {Promise<void>}
+     */
+    async function bugReport (e) {
+      let reloadPage = false
+
+      if (e.reason && e.reason.name === 'ChunkLoadError') {
+        reloadPage = true
+      }
+
+      if (e.target) {
+        if (e.target.type === 'text/javascript') {
+          reloadPage = true
+        }
+
+        if (e.target.rel === 'preload' && e.target.as === 'script') {
+          reloadPage = true
+        }
+      }
+
+      // const B2B_OXOUNO_RU = 'b2b.oxouno.ru'
+      // const LOCALHOST_3020 = 'localhost:3020'
+      // const DEV_B2B_OXOUNO_RU = 'dev.b2b.oxouno.ru'
+      //
+      // let apiVariant = {
+      //   [B2B_OXOUNO_RU]: 'https://api.b2b.oxouno.ru',
+      //   [LOCALHOST_3020]: 'http://api.textileadmin.loc',
+      //   [DEV_B2B_OXOUNO_RU]: 'https://dev.api.b2b.oxouno.ru'
+      // }
+      //
+      // let api = apiVariant[window.location.host]
+      //
+      // let props = {}
+      // let page = window.location.host + window.location.pathname
+      // let accesstoken = window.document.cookie.match(/accesstoken=(.+)(?:\s|;|$)/)
+      // accesstoken = accesstoken ? accesstoken[1] : ''
+      //
+      // props.errorClassName = Object.getPrototypeOf(e).constructor.name
+      // props.reloadPage = reloadPage
+      //
+      // if (e instanceof ErrorEvent) {
+      //   props.message = e.message
+      //   props.filename = e.filename
+      //   props.lineno = e.lineno
+      //   props.colno = e.colno
+      //   if (e.error) {
+      //     props.error = {}
+      //     props.error.stack = e.error.stack
+      //     props.error.message = e.error.message
+      //   }
+      // } else if (e instanceof PromiseRejectionEvent) {
+      //   props.reason = e.reason
+      // } else if (e instanceof Event) {
+      //   props.type = e.type
+      //   if (e.target) {
+      //     props.target = {}
+      //     props.target.outerHTML = e.target.outerHTML
+      //   }
+      // }
+      //
+      // let xhr = new XMLHttpRequest()
+      // xhr.open('POST', api + '/v1/log-error/log', false)
+      // xhr.setRequestHeader('content-type', 'application/json;charset=UTF-8')
+      // xhr.send(JSON.stringify({
+      //   page,
+      //   accesstoken,
+      //   props
+      // }))
+
+      if (reloadPage) {
+        window.location.reload(true)
+      }
+    }
+  })()
+  </script>
+  {{ HEAD }}
+</head>
+<body {{ BODY_ATTRS }}>
+{{ APP }}
+</body>
+</html>

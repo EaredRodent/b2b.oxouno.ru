@@ -1,0 +1,50 @@
+.testapi-page {
+  height: 100%;
+  padding: 20px;
+
+  display: flex;
+  justify-content: space-between;
+}
+
+.app-box {
+  /*background-image: linear-gradient(to top, #dfe9f3 0%, white 100%);*/
+  background: white;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.left-panel {
+  .app-box;
+  width: 320px;
+  flex-shrink: 0;
+  padding: 20px;
+  margin-right: 20px;
+}
+
+.right-panel {
+  .app-box;
+  width: 100%;
+  overflow-y: scroll;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+._item:hover {
+  color: red;
+
+}
+
+.select-item {
+  color: red;
+  outline: 1px dotted red;
+}
+
+.exception-info {
+  background: #ffdddd;
+
+  &-header {
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+}

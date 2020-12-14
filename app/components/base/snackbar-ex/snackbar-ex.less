@@ -1,0 +1,79 @@
+._c4 {
+  &-modal-screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #0005;
+    z-index: 2;
+  }
+
+  &-debug {
+    &-message {
+      height: 350px;
+      width: 100%;
+      overflow: auto;
+    }
+
+    .v-snack__wrapper {
+      border-radius: 5px;
+      overflow: hidden;
+    }
+
+    .v-snack__content {
+      padding: 0px;
+    }
+  }
+
+  @not-black-color: white;
+
+  &-json-viewer {
+    background: transparent; // v-snackbar атрибут color, чтоб не менять в нескольких местах
+    white-space: nowrap;
+    color: #525252;
+    font-size: 14px;
+    font-family: Consolas, Menlo, Courier, monospace;
+
+    .jv-ellipsis {
+      color: #999;
+      background-color: #eee;
+      display: inline-block;
+      line-height: 0.9;
+      font-size: 0.9em;
+      padding: 0px 4px 2px 4px;
+      border-radius: 3px;
+      vertical-align: 2px;
+      cursor: pointer;
+      user-select: none;
+    }
+    .jv-button { color: #49b3ff }
+    .jv-key { color: @not-black-color }
+    .jv-item {
+      &.jv-array { color: @not-black-color }
+      &.jv-boolean { color: #fc1e70 }
+      &.jv-function { color: #067bca }
+      &.jv-number { color: #fc1e70 }
+      &.jv-object { color: @not-black-color }
+      &.jv-undefined { color: #e08331 }
+      &.jv-string {
+        color: #42b983;
+        word-break: break-word;
+        white-space: normal;
+      }
+    }
+    .jv-code {
+      .jv-toggle {
+        &:before {
+          padding: 0px 2px;
+          border-radius: 2px;
+        }
+        &:hover {
+          &:before {
+            background: #eee;
+          }
+        }
+      }
+    }
+  }
+}

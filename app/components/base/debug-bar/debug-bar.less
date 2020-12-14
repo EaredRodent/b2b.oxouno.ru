@@ -1,0 +1,40 @@
+._db {
+  @hover-area-height: 40px;
+  @padding: 20px;
+
+  position: fixed;
+  right: 0;
+  bottom: 0px;
+  padding: @padding;
+  display: flex;
+  flex-flow: column nowrap;
+  transform: translateY(calc(100% - @padding - @hover-area-height));
+  transition: all .25s ease-in-out;
+
+  &:hover {
+    ._db-hover-area {
+      display: none;
+    }
+
+    transform: none;
+  }
+
+  &-hover-area {
+    flex: 0 0 @hover-area-height;
+    //background: red;
+  }
+
+  &-buttons {
+    flex: 0 0 auto;
+    display: flex;
+    flex-flow: column nowrap;
+
+    button {
+      margin: 0;
+
+      &:not(:first-child) {
+        margin-top: @padding;
+      }
+    }
+  }
+}

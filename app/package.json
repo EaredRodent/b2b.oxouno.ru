@@ -1,0 +1,45 @@
+{
+  "name": "nuxt",
+  "version": "1.0.0",
+  "description": "My wonderful Nuxt.js project",
+  "author": "RABBIT",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt --port=3020",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@hscmap/vue-window": "^2.4.2",
+    "@mdi/font": "^4.9.95",
+    "@nuxt/types": "^2.14.3",
+    "@nuxtjs/axios": "~5.3.6",
+    "bootstrap": "^4.1.3",
+    "bootstrap-vue": "^2.0.0-rc.11",
+    "cookie-universal-nuxt": "~2.0.18",
+    "flipbook-vue": "^0.8.1",
+    "hooper": "^0.3.4",
+    "jsdoc": "^3.6.3",
+    "less": "^3.10.3",
+    "less-loader": "^5.0.0",
+    "material-design-icons-iconfont": "^5.0.1",
+    "mobile-detect": "^1.4.4",
+    "nuxt": "^2.0.0",
+    "stylus": "^0.54.7",
+    "stylus-loader": "^3.0.2",
+    "vee-validate": "^2.0.0",
+    "vue-carousel-3d": "^0.2.0",
+    "vue-custom-scrollbar": "~1.1.0",
+    "vue-json-viewer": "~2.2.4",
+    "vue-zoom-on-hover": "^1.0.2",
+    "vuetify": "^1.5.18"
+  },
+  "devDependencies": {
+    "@vue/test-utils": "^1.0.0-beta.27",
+    "babel-jest": "^24.1.0",
+    "jest": "^24.1.0",
+    "vue-jest": "^4.0.0-0"
+  }
+}
