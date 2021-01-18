@@ -6,7 +6,7 @@
     Мобильный сервис в стадии активной разработки!
     <br>
     <br>
-    <img src="/app/static/cat.png" alt="Cat img..." style="width: 200px; margin: auto auto 0 auto">
+    <img src="/cat.png" alt="Cat img..." style="width: 200px; margin: auto auto 0 auto">
   </div>
 </template>
 

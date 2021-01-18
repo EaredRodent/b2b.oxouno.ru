@@ -1,13 +1,19 @@
 <template>
-  <div class="a3a-Filters" :key="catalogMode">
+  <vue-custom-scrollbar class="a3a-Filters" :key="catalogMode">
     <div class="a3a-spacer">Фильтры</div>
-    <b-form-checkbox class="a3a-checkbox" color="#d57959" v-model="filterNewOnly">
-      Только новинки
-    </b-form-checkbox>
+    <v-checkbox class="a3a-checkbox"
+                label="Только новинки"
+                color="#d57959"
+                v-model="filterNewOnly"
+                :ripple="false"/>
     <template v-if="catalogMode === 'assort'">
       <div class="a3a-spacer">Ассортиментная матрица</div>
-      <v-treeview v-model="topTreeSelection" return-object selectable :items="topTree.items"
+      <v-treeview v-model="topTreeSelection"
+                  :selectable="!disabledFilters.tree"
+                  return-object
+                  :items="topTree.items"
                   :open="topTreeOpen" open-on-click
+                  :disabled="true"
                   on-icon="lens"
                   off-icon="radio_button_unchecked"
                   indeterminate-icon="remove_circle_outline"
@@ -31,7 +37,10 @@
     </template>
     <template v-if="catalogMode === 'discount'">
       <div class="a3a-spacer">Акционный товар</div>
-      <v-treeview v-model="bottomTreeSelection" return-object selectable :items="bottomTree.items"
+      <v-treeview v-model="bottomTreeSelection"
+                  :selectable="!disabledFilters.tree"
+                  return-object
+                  :items="bottomTree.items"
                   :open="bottomTreeOpen" open-on-click
                   on-icon="lens"
                   off-icon="radio_button_unchecked"
@@ -49,12 +58,12 @@
         {{ p }}
       </p>
     </dialog-ex>
-  </div>
+  </vue-custom-scrollbar>
 </template>
 
 <script>
 import VueCustomScrollbar from 'vue-custom-scrollbar'
-import DialogEx from '../../../components/b2b/dialog-ex'
+import DialogEx from '~/components/b2b/dialog-ex'
 
 export default {
   name: 'filters',
@@ -62,7 +71,7 @@ export default {
     DialogEx,
     VueCustomScrollbar
   },
-  data () {
+  data() {
     return {
       topTree: {},
       bottomTree: {},
@@ -87,34 +96,49 @@ export default {
     }
   },
   computed: {
-    model () {
+    model() {
       return this.$store.state.filters.model
     },
-    dialogLines () {
+    dialogLines() {
       return this.dialogCollectionDescription.collectionNode.collectionDescription?.split('\n') || []
     },
-    catalogMode () {
+    catalogMode() {
       return this.$store.state.filters.catalogMode
     },
-    search () {
+    search() {
       return this.$store.state.filters.search
+    },
+    disabledFilters() {
+      return this.$store.state.filters.disabledFilters
     }
   },
   watch: {
-    topTreeSelection () {
+    topTreeSelection(arr) {
+      if (arr.length) {
+        this.lockFilters('tree')
+      }
       this.checkFilterModelChanges()
     },
-    bottomTreeSelection (n, o) {
+    bottomTreeSelection(arr) {
+      if (arr.length) {
+        this.lockFilters('tree')
+      }
       this.checkFilterModelChanges()
     },
-    search (searchStr) {
+    search(searchStr) {
+      if (searchStr) {
+        this.lockFilters('search')
+      }
       this.checkFilterModelChanges()
     },
-    filterNewOnly () {
+    filterNewOnly(isNewOnly) {
+      if (isNewOnly) {
+        this.lockFilters('new')
+      }
       this.checkFilterModelChanges()
     }
   },
-  async mounted () {
+  async mounted() {
     await this.fetchAll()
     this.normalizeProdsForSearch()
 
@@ -126,17 +150,17 @@ export default {
       if (this.catalogMode === 'discount') {
         this.unfoldModelsByClassNameDiscount()
       }
-    }, { deep: true })
+    }, {deep: true})
 
     // this.unfoldModelsByClassName()
     this.$root.$on('filters/clearAll', this.foldAll)
     this.$emit('ready')
   },
-  beforeDestroy () {
+  beforeDestroy() {
     this.$root.$off('filters/clearAll', this.foldAll)
   },
   methods: {
-    async fetchAll () {
+    async fetchAll() {
       return new Promise(async (resolve, reject) => {
         let promiseTree = this.$axios.get('/v1/pr-stor-prod/tree-lite')
         let promiseTreeResult = await promiseTree
@@ -145,8 +169,8 @@ export default {
         resolve()
       })
     },
-    normalizeProdsForSearch () {
-      function tryGetProds (prods) {
+    normalizeProdsForSearch() {
+      function tryGetProds(prods) {
         let resProds = []
 
         for (let prod of prods) {
@@ -170,7 +194,7 @@ export default {
         'packFk'
       ]
 
-      function mapFunc (el) {
+      function mapFunc(el) {
         return {
           stringifyObject: JSON.stringify(el, allowProps).toLowerCase(),
           object: el
@@ -189,27 +213,33 @@ export default {
       this.normalizedProdsForSearch.topTree = flatProdsArrayTopTree
       this.normalizedProdsForSearch.bottomTree = flatProdsArrayBottomTree
     },
-    checkFilterModelChanges () {
-      let treeUsed = this.topTreeSelection.length || this.bottomTreeSelection.length
-      let searchStr = this.search.trim().toLowerCase()
-      let searchUsed = 1 < searchStr.length
-      this.$store.commit('filters/setUserCatalogInteraction', treeUsed | searchUsed | this.filterNewOnly)
+    checkFilterModelChanges() {
+      const treeUsed = this.topTreeSelection.length || this.bottomTreeSelection.length
+      const searchStr = this.search.trim().toLowerCase()
+      const searchUsed = 1 < searchStr.length
+      const userCatalogInteraction = treeUsed | searchUsed | this.filterNewOnly
+      this.$store.commit('filters/setUserCatalogInteraction', userCatalogInteraction)
 
-      let prods = this.allProds.topTree.concat(this.allProds.bottomTree)
+      let prods = []
 
-      if (searchStr) {
-        prods = this.searchProds(searchStr)
-      } else if (treeUsed) {
-        prods = this.extractProdsFromTree()
+      if (userCatalogInteraction) {
+        prods = this.allProds.topTree.concat(this.allProds.bottomTree)
+
+        if (searchStr) {
+          prods = this.searchProds(searchStr)
+        } else if (treeUsed) {
+          prods = this.extractProdsFromTree()
+        }
+
+        this.filterNewOnly && (prods = this.newOnlyFilter(prods))
+        prods = this.hideProdsWithoutPhoto(prods)
       }
 
-      this.filterNewOnly && (prods = this.newOnlyFilter(prods))
-      prods = this.hideProdsWithoutPhoto(prods)
-
-      this.$store.commit('filters/setProds', prods)
-      this.$store.commit('filters/setProdsCount', prods.length)
+      // this.$store.commit('filters/setProds', prods)
+      this.$store.dispatch('filters/setProds', prods)
+      // this.$store.commit('filters/setProdsCount', prods.length)
     },
-    extractProdsFromTree () {
+    extractProdsFromTree() {
       let prods = []
 
       this.topTreeSelection.forEach(obj => {
@@ -236,11 +266,11 @@ export default {
 
       return prods
     },
-    searchProds (searchStr) {
+    searchProds(searchStr) {
       let prods = []
 
       let normalizedProdsForSearch = this.normalizedProdsForSearch.topTree
-        .concat(this.normalizedProdsForSearch.bottomTree)
+          .concat(this.normalizedProdsForSearch.bottomTree)
 
       if (searchStr) {
         prods = normalizedProdsForSearch.filter(el => el.stringifyObject.includes(searchStr))
@@ -249,22 +279,35 @@ export default {
 
       return prods
     },
-    hideProdsWithoutPhoto (prods) {
-      console.group()
-      let sizeBefore = prods.length
-      prods = prods.filter(prod => (prod.photos.medium.length || console.log(prod), prod.photos.medium.length))
-      let sizeAfter = prods.length
+    hideProdsWithoutPhoto(prods) {
+      const sizeBefore = prods.length
+
+      const prodsWithoutPhoto = []
+
+      prods = prods.filter(prod => {
+        if (!prod.photos.medium.length) {
+          prodsWithoutPhoto.push(prod)
+        }
+        return prod.photos.medium.length
+      })
+
+      const sizeAfter = prods.length
+
       if (sizeAfter < sizeBefore) {
-        console.log('Prods has not photo: ' + (sizeBefore - sizeAfter))
+        console.log(
+            '%c%s',
+            'color: orange;',
+            (sizeBefore - sizeAfter) + ' prods has not photo: ' +
+            prodsWithoutPhoto.map(prod => prod.art)
+                .join(', '))
       }
-      console.groupEnd()
       return prods
     },
-    newOnlyFilter (prods) {
+    newOnlyFilter(prods) {
       prods = prods.filter(prod => prod.age <= 30)
       return prods
     },
-    unfoldModelsByClassNameAssort () {
+    unfoldModelsByClassNameAssort() {
       if (!this.model.className) {
         return
       }
@@ -285,8 +328,8 @@ export default {
             for (let model of sex.children) {
 
               if (sex.name === this.model.sexName &&
-                category.name === this.model.categoryName &&
-                model.className === this.model.className) {
+                  category.name === this.model.categoryName &&
+                  model.className === this.model.className) {
                 unfoldThisSex = true
                 unfoldThisCollection = true
                 unfoldThisCategory = true
@@ -313,7 +356,7 @@ export default {
       this.topTreeSelection = selection
       this.topTreeOpen = open
     },
-    unfoldModelsByClassNameDiscount () {
+    unfoldModelsByClassNameDiscount() {
       if (!this.model.className) {
         return
       }
@@ -334,8 +377,8 @@ export default {
             for (let model of sex.children) {
 
               if (sex.name === this.model.sexName &&
-                group.name === this.model.groupName &&
-                model.className === this.model.className) {
+                  group.name === this.model.groupName &&
+                  model.className === this.model.className) {
                 unfoldThisSex = true
                 unfoldThisGroup = true
                 unfoldThisDiscount = true
@@ -362,18 +405,36 @@ export default {
       this.bottomTreeSelection = selection
       this.bottomTreeOpen = open
     },
-    foldAll () {
+    foldAll() {
       this.topTreeSelection = []
       this.bottomTreeSelection = []
       this.topTreeOpen = []
       this.bottomTreeOpen = []
     },
-    openCollectionDescription (collectionNode) {
+    openCollectionDescription(collectionNode) {
       this.dialogCollectionDescription.state = true
       this.dialogCollectionDescription.collectionNode = collectionNode
     },
-    closeCollectionDescription () {
+    closeCollectionDescription() {
       this.dialogCollectionDescription.state = false
+    },
+    lockFilters(saveFor) {
+      if (saveFor !== 'tree') {
+        if (this.topTreeSelection.length) {
+          this.topTreeSelection = []
+        }
+        if (this.bottomTreeSelection.length) {
+          this.bottomTreeSelection = []
+        }
+      }
+
+      if (saveFor !== 'search') {
+        this.$store.commit('filters/setSearch', "")
+      }
+
+      if (saveFor !== 'new') {
+        this.filterNewOnly = false
+      }
     }
   }
 }

@@ -331,7 +331,7 @@
 </template>
 
 <script>
-import config from '../../config/base-config'
+import config from '~/config/base-config'
 import { ValidationObserver, ValidationProvider } from 'vee-validate'
 import { isPostSuccessful } from '~/plugins/base/axios-prepare'
 

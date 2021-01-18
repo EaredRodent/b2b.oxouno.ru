@@ -1,40 +1,5 @@
 <template>
   <div class="a3-Catalog a3-catalog-padding" v-if="$isDesktop()">
-    <loading v-if="filtersLoading"/>
-
-    <filters class="a3-filters a3-filters-flex" :class="!demoCompleted && 'a3-filters-demo'"
-             @ready="filtersLoading = false"/>
-
-    <vue-custom-scrollbar class="a3-content">
-      <template v-if="fetching">
-        <div class="a3-no-content">
-          <v-progress-circular indeterminate :size="50" :width="1" color="blue-grey darken-4"/>
-        </div>
-      </template>
-      <template v-else>
-        <collection-descript v-if="collection && collection.epithets" :value="collection"/>
-        <gallery :value="!!(userCatalogInteraction && prodsCount)" :mode="mode" :items="prods"
-                 @prod-view="prodView"/>
-        <div class="a3-catalog-bg" v-if="!userCatalogInteraction"/>
-        <div class="a3-no-content a3-no-content-padding" v-else-if="userCatalogInteraction && !prodsCount">
-          Нет изделий
-        </div>
-        <template v-if="false">
-          <div class="a3-no-content a3-no-content-padding" v-if="!userCatalogInteraction">
-            Используйте дерево, навигацию или поиск
-          </div>
-        </template>
-      </template>
-    </vue-custom-scrollbar>
-
-    <gallery-active-order class="a3-active-orders a3-active-orders-flex" v-if="prepOrders.length" ref="activeOrder"
-                          :value="activeOrder"
-                          actions
-                          :mode="activeOrderMode"
-                          @send-order="openSendOrderDialog"
-                          @item-edit="prodView"/>
-    <div class="a3-active-orders a3-active-orders-flex a3-no-content a3-no-content-padding" v-else>Нет заказов</div>
-
     <div class="a3-toolbar a3-toolbar-left-right">
       <div class="a3-tb-filters a3-tb-filters-flex">
         <!--        <div class="a3-tb-title">Фильтры:</div>-->
@@ -48,15 +13,17 @@
           </div>
         </div>
 
-        <div class="x-fbsb">
-          <div class="a3-tb-search-title">Поиск:</div>
-          <div class="a3-tb-search">
-            <b-input class="a3-tb-search-input" :focus="!!search" :value="search"
-                     @input="$store.commit('filters/setSearch', $event)"/>
-            <v-icon class="a3-tb-search-clear" v-if="search" @click="$store.commit('filters/setSearch', '')">
-              close
-            </v-icon>
-          </div>
+        <div class="a3-td-right-box">
+          <v-text-field class="a3-tb-search"
+                        :value="search"
+                        label="Поиск"
+                        color="black"
+                        small
+                        @input="$store.commit('filters/setSearch', $event)"
+                        :append-icon="search ? 'close' : 'search'"
+                        @click:append="$store.commit('filters/setSearch', '')"
+
+          />
           <v-btn class="a3-tb-btn" icon @click="mode = 'cards'" title="Отображать плиткой">
             <v-icon color="blue-grey darken-2">view_module</v-icon>
           </v-btn>
@@ -64,7 +31,8 @@
             <v-icon color="blue-grey darken-2">view_headline</v-icon>
           </v-btn>
           <v-btn class="a3-tb-btn" icon @click="downloadPrice" :loading="price.loading"
-                 :title="price.loading ? 'Подождите, прайс-лист создается...' : 'Создать прайс-лист'">
+                 :title="price.loading ? 'Подождите, прайс-лист создается...' : 'Создать прайс-лист'"
+                 :disabled="!prodsCount">
             <v-icon color="blue-grey darken-2">mdi-download</v-icon>
           </v-btn>
         </div>
@@ -73,14 +41,7 @@
       <div class="a3-tb-active-orders a3-tb-active-orders-flex">
         <div class="a3-tb-active-orders-inner">
           <div class="a3-tbao-left-side">
-            <div class="a3-tb-title">Подготовка заказов:</div>
-            <div class="a3-tbao-prep-list">
-              <div class="a3-tbao-prep" :active="activeOrder.id === prepOrder.id"
-                   v-for="prepOrder in prepOrders" :key="prepOrder.id"
-                   @click="setActiveOrder(prepOrder)" v-ripple>
-                №{{ prepOrder.id }}
-              </div>
-            </div>
+            <div class="a3-tb-title">Подготовка заказов</div>
           </div>
 
           <v-btn class="a3-btn-create-order" outline small :disabled="!this.createOrderDialog.legalEntities.length"
@@ -91,27 +52,69 @@
         </div>
       </div>
     </div>
+    <div class="a3-cat-box">
 
-    <div v-if="!demoCompleted" class="a3-demo">
-      <div class="a3-demo-right-block">
-        Используйте фильтры для обзора изделий. Кликните по интересующему товару
+      <loading v-if="filtersLoading"/>
+
+      <filters class="a3-filters a3-filters-flex" :class="!demoCompleted && 'a3-filters-demo'"
+               @ready="filtersLoading = false"/>
+
+      <vue-custom-scrollbar class="a3-content">
+        <template v-if="fetching">
+          <div class="a3-no-content">
+            <v-progress-circular indeterminate :size="50" :width="1" color="blue-grey darken-4"/>
+          </div>
+        </template>
+        <template v-else>
+          <collection-descript v-if="collection && collection.epithets" :value="collection"/>
+          <gallery :value="!!(userCatalogInteraction && prodsCount)" :mode="mode" :items="prods"
+                   @prod-view="prodView"/>
+          <div class="a3-catalog-bg" v-if="!userCatalogInteraction"/>
+          <div class="a3-no-content a3-no-content-padding" v-else-if="userCatalogInteraction && !prodsCount">
+            Нет изделий
+          </div>
+          <template v-if="false">
+            <div class="a3-no-content a3-no-content-padding" v-if="!userCatalogInteraction">
+              Используйте дерево, навигацию или поиск
+            </div>
+          </template>
+        </template>
+      </vue-custom-scrollbar>
+
+      <gallery-active-order class="a3-active-orders a3-active-orders-flex" v-if="prepOrders.length" ref="activeOrder"
+                            :value="activeOrder"
+                            :prepare-orders="prepOrders"
+                            actions
+                            :mode="activeOrderMode"
+                            :get-more-time-button-loading="getMoreTimeButtonLoading"
+                            @send-order="openSendOrderDialog"
+                            @item-edit="prodView"
+                            @order-get-more-time="orderGetMoreTime"
+                            @set-active-order="setActiveOrder"/>
+      <div class="a3-active-orders a3-active-orders-flex a3-no-content a3-no-content-padding" v-else>Нет заказов</div>
+
+      <div v-if="!demoCompleted" class="a3-demo">
+        <div class="a3-demo-right-block">
+          Используйте фильтры для обзора изделий. Кликните по интересующему товару
+        </div>
       </div>
+
+      <viewer v-model="viewer"
+              @add-item-to-order="addItemToOrder"
+              @edit-item-from-order="editItemFromOrder"
+              @delete-item="itemDelete"
+              :legal-entity-id="activeOrder.client_fk"
+              :order-create-processing="viewer.createOrderProcessing"
+              :order-edit-item-processing="viewer.editOrderItemProcessing"
+              :order-delete-item-processing="viewer.deleteOrderItemProcessing"/>
+
+      <dialogs :create-order-dialog="createOrderDialog"
+               :send-order-dialog="sendOrderDialog"
+               :info-order-dialog="infoOrderDialog"
+               @create-order="createOrder"
+               @send-order="sendOrder"/>
+
     </div>
-
-    <viewer v-model="viewer"
-            @add-item-to-order="addItemToOrder"
-            @edit-item-from-order="editItemFromOrder"
-            @delete-item="itemDelete"
-            :legal-entity-id="activeOrder.client_fk"
-            :order-create-processing="viewer.createOrderProcessing"
-            :order-edit-item-processing="viewer.editOrderItemProcessing"
-            :order-delete-item-processing="viewer.deleteOrderItemProcessing"/>
-
-    <dialogs :create-order-dialog="createOrderDialog"
-             :send-order-dialog="sendOrderDialog"
-             :info-order-dialog="infoOrderDialog"
-             @create-order="createOrder"
-             @send-order="sendOrder"/>
   </div>
   <div class="a15-Catalog-Phone" v-else-if="$isMobile()">
     <loading v-if="filtersLoading"/>
@@ -158,16 +161,16 @@
 </template>
 
 <script>
-import { isPostSuccessful } from '~/plugins/base/axios-prepare'
+import {isPostSuccessful} from '~/plugins/base/axios-prepare'
 import Filters from './-filters'
 import Gallery from './-gallery'
 import Viewer from './-viewer'
 import GalleryActiveOrder from './-gallery-active-order'
 import VueCustomScrollbar from 'vue-custom-scrollbar'
 import Dialogs from './-dialogs'
-import config from '../../../config/base-config'
+import config from '~/config/base-config'
 import CollectionDescript from './-collection-description'
-import Loading from '../../../components/b2b/loading'
+import Loading from '~/components/b2b/loading'
 import PhoneFilters from './-phone-filters'
 
 export default {
@@ -183,7 +186,7 @@ export default {
     GalleryActiveOrder,
     VueCustomScrollbar
   },
-  data () {
+  data() {
     return {
       mode: 'cards',  // cards / table
       activeOrderMode: 'table', // cards / table
@@ -203,7 +206,8 @@ export default {
         state: false,
         legalEntities: [],
         form: {},
-        resolve () {},
+        resolve() {
+        },
         processIndicator: false // Индикатор ожидания для кнопки создать заказ
       },
       sendOrderDialog: {
@@ -213,74 +217,77 @@ export default {
       },
       infoOrderDialog: {  // Окно с предупреждением о удалении заказа через определенное время
         state: false,
-        resolve () {},
-        reject () {}
+        resolve() {
+        },
+        reject() {
+        }
       },
       price: {
         loading: false
       },
       filtersLoading: true,
       hidePhoneFilterItems: false,
-      phoneFiltersIsFullScreen: false
+      phoneFiltersIsFullScreen: false,
+      getMoreTimeButtonLoading: false
     }
   },
   computed: {
-    prods () {
+    prods() {
       return this.$store.state.filters.prods
     },
-    activeOrderProds () {
+    activeOrderProds() {
       return this.$store.state['active-order'].prods
     },
-    userCatalogInteraction () {
+    userCatalogInteraction() {
       return this.$store.state.filters.userCatalogInteraction
     },
-    prodsCount () {
+    prodsCount() {
       return this.$store.state.filters.prodsCount
     },
-    fetching () {
+    fetching() {
       return this.$store.state.filters.fetching
     },
-    model () {
+    model() {
       return this.$store.state.filters.model
     },
-    collection () {
+    collection() {
       return this.$store.state.filters.collection
     },
-    catalogMode () {
+    catalogMode() {
       return this.$store.state.filters.catalogMode
     },
-    search () {
+    search() {
       return this.$store.state.filters.search
+    },
+    disabledFilters() {
+      return this.$store.state.filters.disabledFilters
     }
   },
-  async mounted () {
+  async mounted() {
     // if (localStorage.getItem('demoCompleted') !== 'true') {
     //   this.demoCompleted = false
     //   localStorage.setItem('demoCompleted', 'true')
     // }
     this.updateOrders()
     this.createOrderDialog.legalEntities = await new Promise(this.apiGetLegalEntities)
-    this.$registerWsSubscription(['sls_order'], [() => {
-      this.updateOrders()
-    }])
   },
   methods: {
-    updateOrders () {
+    updateOrders() {
       return new Promise(async (resolve, reject) => {
         this.prepOrders = await new Promise(this.apiGetPrepOrders)
         this.getActiveOrder()
         resolve()
       })
     },
-    setActiveOrder (order) {
-      localStorage.setItem('activeOrderId', order.id)
+    setActiveOrder(orderID) {
+      localStorage.setItem('activeOrderId', orderID)
       this.getActiveOrder()
     },
-    getActiveOrder () {
+    getActiveOrder() {
       let activeOrderId = Number(localStorage.getItem('activeOrderId'))
       this.activeOrder = this.prepOrders.find(e => Number(e.id) === activeOrderId) || (this.prepOrders.length ? this.prepOrders[this.prepOrders.length - 1] : {})
     },
-    createOrder () {
+    createOrder() {
       return new Promise(async (resolve, reject) => {
         let response = await this.$axios.post('/v1/sls-order/create-order', {
           form: JSON.stringify(this.createOrderDialog.form)
@@ -293,14 +300,15 @@ export default {
         resolve()
       })
     },
-    async callOpenCreateOrderDialog () {
+    async callOpenCreateOrderDialog() {
       this.createOrderDialog.processIndicator = true
       try {
         await this.openCreateOrderDialog(true)
-      } catch (e) {}
+      } catch (e) {
+      }
       this.createOrderDialog.processIndicator = false
     },
-    openCreateOrderDialog () {
+    openCreateOrderDialog() {
       return new Promise(async (resolve, reject) => {
         try {
           await this.openInfoOrderDialog()
@@ -320,15 +328,15 @@ export default {
         }
       })
     },
-    async apiGetLegalEntities (resolve, reject) {
-      let { data } = await this.$axios.get('/v1/sls-client/get-legal-entities')
+    async apiGetLegalEntities(resolve, reject) {
+      let {data} = await this.$axios.get('/v1/sls-client/get-legal-entities')
       resolve(data)
     },
-    async apiGetPrepOrders (resolve, reject) {
-      let { data } = await this.$axios.get('/v1/sls-order/get-prep-2')
+    async apiGetPrepOrders(resolve, reject) {
+      let {data} = await this.$axios.get('/v1/sls-order/get-prep-2')
       resolve(data)
     },
-    prodView (cardProd) {
+    prodView(cardProd) {
       let slsItem
 
       // Поиск открываемого на просмотр изделия в активном заказе
@@ -354,7 +362,7 @@ export default {
         this.viewer.state = true
       }
     },
-    async addItemToOrder (form) {
+    async addItemToOrder(form) {
       this.viewer.createOrderProcessing = true
 
       if (!this.activeOrder.id) {
@@ -367,7 +375,7 @@ export default {
       }
 
       form.order_fk = this.activeOrder.id
-      let response = await this.$axios.post('/v1/sls-item/create-item', { form: JSON.stringify(form) })
+      let response = await this.$axios.post('/v1/sls-item/create-item', {form: JSON.stringify(form)})
       if (isPostSuccessful(response)) {
         this.viewer.state = false
       }
@@ -375,52 +383,52 @@ export default {
       this.viewer.createOrderProcessing = false
       this.updateOrders()
     },
-    async editItemFromOrder (form) {
+    async editItemFromOrder(form) {
       this.viewer.editOrderItemProcessing = true
-      let response = await this.$axios.post('/v1/sls-item/edit-item', { form: JSON.stringify(form) })
+      let response = await this.$axios.post('/v1/sls-item/edit-item', {form: JSON.stringify(form)})
       if (isPostSuccessful(response)) {
         this.viewer.state = false
       }
       this.viewer.editOrderItemProcessing = false
       this.updateOrders()
     },
-    async itemDelete (id) {
+    async itemDelete(id) {
       this.viewer.deleteOrderItemProcessing = true
-      let response = await this.$axios.post('/v1/sls-item/delete-item', { id })
+      let response = await this.$axios.post('/v1/sls-item/delete-item', {id})
       if (isPostSuccessful(response)) {
         this.viewer.state = false
       }
       this.viewer.deleteOrderItemProcessing = false
       this.updateOrders()
     },
-    openSendOrderDialog () {
+    openSendOrderDialog() {
       this.sendOrderDialog.state = true
     },
-    async sendOrder () {
+    async sendOrder() {
       this.sendOrderDialog.postIndicator = true
       this.sendOrderDialog.form.active_order_id = this.activeOrder.id
-      let response = await this.$axios.post('/v1/sls-order/send-order', { form: JSON.stringify(this.sendOrderDialog.form) })
+      let response = await this.$axios.post('/v1/sls-order/send-order', {form: JSON.stringify(this.sendOrderDialog.form)})
       if (isPostSuccessful(response)) {
         this.sendOrderDialog.state = false
       }
       await this.updateOrders()
       this.sendOrderDialog.postIndicator = false
     },
-    openInfoOrderDialog () {
+    openInfoOrderDialog() {
       return new Promise((resolve, reject) => {
         this.infoOrderDialog.resolve = resolve
         this.infoOrderDialog.reject = reject
         this.infoOrderDialog.state = true
       })
     },
-    async downloadPrice () {
+    async downloadPrice() {
       this.price.loading = true
 
-      let prods = this.$store.state.filters.prods
-      let refArtBlanks = []
-      let refProductPrints = []
+      const prods = this.$store.state.filters.prods
+      const refArtBlanks = []
+      const refProductPrints = []
 
-      for (let prod of prods) {
+      for (const prod of prods) {
         if (prod.printId === 1) {
           refArtBlanks.push(prod.prodId)
         } else {
@@ -428,18 +436,17 @@ export default {
         }
       }
 
-      let { data: generatedFileUrl } = await this.$axios.post('/v1/generate/price', {
+      const {data: generatedUrl} = await this.$axios.post('/v1/generate/price', {
         refArtBlanks,
         refProductPrints,
         mode: this.catalogMode
       })
 
-      let urlKey = this.$userProperty('url_key')
-      window.open(`https://api.textileadmin.ru/v1/files/get-price/${urlKey}/${generatedFileUrl}`)
+      window.open(generatedUrl)
 
       this.price.loading = false
     },
-    getTouchBehavior () {
+    getTouchBehavior() {
       if (this.phoneFiltersIsFullScreen) {
         return {}
       } else {
@@ -452,6 +459,12 @@ export default {
           }
         }
       }
+    },
+    async orderGetMoreTime() {
+      this.getMoreTimeButtonLoading = true
+      await this.$axios.post('/v1/sls-order/extend-time', {orderId: this.activeOrder.id})
+      await this.updateOrders()
+      this.getMoreTimeButtonLoading = false
     }
   }
 }

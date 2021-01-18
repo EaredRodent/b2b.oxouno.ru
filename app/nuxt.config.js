@@ -5,7 +5,7 @@ export default async function () {
     const { default: env } = await import('./env.js')
 
     const config = {
-        mode: 'spa',
+        ssr: false,
         /*
         ** Headers of the page
         */
@@ -76,9 +76,6 @@ export default async function () {
         ** Customize the progress-bar color
         */
         loading: {color: '#fff'},
-        loadingIndicator: {
-            name: 'assets/loading.html'
-        },
         /*
         ** Global CSS
         */
@@ -112,9 +109,6 @@ export default async function () {
         ** Nuxt.js modules
         */
         modules: [
-            // Doc: https://bootstrap-vue.js.org/docs/
-            'bootstrap-vue/nuxt',
-            'cookie-universal-nuxt',
             '@nuxtjs/axios'
         ],
         /*
@@ -128,7 +122,8 @@ export default async function () {
             }
         },
         router: {
-            middleware: ['base/auth']
+            middleware: ['base/auth', 'stop_mobile'],
+            trailingSlash: false
         }
     }
 

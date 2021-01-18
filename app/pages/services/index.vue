@@ -1,108 +1,57 @@
 <template>
   <div class="shop-desktop" v-if="$isDesktop()">
-    <div class="left-box">
-      <div class="shop-label">Кабинет клиента</div>
-      <div class="shop-details">
-        <div>- Ваш статус: <span class="shop-calc">Опт SILVER</span></div>
-        <div>- Скидка: <span class="shop-calc">20%</span></div>
-        <div>- Всего заказов: <span class="shop-calc">45</span> на сумму <span class="shop-calc">750 000 р.</span></div>
-        <div>- Заказов на подготовке <span class="shop-calc">2</span> на сумму <span class="shop-calc">95 000 р.</span></div>
-      </div>
-      <div class="shop-label mt-5">Дропшиппинг</div>
-      <div class="shop-details">
-        <div>- Клиентов: <span class="shop-calc">8</span></div>
-        <div>- Всего заказов: <span class="shop-calc">15</span> на сумму <span class="shop-calc">175 000 р.</span></div>
-        <div>- Заказов в обработке <span class="shop-calc">4</span></div>
-      </div>
-      <div class="shop-label mt-5">Предзаказы</div>
-      <div>Сервис не подключен</div>
-      <v-btn class="preorders-accept" color="white" outline>Подключить</v-btn>
-      <div class="shop-label mt-5">Региональные дилеры</div>
-      <div>Сервис в разработке</div>
-    </div>
+    <vue-custom-scrollbar class="left-box">
+      <services-info
+          :organization="org"
+          :all-orders="allOrders"
+          :prep-orders="prepOrders"/>
+    </vue-custom-scrollbar>
     <vue-custom-scrollbar class="right-box" v-html="htmlBrandAbout">
     </vue-custom-scrollbar>
-<!--    <div class="a0b-container">-->
-<!--      <div class="a0b-block">-->
-<!--        <div class="a0b-head">OXOUNO B2B — Кабинет клиента</div>-->
-<!--        <div class="a0b-body" v-if="org.status">-->
-<!--          — Статус: {{ discountVariant[org.status !== undefined ? org.status : 0 ].text }}<br>-->
-<!--          — Скидка: {{ Number(org.discount || 0) }}%<br>-->
-<!--          — Заказов на подготовке: {{ prepOrders.length }}<br>-->
-<!--          — Всего заказов: {{ allOrders.length }}<br/>-->
-<!--        </div>-->
-<!--        <div v-else>-->
-<!--          <v-progress-circular :size="30" :width="2" color="wheat" indeterminate/>-->
-<!--        </div>-->
-<!--        <div class="a0b-foot">Покупайте прямо сейчас, мы онлайн!</div>-->
-<!--      </div>-->
-
-<!--      &lt;!&ndash;            <a class="a0b-offer" target="_blank" href="/docs/oferta/oferta_11.08.2020.docx">Скачать договор оферты</a>&ndash;&gt;-->
-<!--    </div>-->
-
-<!--    <img class="a0b-event-banner elevation-3" v-if="event.show" :src="event.banner.middleImage"-->
-<!--         @click="bannerClick">-->
-<!--    <div class="a0b-wall"-->
-<!--         @mouseenter="wallEnter"-->
-<!--         @mouseleave="wallLeave"-->
-<!--         :on-read="wall.onRead">-->
-<!--      <vue-custom-scrollbar class="a0b-wall-inner" v-html="htmlBrandAbout">-->
-
-<!--      </vue-custom-scrollbar>-->
-<!--    </div>-->
   </div>
-  <div class="a0b-AuthorizedContent-Phone" v-else-if="$isMobile()">
-    <div class="a0b-mobile-content">
-      <div class="a0b-mobile-block">
-        <div class="a0b-m-inner">
-          <div class="a0b-m-head">
-            <span>OXOUNO B2B — Кабинет клиента</span>
-          </div>
-          <div class="a0b-body" v-if="org.status">
-            <span>— Статус: {{ discountVariant[org.status !== undefined ? org.status : 0 ].text }}</span><br>
-            <span>— Скидка: {{ Number(org.discount || 0) }}%</span><br>
-            <span>— Заказов на подготовке: {{ prepOrders.length }}</span><br>
-            <span>— Всего заказов: {{ allOrders.length }}</span><br/>
-          </div>
-          <div v-else>
-            <v-progress-circular :size="30" :width="2" color="wheat" indeterminate/>
-          </div>
-          <div class="a0b-m-foot">
-            <span>Покупайте прямо сейчас, мы онлайн!</span>
-          </div>
-        </div>
-      </div>
-      <div class="a0b-m-wall">
-        <div class="a0b-m-wall-label">
-          Инфоблок
-        </div>
-        <div class="a0b-m-wall-title"/>
-        <vue-custom-scrollbar class="a0b-m-wall-scroll" v-html="htmlBrandAbout">
-        </vue-custom-scrollbar>
-      </div>
+  <div class="mobile" v-else-if="$isMobile()">
+    <div class="layout-bg">
+      <services-info
+          :organization="org"
+          :all-orders="allOrders"
+          :prep-orders="prepOrders"/>
     </div>
   </div>
 </template>
 
 <script>
 import VueCustomScrollbar from 'vue-custom-scrollbar'
-import { MixinClientOrdersMethods } from './orders/index'
-import { MixinEvent } from './-guest-content'
+import {MixinClientOrdersMethods} from '~/pages/store/orders/index'
+import ServicesInfo from "./-services-info";
+import config from "~/config/base-config";
+
+export const MixinEvent = {
+  data () {
+    return {
+      event: config.APP.event
+    }
+  },
+  methods: {
+    bannerClick () {
+      window.open(this.event.banner.bigImage)
+    }
+  }
+}
 
 export const discountVariant = [
-  { value: 0, text: 'Базовый', discount: '0' },
-  { value: 1, text: 'Розница ☆', discount: '5' },
-  { value: 2, text: 'Розница ☆ ☆', discount: '10' },
-  { value: 3, text: 'Розница ☆ ☆ ☆', discount: '15' },
-  { value: 4, text: 'Опт Silver', discount: '20' },
-  { value: 5, text: 'Опт Gold', discount: '25' },
-  { value: 6, text: 'Опт Platinum', discount: '29' }
+  {value: 0, text: 'Базовый', discount: '0'},
+  {value: 1, text: 'Розница ☆', discount: '5'},
+  {value: 2, text: 'Розница ☆ ☆', discount: '10'},
+  {value: 3, text: 'Розница ☆ ☆ ☆', discount: '15'},
+  {value: 4, text: 'Опт Silver', discount: '20'},
+  {value: 5, text: 'Опт Gold', discount: '25'},
+  {value: 6, text: 'Опт Platinum', discount: '29'}
 ]
 
 export default {
-  name: 'authorized-content',
-  mixins: [MixinClientOrdersMethods, MixinEvent],
-  components: { VueCustomScrollbar },
+  name: 'index',
+  mixins: [ MixinClientOrdersMethods, MixinEvent ],
+  components: { ServicesInfo, VueCustomScrollbar },
   data () {
     return {
       sexTags: [],
@@ -256,7 +205,7 @@ export default {
         </p>`
     }
   },
-  async mounted () {
+  async mounted() {
     let promiseOrg = this.$axios.get('/v1/sls-org/get-for-contact')
     let promiseClient = this.apiGetForClient()
     promiseOrg = await promiseOrg
@@ -264,13 +213,13 @@ export default {
     this.org = promiseOrg.data
   },
   methods: {
-    wallEnter () {
+    wallEnter() {
       clearTimeout(this.wall.timer)
       this.wall.timer = setTimeout(() => {
         this.wall.onRead = true
       }, 400)
     },
-    wallLeave () {
+    wallLeave() {
       clearTimeout(this.wall.timer)
       this.wall.timer = setTimeout(() => {
         this.wall.onRead = false
@@ -282,44 +231,45 @@ export default {
 </script>
 
 <style scoped lang="less">
-  .shop-desktop {
-    color: white;
-    padding: 100px 60px 40px 60px;
-    height: 100%;
-    background: url("/shop/bg.jpg");
-    background-size: cover;
-    display: flex;
-    justify-content: space-between;
-  }
+.shop-desktop {
+  color: white;
+  padding: 100px 40px 0 40px;
+  height: 100%;
+  background: url("/shop-resources/bg_2.min.jpg");
+  background-size: cover;
+  display: flex;
+  justify-content: space-between;
+}
 
-  .left-box {
+.left-box {
+  overflow: auto;
+  padding-right: 10px;
+}
 
-  }
+.right-box {
+  overflow: auto;
+  width: 36%;
+  padding: 10px;
+  background: #0002;
+}
 
-  .right-box {
-    overflow: auto;
-    width: 36%;
-    padding: 10px;
-    background: #0002;
-  }
+.preorders-accept {
+  margin: 5px 0 0;
+}
 
-  .shop-label {
-    font-size: 30px;
-    text-transform: uppercase;
-  }
+.mobile {
+  height: 100%;
+  background: url("/shop-resources/bg.min.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: -320px bottom;
+}
 
-  .shop-details {
-
-  }
-
-  .shop-calc {
-    background: #fff2;
-    padding: 4px;
-    border-radius: 5px;
-    line-height: 1;
-  }
-
-  .preorders-accept {
-    margin: 5px 0 0;
-  }
+.layout-bg {
+  overflow: auto;
+  height: 100%;
+  color: white;
+  padding: 100px 10px 40px 10px;
+  background: #0008;
+}
 </style>

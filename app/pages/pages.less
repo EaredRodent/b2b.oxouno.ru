@@ -403,7 +403,7 @@
   padding: 3vw;
 }
 
-@a0b-lb-color: wheat;
+@a0b-lb-color: white;
 
 .a0b-container {
   margin: auto 0;
@@ -508,7 +508,10 @@
 .a0b-AuthorizedContent-Phone {
   height: 100%;
   color: @a0b-lb-color;
-  background: #00000810;
+  background: url("/app/pages/store/bg.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: -320px bottom;
   //animation: a0b-AuthorizedContent-Phone 2s ease-in forwards;
 }
 
@@ -657,6 +660,11 @@ html, body, #__nuxt, #__layout {
   outline: none !important;
 }
 
+// Фикс vuetify кнопок
+.v-btn {
+  margin: 0;
+}
+
 // Кривой кружок Bootstrap checkbox
 
 .custom-control-label::before {
@@ -719,8 +727,7 @@ html, body, #__nuxt, #__layout {
   height: 74px;
   position: fixed;
   left: 0;
-  top: 40px;
-  color: white;
+  top: 50px;
 }
 
 .a2-AppBar[shadow] {
@@ -729,13 +736,13 @@ html, body, #__nuxt, #__layout {
 
 @media (max-width: 1580px) {
   .a2-app-bar-padding {
-    padding: 12px 60px 0 60px;
+    padding: 12px 40px 0 40px;
   }
 }
 
 @media (min-width: 1581px) {
   .a2-app-bar-padding {
-    padding: 12px 60px 0 60px;
+    padding: 12px 40px 0 40px;
   }
 }
 
@@ -911,27 +918,27 @@ html, body, #__nuxt, #__layout {
 
 .a3-Catalog {
   display: flex;
+  flex-flow: column;
   height: 100%;
   position: relative;
 }
 
-@media (max-width: 1580px) {
-  .a3-catalog-padding {
-    padding: 40px 10px 1px 10px;
-  }
+.a3-cat-box {
+  flex: 1 1 0;
+  display: flex;
+  position: relative;
+  overflow: hidden;
 }
 
-@media (min-width: 1581px) {
-  .a3-catalog-padding {
-    padding: 40px 40px 1px 40px;
-  }
+.a3-catalog-padding {
+  padding: 0 40px 1px 40px;
 }
 
 @a3-flex-1: 0 0 320px;
 @a3-flex-1-min: 0 0 300px;
 
 .a3-filters {
-  overflow-y: scroll;
+  //overflow-y: scroll;
   font-size: 0.9rem;
 }
 
@@ -1026,16 +1033,8 @@ html, body, #__nuxt, #__layout {
   padding-left: 20px;
 }
 
-@media (max-width: 1580px) {
-  .a3-active-orders-flex {
-    flex: @a3-flex-3-min;
-  }
-}
-
-@media (min-width: 1581px) {
-  .a3-active-orders-flex {
-    flex: @a3-flex-3;
-  }
+.a3-active-orders-flex {
+  flex: 0 0 350px;
 }
 
 .a3-mt-20 {
@@ -1043,8 +1042,9 @@ html, body, #__nuxt, #__layout {
 }
 
 .a3-toolbar {
-  position: fixed;
-  top: 104px;
+  //position: fixed;
+  //top: 104px;
+  flex: 0 0 auto;
   display: flex;
   background: rgba(255, 255, 255, 0.9);
 }
@@ -1092,23 +1092,14 @@ html, body, #__nuxt, #__layout {
   padding-left: 20px;
 }
 
-@media (max-width: 1580px) {
-  .a3-tb-active-orders-flex {
-    flex: @a3-flex-3-min;
-  }
-}
-
-@media (min-width: 1581px) {
-  .a3-tb-active-orders-flex {
-    flex: @a3-flex-3;
-  }
+.a3-tb-active-orders-flex {
+  flex: 0 0 350px;
 }
 
 .a3-tb-active-orders-inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid @borderColor;
 }
 
 .a3-tbao-left-side {
@@ -1126,8 +1117,14 @@ html, body, #__nuxt, #__layout {
   color: @baseColor;
 }
 
+.a3-td-right-box {
+  display: flex;
+  align-items: center;
+  height: 30px;
+}
+
 .a3-tb-search {
-  position: relative;
+  margin-top: -5px;
   margin-right: 12px;
 }
 
@@ -1167,11 +1164,10 @@ html, body, #__nuxt, #__layout {
 
 .a3-tbao-prep-list {
   display: flex;
-  margin-left: 5px;
+  border-bottom: 1px solid @borderColor;
 }
 
 .a3-tbao-prep {
-  margin: 0 0 0 5px;
   min-width: auto;
   border: 1px solid transparent;
   padding: 4px 8px 8px 8px;
@@ -1279,9 +1275,26 @@ html, body, #__nuxt, #__layout {
 }
 
 .a3a-checkbox {
-  margin-left: 17px;
-  margin-bottom: 15px;
+  margin: 0;
+  //margin-left: 17px;
+  //margin-bottom: 15px;
   //height: 30px;
+  //z-index: auto;
+  label {
+    margin-bottom: 0;
+  }
+
+  .v-input--selection-controls__input {
+    margin-right: 0;
+  }
+
+  label {
+    color: rgba(0,0,0,.87) !important;
+  }
+
+  i {
+    font-size: 20px;
+  }
 }
 
 .a3a-table-1 {
@@ -2133,6 +2146,12 @@ html, body, #__nuxt, #__layout {
 .a3d-td-name {
 }
 
+.a3d-td-name-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .a3d-td-count {
   width: 50px;
   text-align: right;
@@ -2201,9 +2220,16 @@ html, body, #__nuxt, #__layout {
 .a3d-send {
   padding: 10px 0;
   flex: 0 0 auto;
+}
+
+.a3d-send-subbox {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.a3d-send-subbox:not(:first-child) {
+  margin-top: 10px;
 }
 
 .a3d-send-btn {
@@ -2343,6 +2369,16 @@ html, body, #__nuxt, #__layout {
   flex: 0 0 auto;
   padding-top: 15px;
   padding-right: 10px;
+  display: flex;
+  flex-flow: column;
+}
+
+.a6-scroll-area {
+  position: relative;
+  flex: 1 1 0;
+  overflow: auto;
+  display: flex;
+  flex-flow: column;
 }
 
 .a6-right-side {
@@ -2355,6 +2391,20 @@ html, body, #__nuxt, #__layout {
   table-layout: fixed;
   font-size: 13px;
   border: 1px solid #ddd;
+  border-spacing: 0;
+
+  a {
+    text-decoration: none;
+  }
+
+  tr:first-child td {
+    position: sticky;
+    top: 1px;
+    border-top: 1px solid #ddd;
+    background: white;
+    font-weight: 500;
+    transform: translateY(-1px);
+  }
 
   td {
     border-bottom: 1px solid #ddd;
@@ -2421,10 +2471,6 @@ html, body, #__nuxt, #__layout {
   font-size: 18px;
 }
 
-.a6-link {
-  text-decoration: none !important;
-}
-
 .a6-icon:hover {
   color: #800 !important;
 }
@@ -2438,38 +2484,37 @@ html, body, #__nuxt, #__layout {
   font-size: 1.4rem;
 }
 
-.a6-td-id {
-  width: 60px;
-}
-
-.a6-td-date {
-  width: 70px;
-}
-
+//.a6-td-id {
+//  width: 60px;
+//}
+//
+//.a6-td-date {
+//  width: 70px;
+//}
+//
 .a6-td-date-expire {
   color: #a02020;
 }
-
-.a6-td-author {
-  width: 180px;
-}
-
-.a6-td-legal-entity {
-  width: 150px;
-}
-
-.a6-td-status {
-  width: 150px;
-}
-
-.a6-td-doc {
-  width: 67px;
-  max-width: 90px;
-  white-space: nowrap;
-}
-
+//
+//.a6-td-author {
+//  width: 180px;
+//}
+//
+//.a6-td-legal-entity {
+//  width: 150px;
+//}
+//
+//.a6-td-status {
+//  width: 150px;
+//}
+//
+//.a6-td-doc {
+//  width: 67px;
+//  max-width: 90px;
+//  white-space: nowrap;
+//}
+//
 .a6-td-sum {
-  width: 90px;
   white-space: nowrap;
   text-align: right;
 }
@@ -3342,6 +3387,7 @@ html, body, #__nuxt, #__layout {
 }
 
 .a14-drawer {
+  background: white;
   display: flex;
   flex-flow: column;
   padding-top: 7px;

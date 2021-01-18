@@ -41,55 +41,59 @@ config.PAGES = {
   },
   Catalog: {
     name: 'Каталог',
-    url: '/shop/catalog',
+    url: '/store',
     permission: 'pageB2BAny'
   },
   Outlook: {
     name: 'Outlook',
     permission: 'pageB2BAny',
-    url: '/shop/outlook'
+    url: '/store/outlook'
   },
   Messages: {
     name: 'Сообщения',
-    url: '/shop/messages',
+    url: '/store/messages',
     permission: 'pageB2BAny'
   },
   Orders: {
     name: 'Журнал заказов',
-    url: '/shop/orders',
-    permission: 'pageB2BAny'
-  },
-  ClientCard: {
-    name: 'Карта клиента',
-    url: '/shop/client-card',
-    permission: 'pageB2BAny'
-  },
-  Documents: {
-    name: 'Документы',
-    url: '/shop/documents',
+    url: '/store/orders',
     permission: 'pageB2BAny'
   },
   Restore: {
     name: 'Служебная ссылка для восстановления пароля',
-    url: '/shop/restore'
+    url: '/restore'
   },
-  Empty: {
-    name: 'Empty',
-    url: '/empty'
+  Mobile: {
+    name: 'Mobile',
+    url: '/mobile'
   },
   TestApi: {
     name: 'Test API',
     permission: 'pageTestApi',
     url: '/test-api'
   },
-  Shop: {
-    name: 'Shop',
-    url: '/shop',
+  Services: {
+    name: 'Services',
+    url: '/services',
+    permission: 'pageB2BAny'
+  },
+  ClientCard: {
+    name: 'Карта клиента',
+    url: '/services/client-card',
+    permission: 'pageB2BAny'
+  },
+  Documents: {
+    name: 'Документы',
+    url: '/services/documents',
     permission: 'pageB2BAny'
   },
   Registration: {
     name: 'Registration',
     url: '/registration'
+  },
+  Unrealized: {
+    name: 'Unrealized',
+    url: '/unrealized'
   }
 }
 /**
@@ -105,7 +109,7 @@ config.ROLES = {
     logoutPage: config.PAGES.Index
   },
   'roleB2bClient': {
-    startPage: config.PAGES.Shop,
+    startPage: config.PAGES.Services,
     logoutPage: config.PAGES.Index
   }
 }

@@ -56,7 +56,8 @@
                   <td>{{ detail.restStr }}</td>
                   <td>
                     <div class="a3c-td-content-fix-height">
-                      <v-text-field v-model.number="sizesForOrder[detail.size]" single-line type="number"/>
+                      <v-text-field v-model.number="sizesForOrder[detail.size]" single-line type="number" min="0"
+                      @input="$event < 0 && (sizesForOrder[detail.size] = Math.abs($event))"/>
                     </div>
                   </td>
                 </tr>

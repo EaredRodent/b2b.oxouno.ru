@@ -11,7 +11,7 @@
             {{ msg.userFk.name }}
           </div>
           <div class="a8-message-text" v-html="msg.message.replace(/\n/g, '<br>')"/>
-          <div class="a8-message-date">{{ msg.ts_create | formatDateYmdHis }}</div>
+          <div class="a8-message-date">{{ msg.ts_create | formatDateYmdHi }}</div>
           <div class="a8-decoration"/>
         </div>
       </div>
@@ -43,9 +43,9 @@ export default {
   },
   async mounted () {
     this.updateMessages()
-    this.$registerWsSubscription(['sls_message'], [() => {
-      this.updateMessages()
-    }])
+    // this.$registerWsSubscription(['sls_message'], [() => {
+    //   this.updateMessages()
+    // }])
   },
   methods: {
     async updateMessages () {

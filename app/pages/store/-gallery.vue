@@ -8,7 +8,7 @@
           <div class="a3b-collection-name" :first="!j">{{ collectionName }}</div>
 
           <div class="a3b-wrapper">
-            <div class="a3b-art a3b-art-margin" v-for="prod in collectionArr" :key="prod.id"
+            <div class="a3b-art a3b-art-margin" v-for="prod in collectionArr" :key="prod.art"
                  @click="$emit('prod-view', prod)">
               <template v-if="prod.discount">
                 <div class="a3b-price-info">

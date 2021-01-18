@@ -1,52 +1,54 @@
 <template>
   <div class="a6-Orders" v-if="$isDesktop()">
     <div class="a6-container">
-      <vue-custom-scrollbar class="a6-left-side">
-        <template v-if="showDeletedOrders">
+      <div class="a6-left-side" v-show="showDeletedOrders">
           <div class="a6-label">
             Заказы удаленные
             <v-btn class="a6-btn" icon @click="showDeletedOrders = false" title="Назад к заказам">
               <v-icon>arrow_back</v-icon>
             </v-btn>
           </div>
-          <table class="a6-table">
-            <tr class="a6-tr-head">
-              <td class="a6-td-id">№</td>
-              <td class="a6-td-date">Создан</td>
-              <td class="a6-td-author">Автор</td>
-              <td class="a6-td-legal-entity">Юр.лицо</td>
-              <td class="a6-td-status">Статус</td>
-              <td class="a6-td-doc">Документы</td>
-              <td class="a6-td-sum">Сумма</td>
-              <td class="a6-td-actions"></td>
-            </tr>
-            <tr class="a6-item" v-for="order in deletedOrders" :key="order.id"
-                :active="selectedOrder.id === order.id" @click="selectOrder(order.id)">
-              <td class="a6-td-id">№{{ order.id }}</td>
-              <td class="a6-td-date">
-                <span>{{ order.ts_create | formatDateYmdHis }}</span><br>
-                <span class="a6-td-date-expire">{{ order.ts_expire | formatDateYmdHis }}</span>
-              </td>
-              <td class="a6-td-author">{{ creatorName(order) }}</td>
-              <td class="a6-td-legal-entity">{{ order.clientFk && order.clientFk.short_name }}</td>
-              <td class="a6-td-status">{{ order.statusStr }}</td>
-              <td class="a6-td-doc"></td>
-              <td class="a6-td-sum">{{ order.sum | summStr }} ₽</td>
-              <td class="a6-td-actions"></td>
-            </tr>
-            <tr v-if="prepOrders.length === 0">
-              <td class="a6-empty-list" colspan="8">Нет заказов</td>
-            </tr>
-          </table>
-        </template>
-
-        <template v-else>
-          <div class="a6-label">
-            Заказы на подготовке
-            <v-btn class="a6-btn" icon @click="showDeletedOrders = true" title="Корзина (удаленные заказы)">
-              <v-icon>delete</v-icon>
-            </v-btn>
+          <div class="a6-scroll-area" ref="scrollArea0">
+            <table class="a6-table">
+              <tr class="a6-tr-head">
+                <td class="a6-td-id">№</td>
+                <td class="a6-td-date">Создан</td>
+                <td class="a6-td-author">Автор</td>
+                <td class="a6-td-legal-entity">Юр.лицо</td>
+                <td class="a6-td-status">Статус</td>
+                <td class="a6-td-doc">Документы</td>
+                <td class="a6-td-sum">Сумма</td>
+                <td class="a6-td-actions"></td>
+              </tr>
+              <tr class="a6-item" v-for="order in deletedOrders" :key="order.id"
+                  :active="selectedOrder.id === order.id" @click="selectOrder(order.id)">
+                <td class="a6-td-id">№{{ order.id }}</td>
+                <td class="a6-td-date">
+                  <span>{{ order.ts_create | formatDateYmdHi }}</span><br>
+                  <span class="a6-td-date-expire">{{ order.ts_expire | formatDateYmdHi }}</span>
+                </td>
+                <td class="a6-td-author">{{ creatorName(order) }}</td>
+                <td class="a6-td-legal-entity">{{ order.clientFk && order.clientFk.short_name }}</td>
+                <td class="a6-td-status">{{ order.statusStr }}</td>
+                <td class="a6-td-doc"></td>
+                <td class="a6-td-sum">{{ order.sum | summStr }} ₽</td>
+                <td class="a6-td-actions"></td>
+              </tr>
+              <tr v-if="deletedOrders.length === 0">
+                <td class="a6-empty-list" colspan="8">Нет заказов</td>
+              </tr>
+            </table>
           </div>
+      </div>
+
+      <div class="a6-left-side" v-show="!showDeletedOrders">
+        <div class="a6-label">
+          Заказы на подготовке
+          <v-btn class="a6-btn" icon @click="showDeletedOrders = true" title="Корзина (удаленные заказы)">
+            <v-icon>delete</v-icon>
+          </v-btn>
+        </div>
+        <div class="a6-scroll-area" ref="scrollArea1">
           <table class="a6-table">
             <tr class="a6-tr-head">
               <td class="a6-td-id">№</td>
@@ -62,16 +64,17 @@
                 :active="selectedOrder.id === order.id" @click="selectOrder(order.id)">
               <td class="a6-td-id">№{{ order.id }}</td>
               <td class="a6-td-date">
-                <span>{{ order.ts_create | formatDateYmdHis }}</span><br>
-                <span class="a6-td-date-expire">{{ order.ts_expire | formatDateYmdHis }}</span>
+                <span>{{ order.ts_create | formatDateYmdHi }}</span><br>
+                <span class="a6-td-date-expire">{{ order.ts_expire | formatDateYmdHi }}</span>
               </td>
               <td class="a6-td-author">{{ creatorName(order) }}</td>
               <td class="a6-td-legal-entity">{{ order.clientFk && order.clientFk.short_name }}</td>
               <td class="a6-td-status">{{ order.statusStr }}</td>
               <td class="a6-td-doc">
-                <a class="a6-link" :href="order.description" target="_blank" title="Описание заказа XLSX">
-                  <v-icon class="a6-icon">mdi-file-excel</v-icon>
-                </a>
+                <v-icon class="a6-icon" title="Описание заказа XLSX"
+                        @click="downloadOrderDescription(order.id)">
+                  mdi-file-excel
+                </v-icon>
               </td>
               <td class="a6-td-sum">{{ order.sum | summStr }} ₽</td>
               <td class="a6-td-actions">
@@ -89,8 +92,10 @@
               <td class="a6-empty-list" colspan="8">Нет заказов</td>
             </tr>
           </table>
+        </div>
 
-          <div class="a6-label">Заказы в работе</div>
+        <div class="a6-label">Заказы в работе</div>
+        <div class="a6-scroll-area" ref="scrollArea2">
           <table class="a6-table">
             <tr class="a6-tr-head">
               <td class="a6-td-id">№</td>
@@ -110,9 +115,10 @@
               <td class="a6-td-legal-entity">{{ order.clientFk && order.clientFk.short_name }}</td>
               <td class="a6-td-status">{{ order.statusStr }}</td>
               <td class="a6-td-doc">
-                <a class="a6-link" :href="order.description" target="_blank" title="Описание заказа XLSX">
-                  <v-icon class="a6-icon">mdi-file-excel</v-icon>
-                </a>
+                <v-icon class="a6-icon" title="Описание заказа XLSX"
+                        @click="downloadOrderDescription(order.id)">
+                  mdi-file-excel
+                </v-icon>
                 <a v-if="order.docInvoice" class="a6-link" :href="order.docInvoice" target="_blank" title="Счет">
                   <v-icon class="a6-icon">mdi-file-document-outline</v-icon>
                 </a>
@@ -127,8 +133,10 @@
               <td class="a6-empty-list" colspan="8">Нет заказов</td>
             </tr>
           </table>
+        </div>
 
-          <div class="a6-label">Заказы отправленные</div>
+        <div class="a6-label">Заказы отправленные</div>
+        <div class="a6-scroll-area" ref="scrollArea3">
           <table class="a6-table">
             <tr class="a6-tr-head">
               <td class="a6-td-id">№</td>
@@ -151,13 +159,15 @@
               <td class="a6-td-legal-entity">{{ order.clientFk && order.clientFk.short_name }}</td>
               <td class="a6-td-status">{{ order.statusStr }}</td>
               <td class="a6-td-doc">
-                <a class="a6-link" :href="order.description" target="_blank" title="Описание заказа XLSX">
-                  <v-icon class="a6-icon">mdi-file-excel</v-icon>
-                </a>
+                <v-icon class="a6-icon" title="Описание заказа XLSX"
+                        @click="downloadOrderDescription(order.id)">
+                  mdi-file-excel
+                </v-icon>
                 <a v-if="order.docInvoice" class="a6-link" :href="order.docInvoice" target="_blank" title="Счет">
                   <v-icon class="a6-icon">mdi-file-document-outline</v-icon>
                 </a>
-                <a v-if="order.docWaybill" class="a6-link" :href="order.docWaybill" target="_blank" title="Накладная">
+                <a v-if="order.docWaybill" class="a6-link" :href="order.docWaybill" target="_blank"
+                   title="Накладная">
                   <v-icon class="a6-icon">mdi-file-document</v-icon>
                 </a>
               </td>
@@ -168,8 +178,9 @@
               <td class="a6-empty-list" colspan="8">Нет заказов</td>
             </tr>
           </table>
-        </template>
-      </vue-custom-scrollbar>
+        </div>
+      </div>
+
       <div class="a6-right-side">
         <gallery-active-order :value="selectedOrder" v-if="selectedOrder.id"/>
         <template v-if="showDeletedOrders">
@@ -222,8 +233,8 @@
             :active="selectedOrder.id === order.id" @click="selectOrder(order.id)">
           <td class="a6-td-id">№{{ order.id }}</td>
           <td class="a6-td-date">
-            <span>{{ order.ts_create | formatDateYmdHis }}</span><br>
-            <span class="a6-td-date-expire">{{ order.ts_expire | formatDateYmdHis }}</span>
+            <span>{{ order.ts_create | formatDateYmdHi }}</span><br>
+            <span class="a6-td-date-expire">{{ order.ts_expire | formatDateYmdHi }}</span>
           </td>
           <td class="a6-td-author">{{ creatorName(order) }}</td>
           <td class="a6-td-legal-entity">{{ order.clientFk && order.clientFk.short_name }}</td>
@@ -248,34 +259,34 @@
         <table class="a22-table">
           <tbody class="a22-tbody" v-for="order in orders" :key="order.id"
                  :return="!!order.flag_return">
-            <tr class="a22-order-first-tr">
-              <td>№</td>
-              <td>
+          <tr class="a22-order-first-tr">
+            <td>№</td>
+            <td>
                 <span class="a22-order-id-box">
                   {{ order.id }}<template v-if="order.flag_return">&nbsp;(Возврат)</template>
                   </span>
-              </td>
-            </tr>
-            <tr>
-              <td>Создан:</td>
-              <td>{{ order.ts_create | formatDateYmd }}</td>
-            </tr>
-            <tr>
-              <td>Автор:</td>
-              <td>{{ creatorName(order) }}</td>
-            </tr>
-            <tr>
-              <td>Юр.лицо</td>
-              <td>{{ order.clientFk && order.clientFk.short_name }}</td>
-            </tr>
-            <tr>
-              <td>Статус:</td>
-              <td>{{ order.statusStr }}</td>
-            </tr>
-            <tr>
-              <td>Сумма:</td>
-              <td>{{ order.sum | summStr }}</td>
-            </tr>
+            </td>
+          </tr>
+          <tr>
+            <td>Создан:</td>
+            <td>{{ order.ts_create | formatDateYmd }}</td>
+          </tr>
+          <tr>
+            <td>Автор:</td>
+            <td>{{ creatorName(order) }}</td>
+          </tr>
+          <tr>
+            <td>Юр.лицо</td>
+            <td>{{ order.clientFk && order.clientFk.short_name }}</td>
+          </tr>
+          <tr>
+            <td>Статус:</td>
+            <td>{{ order.statusStr }}</td>
+          </tr>
+          <tr>
+            <td>Сумма:</td>
+            <td>{{ order.sum | summStr }}</td>
+          </tr>
           </tbody>
         </table>
       </div>
@@ -285,101 +296,137 @@
 
 <script>
 import VueCustomScrollbar from 'vue-custom-scrollbar'
-import GalleryActiveOrder from '../catalog/-gallery-active-order'
+import GalleryActiveOrder from '../-gallery-active-order'
 import config from '../../../config/base-config'
 import Loading from '../../../components/b2b/loading'
 
 export const MixinClientOrdersMethods = {
-  data () {
+  data() {
     return {
       orders: [], // Все заказы клиента (со всеми статусами)
       loading: false
     }
   },
   computed: {
-    prepOrders () {
+    prepOrders() {
       return this.orders.filter(elem => elem.status === 's1_client_prep')
     },
-    processOrders () {
+    processOrders() {
       return this.orders.filter(elem => (elem.status === 's1_prep')
-        || (elem.status === 's1_wait_assembl')
-        || (elem.status === 's5_assembl')
-        || (elem.status === 's2_wait')
-        || (elem.status === 's6_allow')
-        || (elem.status === 's3_accept'))
+          || (elem.status === 's1_wait_assembl')
+          || (elem.status === 's5_assembl')
+          || (elem.status === 's2_wait')
+          || (elem.status === 's6_allow')
+          || (elem.status === 's3_accept'))
     },
-    sendOrders () {
+    sendOrders() {
       return this.orders.filter(elem => elem.status === 's7_send')
     },
-    deletedOrders () {
+    deletedOrders() {
       return this.orders.filter(elem => elem.status === 's0_del')
     },
-    allOrders () {
+    allOrders() {
       return this.prepOrders.concat(this.processOrders, this.sendOrders)
     }
   },
   methods: {
-    apiGetForClient () {
+    apiGetForClient() {
       return new Promise(async (resolve, reject) => {
         this.loading = true
-        let { data } = await this.$axios.get('/v1/sls-order/get-for-client')
+        let {data} = await this.$axios.get('/v1/sls-order/get-for-client')
         this.orders = data
         this.loading = false
         resolve()
       })
+    },
+    async downloadOrderDescription(orderId) {
+      const {data: generatedFileUrl} = await this.$axios.post('/v1/generate/description', {
+        orderId
+      })
+
+      window.open(generatedFileUrl)
     }
   }
 }
 
-export function deleteOrderByID (id) {
-  this.$axios.post('/v1/sls-order/delete-order', { orderID: id })
+export function deleteOrderByID(id) {
+  this.$axios.post('/v1/sls-order/delete-order', {orderID: id})
 }
 
 export default {
   name: 'index',
-  components: { Loading, GalleryActiveOrder, VueCustomScrollbar },
+  components: {Loading, GalleryActiveOrder, VueCustomScrollbar},
   mixins: [MixinClientOrdersMethods],
-  data () {
+  data() {
     return {
       selectedOrder: {},
       timeStamp: 0,
       showDeletedOrders: false
     }
   },
-  async mounted () {
+  async mounted() {
     this.updateAll()
-    this.$registerWsSubscription(['sls_order'], [this.updateAll])
+  },
+  watch: {
+    orders() {
+      this.scrollEveryArea()
+    },
+    showDeletedOrders() {
+      this.scrollEveryArea()
+    }
   },
   methods: {
-    async updateAll () {
+    async updateAll() {
       await this.apiGetForClient()
-      let selectedOrderId = Number(localStorage.getItem('orders/selectedOrderId'))
-      if (selectedOrderId) {
-        this.selectOrder(selectedOrderId)
-      }
+      this.selectOrder({})
+      // let selectedOrderId = Number(localStorage.getItem('orders/selectedOrderId'))
+      // if (selectedOrderId) {
+      //   this.selectOrder(selectedOrderId)
+      // }
     },
 
-    async selectOrder (id) {
+    async selectOrder(id) {
       if (!this.orders.some(el => el.id === id)) {
         return
       }
 
       let timeStamp = Date.now()
       this.timeStamp = timeStamp
-      let { data } = await this.$axios.get('/v1/sls-order/get-details', { params: { id } })
+      let {data} = await this.$axios.get('/v1/sls-order/get-details', {params: {id}})
       if (this.timeStamp === timeStamp) {
         this.selectedOrder = data
         localStorage.setItem('orders/selectedOrderId', this.selectedOrder.id)
       }
     },
-    creatorName (order) {
+    creatorName(order) {
       return (order.contactFk && order.contactFk.name) || (order.userFk && order.userFk.name) || '-'
     },
-    editOrder (order) {
+    editOrder(order) {
       localStorage.setItem('activeOrderId', order.id)
-      this.$router.push('/catalog')
+      this.$router.push('/store')
     },
-    deleteOrderByID
+    async deleteOrderByID(id) {
+      await this.$axios.post('/v1/sls-order/delete-order', {orderID: id})
+      this.updateAll()
+    },
+    scrollEveryArea() {
+      this.$nextTick(() => {
+        window.requestAnimationFrame(() => {
+          window.requestAnimationFrame(() => {
+            for (let i = 0; i < 4; i++) {
+              const ref = this.$refs[`scrollArea${i}`]
+              if (ref) {
+                try {
+                  ref.scrollTo({top: ref.scrollHeight, behavior: 'smooth'})
+                } catch (e) {
+                  ref.scrollTop = ref.scrollHeight
+                }
+              }
+            }
+          })
+        })
+      })
+    }
   }
 }
 </script>

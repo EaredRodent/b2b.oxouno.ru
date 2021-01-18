@@ -100,9 +100,9 @@ export const actions = {
   },
   authentication ({ commit, dispatch }) {
     return new Promise(async (resolve, reject) => {
-      if(this.$cookies.get('accesstoken')) {
-        this.$cookies.remove('accesstoken')
-      }
+      // if(this.$cookies.get('accesstoken')) {
+      //   this.$cookies.remove('accesstoken')
+      // }
       let accesstoken = localStorage.getItem('accesstoken')
       if (accesstoken) {
         try {

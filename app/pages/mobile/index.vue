@@ -1,22 +1,24 @@
 <template>
-  <div class="not-found">
+  <div class="mb-page">
     <div>
-      Страница не существует
+      Мобильная версия в разработке.
     </div>
   </div>
 </template>
 
 <script>
-export default {}
+export default {
+  name: "index",
+  layout: 'empty'
+}
 </script>
 
-<style>
-  .not-found {
+<style scoped>
+  .mb-page {
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 20px;
-    color: gray;
   }
 </style>

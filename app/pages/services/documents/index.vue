@@ -15,15 +15,15 @@
       <div class="a10-section" v-if="selectItem === 0">
         <div class="a10-title">{{divs[selectItem]}}</div>
         <div class="a10-cert-box2">
-          <a class="a10-cert-item" href="/app/static/docs/oferta/oferta_11.08.2020.docx" target="_blank">
-            <img class="a10-border-elm" src="/app/static/docs/oferta/oferta_11.08.2020_prev.jpg" height="320px">
+          <a class="a10-cert-item" href="/docs/oferta/oferta_11.08.2020.docx" target="_blank">
+            <img class="a10-border-elm" src="/docs/oferta/oferta_11.08.2020_prev.jpg" height="320px">
             <div class="a10-cert-item-title">
               <span class="a10-nobr">Редакция от 11.08.2020</span><br>
               <span>(Актуальная)</span>
             </div>
           </a>
-          <a class="a10-cert-item" href="/app/static/docs/oferta/oferta_06.11.2019.pdf" target="_blank">
-            <img class="a10-border-elm" src="/app/static/docs/oferta/oferta_06.11.2019_prev.jpg" height="320px">
+          <a class="a10-cert-item" href="/docs/oferta/oferta_06.11.2019.pdf" target="_blank">
+            <img class="a10-border-elm" src="/docs/oferta/oferta_06.11.2019_prev.jpg" height="320px">
             <div class="a10-cert-item-title">
               <span class="a10-nobr">Редакция от 06.11.2019</span><br>
               <span>(Устаревшая)</span>
@@ -36,12 +36,12 @@
         <div class="a10-title">{{divs[selectItem]}}</div>
         <div>
           <div class="a10-cert-box">
-            <a href="/app/static/docs/cert/512367.pdf" target="_blank"><img src="/app/static/docs/cert/1.jpg" height="320px"></a>
-            <a href="/app/static/docs/cert/538605.pdf" target="_blank"><img src="/app/static/docs/cert/2.jpg" height="320px"></a>
-            <a href="/app/static/docs/cert/538608.pdf" target="_blank"><img src="/app/static/docs/cert/3.jpg" height="320px"></a>
+            <a href="/docs/cert/512367.pdf" target="_blank"><img src="/docs/cert/1.jpg" height="320px"></a>
+            <a href="/docs/cert/538605.pdf" target="_blank"><img src="/docs/cert/2.jpg" height="320px"></a>
+            <a href="/docs/cert/538608.pdf" target="_blank"><img src="/docs/cert/3.jpg" height="320px"></a>
           </div>
           <div class="a10-cert-box2">
-            <a href="/app/static/docs/cert/gost_2.pdf" target="_blank"><img src="/app/static/docs/cert/4.jpg" height="320px"></a>
+            <a href="/docs/cert/gost_2.pdf" target="_blank"><img src="/docs/cert/4.jpg" height="320px"></a>
           </div>
         </div>
       </div>
@@ -50,14 +50,14 @@
         <div class="a10-title">{{divs[selectItem]}}</div>
         <div>
           <div class="a10-cert-box">
-            <a href="/app/static/docs/award/d1.jpg" target="_blank">
-              <img class="a10-border-elm" src="/app/static/docs/award/d1.jpg" height="320px">
+            <a href="/docs/award/d1.jpg" target="_blank">
+              <img class="a10-border-elm" src="/docs/award/d1.jpg" height="320px">
             </a>
-            <a href="/app/static/docs/award/d3.jpg" target="_blank"><img src="/app/static/docs/award/d3.jpg" height="320px"></a>
-            <a href="/app/static/docs/award/d2.jpg" target="_blank"><img src="/app/static/docs/award/d2.jpg" height="320px"></a>
+            <a href="/docs/award/d3.jpg" target="_blank"><img src="/docs/award/d3.jpg" height="320px"></a>
+            <a href="/docs/award/d2.jpg" target="_blank"><img src="/docs/award/d2.jpg" height="320px"></a>
           </div>
           <div class="a10-cert-box2">
-            <a href="/app/static/docs/award/d4.jpg" target="_blank"><img src="/app/static/docs/award/d4.jpg" height="320px"></a>
+            <a href="/docs/award/d4.jpg" target="_blank"><img src="/docs/award/d4.jpg" height="320px"></a>
           </div>
 
         </div>

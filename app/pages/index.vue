@@ -2,6 +2,7 @@
   <div class="bg" v-if="$isDesktop()">
     <hooper class="hooper" ref="hooper"
             :vertical="true" :centerMode="true" :initial-slide="0" :transition="800"
+            :mouseDrag="false"
             @slide="slide">
       <slide class="slide">
         <div class="m-container">
@@ -64,7 +65,7 @@
         </div>
       </slide>
       <slide class="slide">
-        <video class="m-video" src="/main-page-slider/4.mp4"
+        <video class="m-video" src="/main-page-slider/4.min.mp4"
                muted autoplay loop>
         </video>
         <div class="m-container">
@@ -100,34 +101,22 @@
     <v-btn class="down-btn" v-show="$store.state.currentSlide != 5" fab @click="$refs.hooper.slideNext()">
       <img src="/main-page-slider/chevron-down-50.png"/>
     </v-btn>
-    <v-dialog width="320"
-              :value="$store.state.showLoginDialog"
-              @input="$store.commit('setShowLoginDialog', $event)">
-      <div class="login-dialog">
-        <div class="ld-header">Вход в портал</div>
-        <v-text-field color="#37474f" outline label="Логин" v-model="loginForm.username"/>
-        <v-text-field color="#37474f" outline label="Пароль" v-model="loginForm.password"/>
-        <v-btn class="ld-btn" color="#37474f" large
-               :disabled="postIndicator"
-               @click="actionLogin">
-          Войти
-        </v-btn>
-        <div class="ld-header mt-4 mb-1">Впервые у нас?</div>
-        <v-btn class="ld-btn" color="#37474f" large
-               @click="$router.push('/registration')">
-          Зарегистрироваться
-        </v-btn>
-      </div>
-    </v-dialog>
+    <form-login v-if="$store.state.showLoginDialog"/>
+    <slide-indicator class="slide-indicator" :slide-count="6" @to-slide="slideTo($event)"/>
   </div>
   <div class="mb" v-else-if="$isMobile()">
     <hooper class="hooper" ref="hooper"
-            :vertical="true" :centerMode="true" :initial-slide="0" :transition="800"
+            :vertical="true"
+            :centerMode="true"
+            :initial-slide="0"
+            :transition="800"
             @slide="slide">
       <slide class="slide">
-        <div class="m-container">
-          <div class="brand-sfx">B2B</div>
-          <img class="brand" src="/base/oxouno-black.svg"/>
+        <div class="first-container">
+<!--          <div class="brand-sfx">B2B</div>-->
+          <div class="brand-box">
+            <img class="brand" src="/base/oxouno-black.svg"/>
+          </div>
           <div class="about">Портал для оптовых клиентов</div>
           <div class="table-box">
             <div class="table-label">Единая система скидок</div>
@@ -201,7 +190,7 @@
         </div>
       </slide>
       <!--      <slide class="slide">-->
-      <!--        <video class="m-video" src="/main-page-slider/4.mp4"-->
+      <!--        <video class="m-video" src="/main-page-slider/4.min.mp4"-->
       <!--               muted autoplay loop>-->
       <!--        </video>-->
       <!--        <div class="m-box">-->
@@ -239,62 +228,45 @@
     <v-btn class="down-btn" v-show="$store.state.currentSlide != 5" fab @click="$refs.hooper.slideNext()">
       <img src="/main-page-slider/chevron-down-50.png"/>
     </v-btn>
-    <v-dialog width="320"
-              :value="$store.state.showLoginDialog"
-              @input="$store.commit('setShowLoginDialog', $event)">
-      <div class="login-dialog">
-        <div class="ld-header">Вход в портал</div>
-        <v-text-field color="#37474f" outline label="Логин" v-model="loginForm.username"/>
-        <v-text-field color="#37474f" outline label="Пароль" v-model="loginForm.password"/>
-        <v-btn class="ld-btn" color="#37474f" large
-               :disabled="postIndicator"
-               @click="actionLogin">
-          Войти
-        </v-btn>
-        <div class="ld-header mt-4 mb-1">Впервые у нас?</div>
-        <v-btn class="ld-btn" color="#37474f" large>Зарегистрироваться</v-btn>
-      </div>
-    </v-dialog>
+    <form-login v-if="$store.state.showLoginDialog"/>
   </div>
 </template>
 
 <script>
 import {Hooper, Slide} from 'hooper';
 import 'hooper/dist/hooper.css';
+import FormLogin from "./-form-login";
+import SlideIndicator from "./slide-indicator";
 
 export default {
   name: "index",
   data() {
     return {
-      postIndicator: false,
-      loginForm: {
-        username: '',
-        password: ''
-      },
       showDownBtn: true
     }
   },
   components: {
+    SlideIndicator,
+    FormLogin,
     Hooper,
     Slide
   },
   created() {
     this.$root.$on('currentSlide', this.slideTo)
   },
+  mounted() {
+    this.$refs.hooper.$el.addEventListener('touchstart', e => {
+      e.preventDefault()
+    })
+    this.$root.$emit('homePageDone');
+  },
   destroyed() {
+    this.$root.$off('currentSlide', this.slideTo)
+    this.$store.commit('setCurrentSlide', 0)
   },
   methods: {
     slide(info) {
       this.$store.commit('setCurrentSlide', info.currentSlide)
-    },
-    async actionLogin() {
-      this.postIndicator = true
-      try {
-        await this.$login(this.loginForm.username, this.loginForm.password, {project: 'b2b'})
-      } catch (e) {
-      }
-      this.$store.commit('setShowLoginDialog', false)
-      this.postIndicator = false
     },
     slideTo(number) {
       this.$refs.hooper.slideTo(number)
@@ -319,7 +291,7 @@ export default {
   }
 
   .slide:nth-child(1) {
-    background: url("/main-page-slider/1.jpg");
+    background: url("/main-page-slider/1.min.jpg");
     background-size: cover;
     display: flex;
     justify-content: center;
@@ -334,10 +306,9 @@ export default {
 
     .brand-sfx {
       position: absolute;
-      right: 0;
-      top: 0;
-      transform: translateX(+110%) translateY(-100%);
-      font-size: 80px;
+      right: -100px;
+      top: -30px;
+      font-size: 60px;
       text-shadow: #fff 0 0 1px;
       font-weight: 300;
       animation: brand-sfx .5s ease 1s forwards;
@@ -348,7 +319,7 @@ export default {
       font-size: 39px;
       margin-bottom: 50px;
       margin-top: 40px;
-      letter-spacing: 9px;
+      letter-spacing: 5px;
       animation: about .5s ease-out 1.5s forwards;
       opacity: 0;
     }
@@ -366,9 +337,9 @@ export default {
       border-radius: 5px;
       padding: 20px;
       font-size: 15px;
-      width: 800px;
+      width: 700px;
       opacity: 0;
-      height: 0;
+      //height: 0;
       animation: table-box .5s ease-out 2s forwards;
     }
 
@@ -406,7 +377,6 @@ export default {
   @keyframes brand-sfx {
     to {
       opacity: 1;
-      transform: translateX(+110%) translateY(-50%);
     }
   }
 
@@ -426,12 +396,12 @@ export default {
   @keyframes table-box {
     to {
       opacity: 1;
-      height: 170px;
+      //height: 170px;
     }
   }
 
   .slide:nth-child(2) {
-    background: url("/main-page-slider/2.jpg");
+    background: url("/main-page-slider/2.min.jpg");
     background-size: cover;
   }
 
@@ -477,7 +447,7 @@ export default {
   }
 
   .slide:nth-child(3) {
-    background: url("/main-page-slider/3.jpg");
+    background: url("/main-page-slider/3.min.jpg");
     background-size: cover;
   }
 
@@ -557,7 +527,7 @@ export default {
   }
 
   .slide:nth-child(5) {
-    background: url("/main-page-slider/5.jpg");
+    background: url("/main-page-slider/5.min.jpg");
     background-size: cover;
   }
 
@@ -591,7 +561,7 @@ export default {
   }
 
   .slide:nth-child(6) {
-    background: url("/main-page-slider/6.jpg");
+    background: url("/main-page-slider/6.min.jpg");
     background-size: cover;
   }
 
@@ -613,7 +583,7 @@ export default {
   }
 
   .m-label {
-    font-size: 100px;
+    font-size: 80px;
     font-weight: 500;
     margin-bottom: 80px;
     text-shadow: #fff 0 0 1px;
@@ -634,11 +604,11 @@ export default {
 
   .short-text {
     background: #fffb;
-    font-size: 33px;
-    padding: 20px;
+    font-size: 28px;
+    padding: 10px;
     border-radius: 10px;
-    margin-bottom: 40px;
-    width: 650px;
+    margin-bottom: 25px;
+    width: 550px;
     color: #333;
     font-weight: 300;
     opacity: 0;
@@ -653,24 +623,12 @@ export default {
     width: 50px;
     height: 50px;
   }
-}
 
-.login-dialog {
-  background: white;
-  padding: 20px;
-  border-radius: 3px;
-}
-
-.ld-btn {
-  margin: 0;
-  width: 100%;
-  color: white;
-}
-
-.ld-header {
-  font-size: 24px;
-  font-weight: 300;
-  margin-bottom: 15px;
+  .slide-indicator {
+    top: 50%;
+    right: 60px;
+    transform: translateY(-50%);
+  }
 }
 
 .mb {
@@ -691,36 +649,106 @@ export default {
       display: flex;
       flex-flow: column;
       align-items: center;
+      background: #fffa;
+      //border-radius: 10px;
+      padding: 15px;
+      width: 100%;
+      backdrop-filter: blur(5px) saturate(180%);
+    }
+
+    .m-label {
+      text-align: center;
+      font-size: 35px;
+      font-weight: 500;
+      margin-bottom: 10px;
+      text-shadow: #fff 0 0 1px;
+    }
+
+    .short-text {
+      font-size: 18px;
+      color: #222;
+      font-weight: 400;
+      opacity: 0;
+
+      &::before {
+        content: '- ';
+      }
+    }
+  }
+
+  .slide.is-current {
+    .m-container {
+      animation: m-container .7s ease-out forwards;
+    }
+
+    @keyframes m-container {
+      from {
+        transform: translateX(50%);
+      }
+    }
+
+    .short-text:nth-child(1) {
+      animation: short-text .7s ease-out .5s forwards;
+    }
+
+    .short-text:nth-child(2) {
+      animation: short-text .7s ease-out 1s forwards;
+    }
+
+    .short-text:nth-child(3) {
+      animation: short-text .7s ease-out 1.5s forwards;
+    }
+
+    @keyframes short-text {
+      from {
+        opacity: 1;
+        transform: translateX(-50%) translateY(-50%);
+      }
+      to {
+        opacity: 1;
+      }
     }
   }
 
   .slide:nth-child(1) {
-    background: url("/main-page-slider/1.jpg");
     align-items: stretch;
+    background: url("/main-page-slider/1.min.jpg");
+    display: block;
 
-    .m-container {
-      margin-top: 100px;
+    .first-container {
+      display: flex;
+      flex-flow: column;
+      align-items: center;
       position: relative;
+      height: 100%;
+      justify-content: center;
     }
 
-    .brand-sfx {
+    .brand-box {
+      width: 200px;
+      margin-bottom: 20px;
+      position: relative;
+      opacity: 0;
+      transform: scale(0.8);
+      animation: brand .5s ease-out .5s forwards;
+    }
+
+    .brand {
+      width: 100%;
+    }
+
+    .brand-box:after {
       position: absolute;
-      right: 0;
-      top: 0;
-      font-weight: 500;
-      transform: translateX(+60%) translateY(+160%);
-      font-size: 15px;
-      text-shadow: #fff 0 0 1px;
-      //font-weight: 300;
-      //animation: brand-sfx .5s ease 1s forwards;
-      //opacity: 0;
+      content: 'B2B' !important;
+      left: 100%;
+      bottom: 80%;
     }
 
     .about {
-      font-size: 20px;
-      letter-spacing: 1px;
-      animation: about .5s ease-out 1.5s forwards;
+      font-size: 18px;
+      animation: about .5s ease-out 1s forwards;
       opacity: 0;
+      margin-bottom: 50px;
     }
 
     .table-label {
@@ -732,18 +760,18 @@ export default {
     }
 
     .table-box {
-      margin-top: auto;
-      margin-bottom: 70px;
+      width: 100%;
       background: #ffffffd0;
       border-radius: 5px;
       padding: 10px;
-      font-size: 15px;
-      //opacity: 0;
+      font-size: 13px;
+      opacity: 0;
       //height: 0;
-      //animation: table-box .5s ease-out 2s forwards;
+      animation: table-box .5s ease-out 1.5s forwards;
     }
 
     .m-table {
+      width: 100%;
       .m-caption {
         text-align: center;
         padding: 10px;
@@ -752,11 +780,11 @@ export default {
       td:nth-child(3n) {
         font-style: italic;
         opacity: 0.8;
-        font-size: 14px;
+        font-size: 15px;
       }
 
       td {
-        padding: 2px 5px;
+        padding: 2px 3px;
       }
     }
 
@@ -769,17 +797,17 @@ export default {
   }
 
   .slide:nth-child(2) {
-    background: url("/main-page-slider/2.jpg");
+    background: url("/main-page-slider/2.min.jpg");
   }
 
   .slide:nth-child(3) {
-    background: url("/main-page-slider/3.jpg");
+    background: url("/main-page-slider/3.min.jpg");
   }
 
   .slide:nth-child(4) {
     overflow: hidden;
     position: relative;
-    background: url("/main-page-slider/4.jpg");
+    background: url("/main-page-slider/4.min.jpg");
 
     .m-video {
       height: 100%;
@@ -799,11 +827,11 @@ export default {
   }
 
   .slide:nth-child(5) {
-    background: url("/main-page-slider/5.jpg");
+    background: url("/main-page-slider/5.min.jpg");
   }
 
   .slide:nth-child(6) {
-    background: url("/main-page-slider/6.jpg");
+    background: url("/main-page-slider/6.min.jpg");
   }
 
   .slide:nth-child(1),
@@ -829,25 +857,6 @@ export default {
 
   .slide:nth-child(6) {
     background-position: right top;
-  }
-
-  .m-label {
-    text-align: center;
-    font-size: 40px;
-    font-weight: 500;
-    margin-bottom: 100px;
-    text-shadow: #fff 0 0 1px;
-  }
-
-  .short-text {
-    background: #fffd;
-    font-size: 16px;
-    padding: 15px;
-    border-radius: 10px;
-    margin-bottom: 30px;
-    width: 90vw;
-    color: #111;
-    font-weight: 300;
   }
 
   .down-btn {

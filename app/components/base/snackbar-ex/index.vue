@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="_c4-modal-screen" v-if="modalScreen"/>
-    <v-snackbar v-model="userShow" color="cyan darken-2" :multi-line="false" :bottom="true" :right="true"
+    <v-snackbar v-model="userShow" color="#000" :multi-line="false" :bottom="true" :right="true"
                 :timeout="userSnackbar.timeout">
       {{ userSnackbar.message }}
       <v-btn _color="black" flat @click="setUserShow(false)">

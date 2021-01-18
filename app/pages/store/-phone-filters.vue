@@ -126,7 +126,7 @@ import Filters from './-filters'
 import { mapState } from 'vuex'
 import Gallery from './-gallery'
 import GalleryActiveOrder from './-gallery-active-order'
-import { deleteOrderByID } from '../orders/index.vue'
+import { deleteOrderByID } from '~/pages/store/orders/index.vue'
 
 const SHOW_NOTHING = 0
 const SHOW_MATRIX = 1
@@ -207,7 +207,7 @@ export default {
       this.$store.commit('filters/setCategoryName', category)
       this.$store.commit('filters/setGroupName', group)
       this.$store.commit('filters/setClassName', _class)
-      this.$router.push('/catalog')
+      this.$router.push('/store')
       this.sexName = ''
     },
     openCloseAction (node) {

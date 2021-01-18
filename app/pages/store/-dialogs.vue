@@ -19,19 +19,22 @@
                         :error-messages="errors"/>
         </validation-provider>
 
-        <v-menu ref="m1" min-width="0" :close-on-content-click="false" full-width>
-          <template slot="activator">
-            <v-text-field :value="sendOrderDialog.form.pact_date | formatDateYmd" readonly prepend-icon="event"
-                          label="Дата отправки" :error-messages="observer.errors.datePicker"/>
-          </template>
-          <validation-provider vid="datePicker" name=" " rules="required" v-slot="{errors}">
-            <v-date-picker v-model="sendOrderDialog.form.pact_date"
-                           :month-format="translateDate" :header-date-format="translateDate"
-                           :weekday-format="translateWeekday"
-                           @input="$refs.m1.save()" scrollable no-title :first-day-of-week="1"/>
-          </validation-provider>
-        </v-menu>
-        <v-text-field v-model="sendOrderDialog.form.pact_other" label="Прочие условия"/>
+<!--        <v-menu ref="m1" min-width="0" :close-on-content-click="false" full-width>-->
+<!--          <template slot="activator">-->
+<!--            <v-text-field :value="sendOrderDialog.form.pact_date | formatDateYmd" readonly prepend-icon="event"-->
+<!--                          label="Дата отправки" :error-messages="observer.errors.datePicker"/>-->
+<!--          </template>-->
+<!--          <validation-provider vid="datePicker" name=" " rules="required" v-slot="{errors}">-->
+<!--            <v-date-picker v-model="sendOrderDialog.form.pact_date"-->
+<!--                           :month-format="translateDate" :header-date-format="translateDate"-->
+<!--                           :weekday-format="translateWeekday"-->
+<!--                           @input="$refs.m1.save()" scrollable no-title :first-day-of-week="1"/>-->
+<!--          </validation-provider>-->
+<!--        </v-menu>-->
+        <div>
+          Есть пожелания по дате отправки заказа или что-то еще, что нам стоит знать? - Укажите в поле ниже.
+        </div>
+        <v-textarea v-model="sendOrderDialog.form.pact_other" label="Прочие условия"/>
       </validation-observer>
     </dialog-ex>
 
@@ -41,15 +44,15 @@
       <div>
         При подготовке заказа производится резервирование товара.
         По истечении часа заказ будет перемещен в корзину журнала заказов.
-        Если Вам нужно больше времени на подготовку заказа - обратитесь к вашему менеджеру.
+        Если Вам нужно больше времени на подготовку заказа - нажмите "Продлить" в окне справа.
       </div>
     </dialog-ex>
   </div>
 </template>
 
 <script>
-import DialogEx from '../../../components/b2b/dialog-ex'
-import { translateDate, translateWeekday } from '../../../plugins/global-filters'
+import DialogEx from '~/components/b2b/dialog-ex'
+import { translateDate, translateWeekday } from '~/plugins/global-filters'
 import { ValidationObserver, ValidationProvider } from 'vee-validate'
 
 export default {

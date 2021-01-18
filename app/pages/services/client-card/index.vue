@@ -33,7 +33,7 @@
           </tr>
           <tr>
             <td class="a9-td-minw x-tar x-wsnv">Дата регистрации:</td>
-            <td>{{ client.ts_create | formatDateYmdHis }}</td>
+            <td>{{ client.ts_create | formatDateYmdHi }}</td>
           </tr>
         </table>
 
@@ -144,7 +144,6 @@ export default {
   },
   mounted () {
     this.updateAll()
-    this.$registerWsSubscription(['sls_org', 'anx_user', 'sls_client'], [this.updateAll])
   },
   methods: {
     async updateAll () {

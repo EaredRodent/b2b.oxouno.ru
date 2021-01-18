@@ -13,41 +13,46 @@ import config from '~/config/base-config'
  * @param redirect
  * @returns {Promise<*>}
  */
-export default async function ({ app, store, route, $axios, redirect }) {
-  store.commit('base/middleware/setNotFound', false)
+export default async function ({app, store, route, $axios, redirect}) {
+    store.commit('base/middleware/setNotFound', false)
 
-  if (store.getters['base/auth/isGuest']) {
-    await app.$authentication()
-  }
-
-  let pageConfigFound = false
-
-  let normalizedPath = route.fullPath.split('?')[0]
-  if(normalizedPath.length > 1) {
-    normalizedPath = normalizedPath.replace(/\/$/, '')
-  }
-
-  for (let page in config.PAGES) {
-    if (config.PAGES[page].url === normalizedPath) {
-      pageConfigFound = true
-      if (config.PAGES[page].permission) {
-        if (app.$can(config.PAGES[page].permission)) {
-          // console.log(`Middleware::auth: user has access ${page}`)
-          return
-        } else {
-          // console.log(`Middleware::auth: user does not have access ${page}`)
-        }
-      } else {
-        // console.log(`Middleware::auth: free access page ${page}`)
-        return
-      }
+    if (store.getters['base/auth/isGuest']) {
+        await app.$authentication()
     }
-  }
-  if (!pageConfigFound) {
-    store.commit('base/middleware/setNotFound', true)
-    return
-    // console.log(`Middleware::auth: PAGE with url "${route.fullPath}" from config file not found`)
-  }
-  redirect('/')
-  // console.log(`Middleware::auth: PAGE with url "${route.fullPath}" forbidden`)
+
+    if (!store.getters['base/auth/isGuest']
+        && route.fullPath === '/') {
+        redirect(config.ROLES.roleB2bClient.startPage.url)
+    }
+
+    let pageConfigFound = false
+
+    let normalizedPath = route.fullPath.split('?')[0]
+    if (normalizedPath.length > 1) {
+        normalizedPath = normalizedPath.replace(/\/$/, '')
+    }
+
+    for (let page in config.PAGES) {
+        if (config.PAGES[page].url === normalizedPath) {
+            pageConfigFound = true
+            if (config.PAGES[page].permission) {
+                if (app.$can(config.PAGES[page].permission)) {
+                    // console.log(`Middleware::auth: user has access ${page}`)
+                    return
+                } else {
+                    // console.log(`Middleware::auth: user does not have access ${page}`)
+                }
+            } else {
+                // console.log(`Middleware::auth: free access page ${page}`)
+                return
+            }
+        }
+    }
+    if (!pageConfigFound) {
+        store.commit('base/middleware/setNotFound', true)
+        return
+        // console.log(`Middleware::auth: PAGE with url "${route.fullPath}" from config file not found`)
+    }
+    redirect('/')
+    // console.log(`Middleware::auth: PAGE with url "${route.fullPath}" forbidden`)
 }
