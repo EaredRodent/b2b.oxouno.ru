@@ -1,0 +1,73 @@
+@import "~~/less/constants";
+
+.xm-page {
+  height: 100%;
+  position: relative;
+  overflow: auto;
+}
+
+.xm-label {
+  padding: 0 15px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  font-size: 1.1rem;
+  background: black;
+  color: white;
+  border-top: 1px solid #333;
+  //border-bottom: 1px solid white;
+}
+
+.xm-table {
+  border-collapse: collapse;
+  width: 100%;
+
+  td {
+    padding: 2px 3px;
+  }
+
+  td:first-child {
+    padding-left: 15px;
+  }
+
+  tbody:not(:first-child) {
+    border-top: 1px solid @borderColor;
+  }
+}
+
+.xm-order-first-tr {
+  //border-top: 1px solid black;
+}
+
+.xm-tbody[return] {
+  background: #f203;
+}
+
+.xm-order-id-box {
+}
+
+.x-action {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 15px;
+  text-transform: uppercase;
+  align-items: center;
+  flex: 0 0 45px;
+  height: 45px;
+  max-height: 45px;
+  width: 100%;
+}
+
+.x-action:focus {
+  outline: none;
+}
+
+
+.x-no-orders {
+  display: flex;
+  align-items: center;
+  padding: 0 15px;
+  height: 45px;
+  font-style: italic;
+  color: #666;
+}

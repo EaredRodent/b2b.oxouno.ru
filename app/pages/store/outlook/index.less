@@ -1,0 +1,54 @@
+.x-page {
+  height: 100%;
+}
+
+.x-outlook-box {
+  height: 100%;
+  padding: 50px 0;
+  display: flex;
+  flex-flow: column;
+  position: relative;
+}
+
+.x-outlook-title {
+  position: absolute;
+  top: 0;
+  left: 10px;
+  font-size: 18px;
+  font-weight: 300;
+  font-style: italic;
+}
+
+@media (min-width: 1581px) {
+  .x-outlook-title {
+    left: 40px;
+  }
+}
+
+.x-outlook-area {
+  flex: 1 1 0;
+  display: flex;
+  align-items: center;
+}
+
+.x-carousel {
+  margin: 0 !important;
+  overflow: visible !important;
+}
+
+.x-slide {
+  display: flex;
+  box-shadow: 0 0 10px #000;
+  background: #888 !important;
+}
+
+.x-slide.current {
+  cursor: pointer;
+}
+
+.x-btn-box {
+  flex: 0 0 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

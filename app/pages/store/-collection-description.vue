@@ -1,22 +1,29 @@
 <template>
-  <div class="a3e-CollectionDescription">
-    <div class="a3e-head">
+  <div class="x-CollectionDescription">
+    <div class="x-head">
       {{ collection.name }}
     </div>
-    <div class="a3e-body">
+    <div class="x-body">
       {{ epithets }}
     </div>
-    <div class="a3e-foot">
-      <v-btn class="a3e-btn" v-if="!showMore" small outline @click="showMore = true">Читать далее</v-btn>
+    <div class="x-foot">
+      <v-btn v-if="!showMore" class="x-btn" small outline @click="showMore = true">
+        Читать далее
+      </v-btn>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'collection-description',
-  props: ['value'],
-  data() {
+  name: 'CollectionDescription',
+  props: {
+    value: {
+      type: Object,
+      default: () => ({})
+    }
+  },
+  data () {
     return {
       showMore: false
     }
@@ -25,14 +32,40 @@ export default {
     collection () {
       return this.value
     },
-    epithets() {
-      let value = this.collection.epithets
+    epithets () {
+      const value = this.collection.epithets
       return this.showMore ? value : value.substring(0, 535) + (value.length > 535 ? '...' : '')
     }
   }
 }
 </script>
 
-<style scoped>
+<style scoped lang="less">
+@import "~~/less/constants";
 
+.x-CollectionDescription {}
+
+.x-head {
+  text-align: center;
+  font-size: 30px;
+  font-weight: 100;
+  border-top: 1px solid @borderColor;
+  border-bottom: 1px solid @borderColor;
+}
+
+.x-body {
+  margin-top: 15px;
+  padding: 0 5vw 15px 5vw;
+  overflow: hidden;
+}
+
+.x-foot {
+  margin-bottom: 20px;
+  border-bottom: 1px solid @borderColor;
+  text-align: center;
+}
+
+.x-btn {
+  margin-bottom: 15px;
+}
 </style>

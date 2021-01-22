@@ -1,8 +1,10 @@
 <template>
-  <div class="restore-page" :is-mobile="$isMobile()">
+  <div class="x-restore" :is-mobile="$isMobile()">
     <div>
       <template v-if="success">
-        <div class="title">Пароль восстановлен!</div>
+        <div class="x-title">
+          Пароль восстановлен!
+        </div>
         <div>
           <p>
             Письмо с новым паролем отправлено на вашу почту.
@@ -10,25 +12,27 @@
           <a class="" href="/">Нажмите для входа в B2B-портал...</a>
         </div>
       </template>
-      <div class="title" v-else>Восстановление учетной записи, подождите...</div>
+      <div v-else class="x-title">
+        Восстановление учетной записи, подождите...
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import { isPostSuccessful } from '~/plugins/base/axios-prepare'
+import { isPostSuccessful } from '~/plugins/axios-prepare.js'
 
 export default {
-  name: 'index',
-  data() {
+  name: 'Index',
+  data () {
     return {
       success: false
     }
   },
-  async mounted() {
+  async mounted () {
     const response = await this.$axios.post(
-        '/v1/anx-user/restore-user',
-        { restore_id: this.$route.query.restore_id }
+      '/v1/anx-user/restore-user',
+      { restore_id: this.$route.query.restore_id }
     )
 
     if ((this.success = isPostSuccessful(response))) {
@@ -40,22 +44,21 @@ export default {
 }
 </script>
 
+<style scoped lang="less">
+.x-restore {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
 
-<style scoped>
-  .restore-page {
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
-  }
+.x-restore[is-mobile] {
+  text-align: center;
+}
 
-  .restore-page[is-mobile] {
-    text-align: center;
-  }
-
-  .title {
-    font-size: 25px;
-    margin-bottom: 20px;
-  }
+.x-title {
+  font-size: 25px;
+  margin-bottom: 20px;
+}
 </style>

@@ -1,8 +1,8 @@
-let config = {}
+const config = {}
 
-const B2B_OXOUNO_RU = 'b2b.oxouno.ru'
-const LOCALHOST_3020 = 'localhost:3020'
-const DEV_B2B_OXOUNO_RU = 'dev.b2b.oxouno.ru'
+// const B2B_OXOUNO_RU = 'b2b.oxouno.ru'
+// const LOCALHOST_3020 = 'localhost:3020'
+// const DEV_B2B_OXOUNO_RU = 'dev.b2b.oxouno.ru'
 
 config.MODE = {
   envDev: process.env.NODE_ENV !== 'production',
@@ -100,15 +100,15 @@ config.PAGES = {
  * Параметры ролей
  */
 config.ROLES = {
-  'roleMaster': {
+  roleMaster: {
     startPage: config.PAGES.Index,
     logoutPage: config.PAGES.Index
   },
-  'roleRabbit': {
+  roleRabbit: {
     startPage: config.PAGES.Index,
     logoutPage: config.PAGES.Index
   },
-  'roleB2bClient': {
+  roleB2bClient: {
     startPage: config.PAGES.Services,
     logoutPage: config.PAGES.Index
   }
@@ -139,8 +139,8 @@ config.APP = {
   event: {
     show: false,
     banner: {
-      middleImage: '/08.03.md.png',    // Версия для отображения на сайте
-      bigImage: '/08.03.bg.png'  // Версия для просмотра при клике по баннеру
+      middleImage: '/08.03.md.png', // Версия для отображения на сайте
+      bigImage: '/08.03.bg.png' // Версия для просмотра при клике по баннеру
     }
   }
 }

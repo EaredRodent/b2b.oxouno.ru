@@ -1,15 +1,15 @@
 <template>
   <div style="height: 100%">
-    <nuxt/>
+    <nuxt />
   </div>
 </template>
 
 <script>
 export default {
-  name: 'empty'
+  name: 'Empty'
 }
 </script>
 
-<style scoped>
+<style scoped lang="less">
 
 </style>

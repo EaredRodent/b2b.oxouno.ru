@@ -1,0 +1,40 @@
+@import "~~/less/constants.less";
+
+.xm-page {
+  height: 100%;
+  display: flex;
+  flex-flow: column;
+  position: relative;
+}
+
+.xm-wrapper[with-padding] {
+  padding-top: 70px;
+}
+
+.xm-wrapper {
+  overflow: auto;
+  flex: 1 1 0;
+}
+
+.xm-mb-gallery {
+  margin-top: -1px;
+}
+
+.xm-expand-down-box {
+  position: relative;
+  z-index: 1;
+}
+
+.xm-expand-down {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.xm-filters {
+}
+
+.xm-hide-filters {
+  max-height: 0;
+}

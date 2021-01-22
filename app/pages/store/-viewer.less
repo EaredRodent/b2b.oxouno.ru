@@ -1,0 +1,201 @@
+@import "~~/less/constants.less";
+
+.x-Viewer {
+  position: relative;
+  background: white;
+  display: flex;
+  padding: 10px;
+  width: 100%;
+}
+
+.x-btn-close {
+  position: absolute !important;
+  right: 0;
+  top: 0;
+}
+
+.x-left {
+  flex: 0 0 auto;
+  display: flex;
+  flex-flow: column nowrap;
+
+  margin-right: 10px;
+  overflow: auto;
+}
+
+.x-min-img {
+  margin-bottom: 10px;
+  width: 80px;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+
+.x-selected-img {
+  //outline: 1px solid @app-color;
+  border: 1px solid @baseColor;
+}
+
+.x-middle {
+  flex: 1 0 0;
+}
+
+.x-download-box {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.x-download-ghost-link {
+  //visibility: hidden;
+}
+
+.x-download-btn {
+  margin: 0;
+}
+
+.x-open-img {
+  position: absolute !important;
+  bottom: 0;
+  right: 0;
+}
+
+.x-right {
+  flex: 0 0 450px;
+  padding: 10px;
+}
+
+.x-title {
+  padding-right: 50px;
+  font-weight: 300;
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+.x-title-art {
+  white-space: nowrap;
+}
+
+.x-model {
+  font-weight: 300;
+  font-size: 1.2rem;
+  margin-bottom: 5px;
+}
+
+.x-description {
+  font-style: italic;
+  margin-bottom: 20px;
+  color: grey;
+  line-height: 1.1;
+  //font-size: 1.1rem;
+}
+
+.x-print {
+  margin-bottom: 10px;
+}
+
+.x-color {
+  margin-bottom: 10px;
+}
+
+.x-composition {
+  margin-bottom: 10px;
+}
+
+.x-density {
+  margin-bottom: 10px;
+}
+
+.x-pack {
+  margin-bottom: 20px;
+}
+
+.x-prod {
+  margin-bottom: 20px;
+}
+
+.x-table {
+  width: 100%;
+
+
+  th:nth-child(2) {
+    width: 50px;
+  }
+
+  th:nth-child(3) {
+    width: 50px;
+  }
+
+  th:nth-child(6) {
+    width: 50px;
+  }
+
+  th {
+    font-weight: normal;
+    white-space: nowrap;
+    text-decoration: underline;
+    padding: 0 5px 5px;
+    text-align: center;
+    vertical-align: top;
+  }
+
+  td {
+    text-align: center;
+  }
+
+  .x-td-content-fix-height {
+    max-height: 30px;
+    display: flex;
+    align-items: center;
+  }
+}
+
+.x-size-list {
+  flex: 1 1 0;
+}
+
+.x-size {
+  display: flex;
+  align-items: center;
+  max-height: 30px;
+}
+
+.x-size > * {
+  text-align: center;
+  flex: 1 0 58px;
+  margin-right: 10px;
+}
+
+.x-size-chip {
+  display: inline-block;
+  padding: 1px;
+  border-radius: 5px;
+  border: 1px gray solid;
+  width: 40px;
+}
+
+.x-size-header {
+  white-space: nowrap;
+  //font-style: italic;
+  text-decoration: underline;
+  padding-bottom: 5px;
+}
+
+.x-btns {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+}
+
+.x-order-btn {
+  width: 170px;
+  margin: 0;
+}
+
+.x-discount-bigger-than-29 {
+  margin-bottom: 20px;
+  font-style: italic;
+}
+
+.a3d-order-btn-del {
+  margin-top: 10px;
+}

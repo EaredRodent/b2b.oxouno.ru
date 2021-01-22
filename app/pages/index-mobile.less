@@ -1,0 +1,240 @@
+.mb {
+  height: 100%;
+
+  .hooper {
+    outline: none !important;
+    height: 100%;
+  }
+
+  .slide {
+    padding-top: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .m-container {
+      display: flex;
+      flex-flow: column;
+      align-items: center;
+      background: #fffa;
+      //border-radius: 10px;
+      padding: 15px;
+      width: 100%;
+      backdrop-filter: blur(5px) saturate(180%);
+    }
+
+    .m-label {
+      text-align: center;
+      font-size: 35px;
+      font-weight: 500;
+      margin-bottom: 10px;
+      text-shadow: #fff 0 0 1px;
+    }
+
+    .short-text {
+      font-size: 18px;
+      color: #222;
+      font-weight: 400;
+      opacity: 0;
+
+      &::before {
+        content: '- ';
+      }
+    }
+  }
+
+  .slide.is-current {
+    .m-container {
+      animation: m-container .7s ease-out forwards;
+    }
+
+    @keyframes m-container {
+      from {
+        transform: translateX(50%);
+      }
+    }
+
+    .short-text:nth-child(1) {
+      animation: short-text .7s ease-out .5s forwards;
+    }
+
+    .short-text:nth-child(2) {
+      animation: short-text .7s ease-out 1s forwards;
+    }
+
+    .short-text:nth-child(3) {
+      animation: short-text .7s ease-out 1.5s forwards;
+    }
+
+    @keyframes short-text {
+      from {
+        opacity: 1;
+        transform: translateX(-50%) translateY(-50%);
+      }
+      to {
+        opacity: 1;
+      }
+    }
+  }
+
+  .slide:nth-child(1) {
+    align-items: stretch;
+    background: url("/main-page-slider/1.min.jpg");
+    display: block;
+
+    .first-container {
+      display: flex;
+      flex-flow: column;
+      align-items: center;
+      position: relative;
+      height: 100%;
+      justify-content: center;
+    }
+
+    .brand-box {
+      width: 200px;
+      margin-bottom: 20px;
+      position: relative;
+      opacity: 0;
+      transform: scale(0.8);
+      animation: brand .5s ease-out .5s forwards;
+    }
+
+    .brand {
+      width: 100%;
+    }
+
+    .brand-box:after {
+      position: absolute;
+      content: 'B2B' !important;
+      left: 100%;
+      bottom: 80%;
+    }
+
+    .about {
+      font-size: 18px;
+      animation: about .5s ease-out 1s forwards;
+      opacity: 0;
+      margin-bottom: 50px;
+    }
+
+    .table-label {
+      text-align: center;
+      line-height: 1;
+      margin-bottom: 20px;
+      font-size: 16px;
+      font-weight: 500;
+    }
+
+    .table-box {
+      width: 100%;
+      background: #ffffffd0;
+      border-radius: 5px;
+      padding: 10px;
+      font-size: 13px;
+      opacity: 0;
+      //height: 0;
+      animation: table-box .5s ease-out 1.5s forwards;
+    }
+
+    .m-table {
+      width: 100%;
+
+      .m-caption {
+        text-align: center;
+        padding: 10px;
+      }
+
+      td:nth-child(3n) {
+        font-style: italic;
+        opacity: 0.8;
+        font-size: 15px;
+      }
+
+      td {
+        padding: 2px 3px;
+      }
+    }
+
+    .brand {
+      //opacity: 0;
+      transform: scale(1);
+      shape-rendering: crispEdges;
+      //animation: brand 1s ease .5s forwards;
+    }
+  }
+
+  .slide:nth-child(2) {
+    background: url("/main-page-slider/2.min.jpg");
+  }
+
+  .slide:nth-child(3) {
+    background: url("/main-page-slider/3.min.jpg");
+  }
+
+  .slide:nth-child(4) {
+    overflow: hidden;
+    position: relative;
+    background: url("/main-page-slider/4.min.jpg");
+
+    .m-video {
+      height: 100%;
+    }
+
+    .m-box {
+      position: absolute;
+      z-index: 2;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  .slide:nth-child(5) {
+    background: url("/main-page-slider/5.min.jpg");
+  }
+
+  .slide:nth-child(6) {
+    background: url("/main-page-slider/6.min.jpg");
+  }
+
+  .slide:nth-child(1),
+  .slide:nth-child(2),
+  .slide:nth-child(3),
+  .slide:nth-child(4),
+  .slide:nth-child(5),
+  .slide:nth-child(6) {
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  .slide:nth-child(1),
+  .slide:nth-child(3),
+  .slide:nth-child(4),
+  .slide:nth-child(5) {
+    background-position: center top;
+  }
+
+  .slide:nth-child(2) {
+    background-position: -100px top;
+  }
+
+  .slide:nth-child(6) {
+    background-position: right top;
+  }
+
+  .down-btn {
+    margin: 0;
+    position: fixed;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #fffb !important;
+    width: 50px;
+    height: 50px;
+  }
+}

@@ -1,0 +1,351 @@
+.bg {
+  height: 100%;
+
+  .hooper {
+    outline: none !important;
+    height: 100%;
+  }
+
+  .slide {
+    padding-top: 40px;
+  }
+
+  .slide:nth-child(1) {
+    background: url("/main-page-slider/1.min.jpg");
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .m-container {
+      display: flex;
+      flex-flow: column;
+      align-items: center;
+      position: relative;
+    }
+
+    .brand-sfx {
+      position: absolute;
+      right: -100px;
+      top: -30px;
+      font-size: 60px;
+      text-shadow: #fff 0 0 1px;
+      font-weight: 300;
+      animation: brand-sfx .5s ease 1s forwards;
+      opacity: 0;
+    }
+
+    .about {
+      font-size: 39px;
+      margin-bottom: 50px;
+      margin-top: 40px;
+      letter-spacing: 5px;
+      animation: about .5s ease-out 1.5s forwards;
+      opacity: 0;
+    }
+
+    .table-label {
+      text-align: center;
+      line-height: 1;
+      margin-bottom: 20px;
+      font-size: 16px;
+      font-weight: 500;
+    }
+
+    .table-box {
+      background: #ffffff60;
+      border-radius: 5px;
+      padding: 20px;
+      font-size: 15px;
+      width: 700px;
+      opacity: 0;
+      //height: 0;
+      animation: table-box .5s ease-out 2s forwards;
+    }
+
+    .m-table {
+      width: 100%;
+
+      .m-caption {
+        text-align: center;
+        padding: 10px;
+      }
+
+      td:nth-child(3n) {
+        font-style: italic;
+        opacity: 0.8;
+        font-size: 14px;
+      }
+
+      td:nth-child(3n+1) {
+        width: 130px;
+      }
+
+      td:nth-child(3n+2) {
+        width: 70px;
+      }
+    }
+
+    .brand {
+      opacity: 0;
+      transform: scale(0.8);
+      shape-rendering: crispEdges;
+      animation: brand 1s ease .5s forwards;
+    }
+  }
+
+  @keyframes brand-sfx {
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes brand {
+    to {
+      opacity: 1;
+      transform: scale(1.05);
+    }
+  }
+
+  @keyframes about {
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes table-box {
+    to {
+      opacity: 1;
+      //height: 170px;
+    }
+  }
+
+  .slide:nth-child(2) {
+    background: url("/main-page-slider/2.min.jpg");
+    background-size: cover;
+  }
+
+  .slide:nth-child(2).is-current,
+  .slide:nth-child(6).is-current {
+    .short-text:nth-child(1) {
+      animation: show-text-slide-2 2s ease-out 0s forwards;
+    }
+
+    .short-text:nth-child(2) {
+      animation: show-text-slide-2 2s ease-out .5s forwards;
+    }
+
+    .short-text:nth-child(3) {
+      animation: show-text-slide-2 2s ease-out 1s forwards;
+    }
+  }
+
+  @keyframes show-text-slide-2 {
+    0% {
+      transform: perspective(400px) rotateY(90deg);
+      -webkit-animation-timing-function: ease-in;
+      animation-timing-function: ease-in;
+      opacity: 0
+    }
+    40% {
+      transform: perspective(400px) rotateY(-20deg);
+      -webkit-animation-timing-function: ease-in;
+      animation-timing-function: ease-in
+    }
+    60% {
+      transform: perspective(400px) rotateY(10deg);
+      opacity: 1
+    }
+    80% {
+      transform: perspective(400px) rotateY(-5deg);
+      opacity: 1
+    }
+    to {
+      transform: perspective(400px);
+      opacity: 1
+    }
+  }
+
+  .slide:nth-child(3) {
+    background: url("/main-page-slider/3.min.jpg");
+    background-size: cover;
+  }
+
+  .slide:nth-child(3).is-current {
+    .short-text:nth-child(1) {
+      animation: short-text-slide-3 1.5s ease-out 0s forwards;
+    }
+
+    .short-text:nth-child(2) {
+      animation: short-text-slide-3 1.5s ease-out .25s forwards;
+    }
+
+    .short-text:nth-child(3) {
+      animation: short-text-slide-3 1.5s ease-out .5s forwards;
+    }
+  }
+
+  @keyframes short-text-slide-3 {
+    from {
+      transform: translateY(-200%);
+    }
+
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  .slide:nth-child(4) {
+    overflow: hidden;
+    position: relative;
+
+    .m-video {
+      min-width: 100%;
+      min-height: 100%;
+    }
+
+    .m-label {
+      margin: 0 auto;
+    }
+
+    .m-container {
+      position: absolute;
+      z-index: 2;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 100%;
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  .slide:nth-child(4).is-current {
+    .short-text:nth-child(1) {
+      animation: short-text-slide-4 1s ease-out 0s forwards;
+    }
+
+    .short-text:nth-child(2) {
+      animation: short-text-slide-4 1s ease-out .8s forwards;
+    }
+
+    .short-text:nth-child(3) {
+      animation: short-text-slide-4 1s ease-out 1.6s forwards;
+    }
+  }
+
+  @keyframes short-text-slide-4 {
+    from {
+      transform: translateX(100%);
+    }
+
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  .slide:nth-child(5) {
+    background: url("/main-page-slider/5.min.jpg");
+    background-size: cover;
+  }
+
+  .slide:nth-child(5).is-current {
+    .short-text:nth-child(1) {
+      animation: short-text-slide-5 1s ease-out 0s forwards;
+    }
+
+    .short-text:nth-child(2) {
+      animation: short-text-slide-5 1s ease-out .8s forwards;
+    }
+
+    .short-text:nth-child(3) {
+      animation: short-text-slide-5 1s ease-out 1.6s forwards;
+    }
+  }
+
+  @keyframes short-text-slide-5 {
+    from {
+      transform: scale(0.6) translateY(-500%);
+    }
+
+    50% {
+      transform: scale(0.6);
+    }
+
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  .slide:nth-child(6) {
+    background: url("/main-page-slider/6.min.jpg");
+    background-size: cover;
+  }
+
+  .slide:nth-child(2),
+  .slide:nth-child(3),
+  .slide:nth-child(5),
+  .slide:nth-child(6) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .m-container {
+      display: flex;
+      flex-flow: column;
+      align-items: center;
+      margin-top: -100px;
+    }
+  }
+
+  .m-label {
+    font-size: 80px;
+    font-weight: 500;
+    margin-bottom: 80px;
+    text-shadow: #fff 0 0 1px;
+    opacity: 0;
+  }
+
+  .slide.is-current {
+    .m-label {
+      animation: m-label 2s ease-out forwards;
+    }
+  }
+
+  @keyframes m-label {
+    to {
+      opacity: 1;
+    }
+  }
+
+  .short-text {
+    background: #fffb;
+    font-size: 28px;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 25px;
+    width: 550px;
+    color: #333;
+    font-weight: 300;
+    opacity: 0;
+  }
+
+  .down-btn {
+    position: fixed;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #fffb !important;
+    width: 50px;
+    height: 50px;
+  }
+
+  .slide-indicator {
+    top: 50%;
+    right: 60px;
+    transform: translateY(-50%);
+  }
+}

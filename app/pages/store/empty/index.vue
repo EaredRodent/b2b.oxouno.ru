@@ -1,5 +1,5 @@
 <template>
-  <div style="height: 100%; padding: 10px; font-size: 16px; font-weight: 500; display: flex; flex-flow: column">
+  <div class="x-page">
     Поддержка мобильных устройств на данный момент отсутствует :(
     <br>
     <br>
@@ -12,11 +12,18 @@
 
 <script>
 export default {
-  name: 'empty',
+  name: 'Empty',
   layout: 'empty'
 }
 </script>
 
-<style scoped>
-
+<style scoped lang="less">
+.x-page {
+  height: 100%;
+  padding: 10px;
+  font-size: 16px;
+  font-weight: 500;
+  display: flex;
+  flex-flow: column;
+}
 </style>

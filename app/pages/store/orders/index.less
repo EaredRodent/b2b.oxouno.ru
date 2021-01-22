@@ -1,0 +1,144 @@
+@import "~~/less/constants";
+
+.x-page {
+  position: relative;
+  height: 100%;
+  padding: 15px 15px 0 15px;
+  display: flex;
+  justify-content: center;
+  color: @baseColor;
+}
+
+.x-container {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.x-left-side {
+  flex: 0 0 auto;
+  padding-top: 15px;
+  padding-right: 10px;
+  display: flex;
+  flex-flow: column;
+}
+
+.x-scroll-area {
+  position: relative;
+  flex: 1 1 0;
+  overflow: auto;
+  display: flex;
+  flex-flow: column;
+}
+
+.x-right-side {
+  flex: 0 0 550px;
+  margin-left: 15px;
+  margin-top: 15px;
+}
+
+.x-table {
+  table-layout: fixed;
+  font-size: 13px;
+  border: 1px solid #ddd;
+  border-spacing: 0;
+
+  a {
+    text-decoration: none;
+  }
+
+  tr:first-child td {
+    position: sticky;
+    top: 1px;
+    border-top: 1px solid #ddd;
+    background: white;
+    font-weight: 500;
+    transform: translateY(-1px);
+  }
+
+  td {
+    border-bottom: 1px solid #ddd;
+    padding: 4px;
+  }
+}
+
+.x-item {
+  cursor: pointer;
+  color: @baseColor;
+}
+
+.x-item[return] {
+  color: #a02020;
+}
+
+.x-item:hover {
+  background-color: rgba(0, 0, 0, 0.06);
+}
+
+.x-item[active] {
+  background-color: rgba(0, 0, 0, 0.06);
+}
+
+.x-label {
+  font-size: 19px;
+  border-left: none !important;
+  display: flex;
+  height: 41px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.x-empty-list {
+  text-align: center;
+  color: @baseColorLabel;
+}
+
+.x-empty-list-padding {
+  padding-top: 200px;
+}
+
+.x-tr-head {
+  border-top: 1px solid #ddd;
+  font-style: italic;
+}
+
+.x-td-actions {
+  width: 65px;
+}
+
+.x-actions {
+  display: flex;
+  align-items: center;
+  height: 1rem;
+}
+
+.x-btn {
+  margin: 0;
+}
+
+.x-icon {
+  color: #666 !important;
+  font-size: 18px;
+}
+
+.x-icon:hover {
+  color: #800 !important;
+}
+
+.x-no-content {
+  height: 100%;
+  display: flex;
+  padding-top: 200px;
+  justify-content: center;
+  font-weight: lighter;
+  font-size: 1.4rem;
+}
+
+.x-td-date-expire {
+  color: #a02020;
+}
+
+.x-td-sum {
+  white-space: nowrap;
+  text-align: right;
+}

@@ -4,8 +4,8 @@ Vue.filter('formatDateYmdHi', function (date) {
   if (!date) {
     return ''
   }
-  let resDate = new Date(date.replace(' ', 'T'))
-  let formatter = new Intl.DateTimeFormat('ru', {
+  const resDate = new Date(date.replace(' ', 'T'))
+  const formatter = new Intl.DateTimeFormat('ru', {
     year: '2-digit',
     month: '2-digit',
     day: '2-digit',
@@ -19,8 +19,8 @@ Vue.filter('formatDateYmd', function (date) {
   if (!date) {
     return ''
   }
-  let resDate = new Date(date)
-  let formatter = new Intl.DateTimeFormat('ru', {
+  const resDate = new Date(date)
+  const formatter = new Intl.DateTimeFormat('ru', {
     year: '2-digit',
     month: '2-digit',
     day: '2-digit'
@@ -29,7 +29,7 @@ Vue.filter('formatDateYmd', function (date) {
 })
 
 export const translateDate = function (month) {
-  let arr = [
+  const arr = [
     'Январь',
     'Февраль',
     'Март',
@@ -56,7 +56,7 @@ export const translateDate = function (month) {
 }
 
 export const translateWeekday = function (value) {
-  let days = ['ВС', 'ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'ВС']
+  const days = ['ВС', 'ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'ВС']
   return days[new Date(value).getDay()]
 }
 

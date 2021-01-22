@@ -1,0 +1,122 @@
+@import "~~/less/constants";
+
+.x-page {
+  height: 100%;
+  display: flex;
+  flex-flow: column;
+}
+
+.x-table {
+  color: @baseColor;
+  width: 100%;
+  //border: 1px solid #ddd;
+  td {
+    padding: 5px;
+  }
+
+  td:first-child {
+    color: @baseColor;
+    font-style: italic;
+    //color: @baseColorLabel;
+  }
+
+  td:last-child {
+    //font-size: 15px;
+    border-bottom: 1px solid #ddd;
+  }
+}
+
+.x-table-title {
+  font-size: 19px !important;
+  //font-weight: 300;
+}
+
+.x-tables {
+  padding-top: 20px;
+  display: flex;
+  justify-content: center;
+  flex: 1 1 0;
+  overflow: hidden;
+}
+
+.x-left {
+  width: 500px;
+  margin-right: 10px;
+}
+
+.x-right {
+  width: 500px;
+  margin-left: 10px;
+}
+
+.x-left-title {
+  font-size: 15px;
+}
+
+
+.x-row {
+  //border: 1px solid firebrick;
+  //height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.x-prop-name {
+  width: 200px;
+  font-size: 14px;
+  text-align: right;
+  padding-right: 10px;
+  margin-bottom: 5px;
+}
+
+.x-info {
+  flex: 0 0 auto;
+  padding: 15px 0;
+  text-align: center;
+  color: @baseColor;
+  font-style: italic;
+}
+
+.x-table-margin-top {
+  margin-top: 20px;
+}
+
+.x-td-minw {
+  width: 160px;
+}
+
+.x-tr-delimiter {
+  height: 20px;
+}
+
+.x-docs-td {
+  padding: 5px 0 5px 5px !important;
+}
+
+.x-docs-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.x-docs-list {
+  display: flex;
+}
+
+.x-doc-icon {
+  cursor: pointer;
+}
+
+.x-doc-icon:hover {
+  color: darkred !important;
+}
+
+.x-input-upload {
+  display: none;
+}
+
+.x-doc-upload-btn {
+  margin: 0;
+  //font-size: 0.75rem;
+}

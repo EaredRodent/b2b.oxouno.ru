@@ -1,5 +1,5 @@
 <template>
-  <div class="unrealized">
+  <div class="x-page">
     <div>
       Сервис в разработке
     </div>
@@ -8,12 +8,12 @@
 
 <script>
 export default {
-  name: "index"
+  name: 'Index'
 }
 </script>
 
-<style scoped>
-.unrealized {
+<style scoped lang="less">
+.x-page {
   height: 100%;
   display: flex;
   justify-content: center;

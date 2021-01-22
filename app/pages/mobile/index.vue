@@ -1,5 +1,5 @@
 <template>
-  <div class="mb-page">
+  <div class="x-mobile">
     <div>
       Мобильная версия в разработке.
     </div>
@@ -8,17 +8,17 @@
 
 <script>
 export default {
-  name: "index",
+  name: 'Index',
   layout: 'empty'
 }
 </script>
 
-<style scoped>
-  .mb-page {
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 20px;
-  }
+<style scoped lang="less">
+.x-mobile {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+}
 </style>

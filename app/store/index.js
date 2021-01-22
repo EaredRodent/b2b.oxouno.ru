@@ -14,7 +14,7 @@ export const mutations = {
   setRegistrationMode (state, tag) {
     state.indexMode = 'reg'
   },
-  setRestoreMode(state, tag) {
+  setRestoreMode (state, tag) {
     state.indexMode = 'restore'
   },
   setMessaging (state, flag) {

@@ -1,0 +1,91 @@
+html {
+  overflow: auto;
+  font-size: 14px;
+}
+
+body {
+  background: transparent !important;
+}
+
+html, body, #__nuxt, #__layout {
+  height: 100%;
+}
+
+.application--wrap {
+  min-height: unset;
+  height: 100%;
+}
+
+#app {
+  background: transparent;
+  color: #000;
+  height: 100%;
+}
+
+.v-label {
+  font-size: 14px !important;
+}
+
+
+// Bootstrap фикс vuetify кнопок в фокусе
+.v-btn:focus {
+  outline: none !important;
+}
+
+// Фикс vuetify кнопок
+.v-btn {
+  margin: 0;
+}
+
+// reCAPTCHA
+
+.grecaptcha-badge {
+  display: none;
+}
+
+.application {
+  font-family: Roboto, monospace;
+}
+
+// vue-custom-scrollbar
+
+// Прозрачность scrollbar (дефолтная)
+.ps__rail-x, .ps__rail-y {
+  opacity: 0.25 !important;
+}
+
+// Прозрачность scrollbar при hover на компонент vue-custom-scrollbar
+.ps--focus > .ps__rail-x, .ps--focus > .ps__rail-y, .ps--scrolling-x > .ps__rail-x, .ps--scrolling-y > .ps__rail-y, .ps:hover > .ps__rail-x, .ps:hover > .ps__rail-y {
+  opacity: 0.6 !important;
+}
+
+// v-dialog компонент может растягиваться на всю высоту
+
+.v-dialog:not(.v-dialog--fullscreen) {
+  max-height: 100% !important;
+}
+
+// zoom on hover фикс исчезания картинки, если она появляется, а курсор на нее наведен
+
+.zoom-on-hover .normal {
+  width: 100%;
+  opacity: 1 !important;
+}
+
+.x-fbsb {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.x-tar {
+  text-align: right !important;
+}
+
+.x-wsnv {
+  white-space: nowrap !important;
+}
+
+.x-fw500 {
+  font-weight: 500 !important;
+}
