@@ -23,9 +23,6 @@
               <td class="x-td-legal-entity">
                 Юр.лицо
               </td>
-              <td class="x-td-status">
-                Статус
-              </td>
               <td class="x-td-doc">
                 Документы
               </td>
@@ -53,9 +50,6 @@
               </td>
               <td class="x-td-legal-entity">
                 {{ order.clientFk && order.clientFk.short_name }}
-              </td>
-              <td class="x-td-status">
-                {{ order.statusStr }}
               </td>
               <td class="x-td-doc" />
               <td class="x-td-sum">
@@ -94,9 +88,6 @@
               <td class="x-td-legal-entity">
                 Юр.лицо
               </td>
-              <td class="x-td-status">
-                Статус
-              </td>
               <td class="x-td-doc">
                 Документы
               </td>
@@ -124,9 +115,6 @@
               </td>
               <td class="x-td-legal-entity">
                 {{ order.clientFk && order.clientFk.short_name }}
-              </td>
-              <td class="x-td-status">
-                {{ order.statusStr }}
               </td>
               <td class="x-td-doc">
                 <v-icon
@@ -181,9 +169,6 @@
               <td class="x-td-legal-entity">
                 Юр.лицо
               </td>
-              <td class="x-td-status">
-                Статус
-              </td>
               <td class="x-td-doc">
                 Документы
               </td>
@@ -210,9 +195,6 @@
               </td>
               <td class="x-td-legal-entity">
                 {{ order.clientFk && order.clientFk.short_name }}
-              </td>
-              <td class="x-td-status">
-                {{ order.statusStr }}
               </td>
               <td class="x-td-doc">
                 <v-icon
@@ -260,9 +242,6 @@
               <td class="x-td-legal-entity">
                 Юр.лицо
               </td>
-              <td class="x-td-status">
-                Статус
-              </td>
               <td class="x-td-doc">
                 Документы
               </td>
@@ -290,9 +269,6 @@
               </td>
               <td class="x-td-legal-entity">
                 {{ order.clientFk && order.clientFk.short_name }}
-              </td>
-              <td class="x-td-status">
-                {{ order.statusStr }}
               </td>
               <td class="x-td-doc">
                 <v-icon

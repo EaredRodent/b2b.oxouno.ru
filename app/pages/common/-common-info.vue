@@ -37,18 +37,20 @@
         </span>
       </div>
     </div>
-    <div class="shop-label mt-5">
-      Дропшиппинг
-    </div>
-    <div>Сервис в разработке.</div>
-    <div class="shop-label mt-5">
-      Предзаказы
-    </div>
-    <div>Сервис в разработке.</div>
-    <div class="shop-label mt-5">
-      Региональные дилеры
-    </div>
-    <div>Сервис в разработке.</div>
+    <template v-if="!$isMobile()">
+      <div class="shop-label mt-5">
+        Дропшиппинг
+      </div>
+      <div>Сервис в разработке.</div>
+      <div class="shop-label mt-5">
+        Предзаказы
+      </div>
+      <div>Сервис в разработке.</div>
+      <div class="shop-label mt-5">
+        Региональные дилеры
+      </div>
+      <div>Сервис в разработке.</div>
+    </template>
   </div>
 </template>
 
@@ -56,7 +58,7 @@
 import getStatusFromDiscount from '~/helpers/getStatusFromDiscount.js'
 
 export default {
-  name: 'ServicesInfo',
+  name: 'CommonInfo',
   props: {
     organization: {
       type: Object,

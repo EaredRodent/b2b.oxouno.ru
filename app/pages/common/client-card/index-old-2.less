@@ -1,0 +1,58 @@
+@import "~~/less/constants";
+
+.x-page {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.x-left-block {
+  flex: 0 0 250px;
+  border: 1px solid @borderColor;
+}
+
+.x-right-block {
+  margin-left: 20px;
+  flex: 0 0 450px;
+  border: 1px solid @borderColor;
+}
+
+.x-action {
+  height: 40px;
+  cursor: pointer;
+  padding: 0 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid @borderColor;
+}
+
+.x-action[active] {
+  font-weight: 500;
+}
+
+.x-table {
+  border-collapse: collapse;
+width: 100%;
+
+  tr {
+    height: 40px;
+  }
+
+  td:first-child:not(.x-entity-name) {
+    width: 150px;
+    font-style: italic;
+    color: #555;
+  }
+
+  td {
+    padding: 0 10px;
+    border-bottom: 1px solid @borderColor;
+  }
+}
+
+.x-entity-name {
+  text-align: center;
+  font-weight: 500;
+  background: #eee;
+}

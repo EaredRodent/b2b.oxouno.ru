@@ -13,7 +13,7 @@
           v-model="restoreForm.login"
           color="#37474f"
           outline
-          label="Логин"
+          label="Телефон / Почта"
           name="username"
           type="email"
           :disabled="restoreFinished"
@@ -41,10 +41,10 @@
         </v-btn>
         <div v-if="restoreFinished" class="mt-4">
           <p>
-            Сообщение с ссылкой для восстановления успешно отправлено!
+            Ссылка для восстановления успешно отправлена!
           </p>
           <p>
-            Проверьте ваши сообщения.
+            Проверьте SMS в вашем телефоне или сообщения электронной почты.
           </p>
         </div>
       </template>
@@ -57,7 +57,7 @@
           v-model="loginForm.username"
           color="#37474f"
           outline
-          label="Логин"
+          label="Телефон / Почта"
           name="username"
           type="email"
           @input="autoFill"

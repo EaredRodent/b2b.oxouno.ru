@@ -1,18 +1,5 @@
 import config from '~/config/base-config'
 
-/**
- * Проверяет доступ к странице route.fullPath,
- * используя хранилище (права пользователя) и config (требующиеся права для этой страницы)
- * 1. Если конфиг прав PAGES[pageName] не найден, то доступ запрещен
- * 2. Если конфиг прав PAGES[pageName] найден, но permission для страницы не задан, то доступ разрешен
- * 3. Если конфиг прав PAGES[pageName] найден и permission для страницы задан,
- * то проверяется наличие этого права у пользователя
- * @param store
- * @param route
- * @param $axios
- * @param redirect
- * @returns {Promise<*>}
- */
 export default async function ({
   app,
   store,
@@ -20,6 +7,16 @@ export default async function ({
   $axios,
   redirect
 }) {
+  // if (store.state.axiosCancelTokenSource.cancel) {
+  //   store.state.axiosCancelTokenSource.cancel('Auth::middleware: cancel')
+  //   console.log('CANCEL ' + store.state.axiosCancelTokenSource.token.id)
+  // }
+  //
+  // const CancelToken = $axios.CancelToken
+  // const source = CancelToken.source()
+  // source.token.id = Math.trunc(Math.random() * 1000)
+  // store.commit('setAxiosCancelTokenSource', source)
+
   store.commit('middleware/setNotFound', false)
 
   if (store.getters['auth/isGuest']) {
@@ -59,8 +56,6 @@ export default async function ({
   if (!pageConfigFound) {
     store.commit('middleware/setNotFound', true)
     return
-    // console.log(`Middleware::auth: PAGE with url "${route.fullPath}" from config file not found`)
   }
   redirect('/')
-  // console.log(`Middleware::auth: PAGE with url "${route.fullPath}" forbidden`)
 }

@@ -12,11 +12,18 @@
       <div class="x-header">
         {{ title }}
       </div>
-      <div class="x-body" :class="{ 'x-body-padding': !noBodyPadding }">
+      <div class="x-body" :style="{ flex: fullscreen ? '1 1 0' : `0 1 ${maxBodyHeight}` }">
         <slot />
       </div>
       <div class="x-footer">
-        <v-btn v-if="cancelButton" class="x-btn x-btn-cancel" outline color="black" @click="emitCancel">
+        <v-btn
+          v-if="cancelButton"
+          class="x-btn x-btn-cancel"
+          outline
+          color="black"
+          :disabled="loading"
+          @click="emitCancel"
+        >
           {{ cancelLabel }}
         </v-btn>
         <v-btn

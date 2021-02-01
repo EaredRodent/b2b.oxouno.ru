@@ -1,11 +1,11 @@
 <template>
   <div v-if="$isDesktop()" class="x-galleryActiveOrder">
-    <div v-if="actions" class="a3-tbao-prep-list">
+    <div v-if="actions" class="x-tbao-prep-list">
       <div
         v-for="prepareOrder in prepareOrders"
         :key="prepareOrder.id"
         v-ripple
-        class="a3-tbao-prep"
+        class="x-tbao-prep"
         :active="value.id === prepareOrder.id"
         @click="$emit('set-active-order', prepareOrder.id)"
       >

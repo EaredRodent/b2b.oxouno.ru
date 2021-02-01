@@ -1,7 +1,7 @@
 import VueCustomScrollbar from 'vue-custom-scrollbar'
 // eslint-disable-next-line import/no-webpack-loader-syntax
 import htmlHelloMessage from 'raw-loader!./hello-message.html'
-import ServicesInfo from './-services-info.vue'
+import CommonInfo from './-common-info.vue'
 import { MixinClientOrdersMethods } from '~/pages/store/orders/index.js'
 import config from '~/config/base-config.js'
 
@@ -21,7 +21,7 @@ export const MixinEvent = {
 export default {
   name: 'Index',
   components: {
-    ServicesInfo,
+    CommonInfo,
     VueCustomScrollbar
   },
   mixins: [MixinClientOrdersMethods, MixinEvent],

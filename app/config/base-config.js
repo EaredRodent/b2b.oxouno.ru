@@ -72,19 +72,19 @@ config.PAGES = {
     permission: 'pageTestApi',
     url: '/test-api'
   },
-  Services: {
-    name: 'Services',
-    url: '/services',
+  Common: {
+    name: 'Common',
+    url: '/common',
     permission: 'pageB2BAny'
   },
   ClientCard: {
     name: 'Карта клиента',
-    url: '/services/client-card',
+    url: '/common/client-card',
     permission: 'pageB2BAny'
   },
   Documents: {
     name: 'Документы',
-    url: '/services/documents',
+    url: '/common/documents',
     permission: 'pageB2BAny'
   },
   Registration: {
@@ -109,7 +109,7 @@ config.ROLES = {
     logoutPage: config.PAGES.Index
   },
   roleB2bClient: {
-    startPage: config.PAGES.Services,
+    startPage: config.PAGES.Common,
     logoutPage: config.PAGES.Index
   }
 }

@@ -16,11 +16,6 @@ export const state = function () {
     search: '',
     treeAssort: {},
     treeDiscount: {},
-    disabledFilters: {
-      tree: false,
-      search: false,
-      new: false
-    },
     topTree: {},
     bottomTree: {}
   }
@@ -83,9 +78,6 @@ export const mutations = {
   },
   setTreeDiscount (state, objPtr) {
     state.treeDiscount = objPtr
-  },
-  setDisabledFilters (state, obj) {
-    state.disabledFilters = obj
   },
   setTopTree (state, obj) {
     state.topTree = obj

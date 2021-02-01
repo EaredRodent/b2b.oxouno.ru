@@ -30,7 +30,7 @@ export default {
     },
     async createLEOk () {
       if (await this.$refs.createLEObserver.validate()) {
-        this.$emit('create-legal-enities')
+        this.$emit('create-legal-entities')
       }
     }
   }

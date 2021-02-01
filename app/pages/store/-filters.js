@@ -42,9 +42,6 @@ export default {
     search () {
       return this.$store.state.filters.search
     },
-    disabledFilters () {
-      return this.$store.state.filters.disabledFilters
-    },
     topTree () {
       return this.$store.state.filters.topTree
     },
@@ -55,7 +52,6 @@ export default {
       return JSON.parse(JSON.stringify(this.topTree))
     },
     bottomTreeCopy () {
-      console.log('COMP')
       return JSON.parse(JSON.stringify(this.bottomTree))
     }
   },
@@ -83,11 +79,16 @@ export default {
         this.lockFilters('new')
       }
       this.checkFilterModelChanges()
+    },
+    topTreeCopy () {
+      this.normalizeProdsForSearch()
+    },
+    bottomTreeCopy () {
+      this.normalizeProdsForSearch()
     }
   },
   async mounted () {
     await this.fetchAll()
-    this.normalizeProdsForSearch()
 
     this.$watch('model', () => {
       if (this.catalogMode === 'assort') {

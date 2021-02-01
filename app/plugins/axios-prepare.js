@@ -22,6 +22,14 @@ export default ({
   //   $axios.setToken(store.state['base']['auth'].user.accesstoken, 'Bearer')
   // }
 
+  // $axios.interceptors.request.use((config) => {
+  //   if (config.method === 'get') {
+  //     config.cancelToken = store.state.axiosCancelTokenSource.token
+  //     console.log('request! ' + store.state.axiosCancelTokenSource.token.id)
+  //   }
+  //   return config
+  // })
+
   $axios.interceptors.response.use(function (response) {
     if (isWarningMessage(response)) {
       store.dispatch('snackbar/show', response.data.message)
@@ -33,11 +41,17 @@ export default ({
     }
 
     if (config.MODE.envDev) {
-      store.dispatch('snackbar/show', error.response)
+      if ($axios.isCancel(error)) {
+        store.dispatch('snackbar/show', error.message)
+      } else {
+        store.dispatch('snackbar/show', error.response)
+      }
     } else {
       store.dispatch('snackbar/show',
         'Необработанное исключение. ' +
         'Пожалуйста, свяжитесь с разработчиками.')
     }
+
+    return Promise.reject(error)
   })
 }

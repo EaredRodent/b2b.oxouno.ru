@@ -1,5 +1,6 @@
 @import "~~/less/constants";
-@import "constants";
+
+@space: 7px;
 
 .xm-AppBar {}
 
@@ -10,51 +11,27 @@
   height: 50px;
   width: 100%;
   display: flex;
-  background: #000;
+  background: #ffffffb8;
+  backdrop-filter: saturate(180%) blur(15px);
   transition: background-color 0.75s linear;
   color: white;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
+  padding: 0 10px;
 }
 
-.xm-app-bar[opacity] {
-  background: #0008;
-}
-
-.xm-menu-btn {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 52px;
-  height: 52px;
-}
-
-.xm-menu-btn:focus {
-  outline: none;
-}
-
-.xm-btn-tooltip {
-  background: black;
-  border-radius: 3px;
-  position: absolute;
-  top: 100%;
-  left: 100%;
-  width: 150px;
-  font-size: 1.1rem;
-  padding: 5px;
-  text-align: center;
-}
-
-.xm-btn-tooltip-icon-box {
-  text-align: left;
-}
-
-.xm-btn-tooltip-icon {
-  transform: rotateZ(-45deg);
-}
-
-.xm-svg {
+.xm-brand {
   height: 50%;
+  cursor: pointer;
+}
+
+.xm-app-bar[dark] {
+  background: #000;
+
+  .xm-brand {
+    margin: 0 auto;
+    transform: translateX(-22px);
+  }
 }
 
 .xm-drawer {

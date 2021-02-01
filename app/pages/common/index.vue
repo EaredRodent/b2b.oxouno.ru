@@ -1,13 +1,13 @@
 <template>
   <div v-if="$isDesktop()" class="x-page">
     <vue-custom-scrollbar class="x-left-box">
-      <services-info :organization="org" :all-orders="allOrders" :prep-orders="prepOrders" />
+      <common-info :organization="org" :all-orders="allOrders" :prep-orders="prepOrders" />
     </vue-custom-scrollbar>
     <vue-custom-scrollbar class="x-right-box" v-html="htmlHelloMessage" />
   </div>
   <div v-else-if="$isMobile()" class="xm-page">
     <div class="xm-layout-bg">
-      <services-info :organization="org" :all-orders="allOrders" :prep-orders="prepOrders" />
+      <common-info :organization="org" :all-orders="allOrders" :prep-orders="prepOrders" />
     </div>
   </div>
 </template>

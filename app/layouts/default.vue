@@ -13,7 +13,6 @@
       <debug-bar />
 
       <main-app-bar />
-      <app-bar v-if="!$isGuest() && $route.fullPath.startsWith('/store')" />
       <alert-policy-changes v-if="oferta11082020" @ok="alertPolicyChangesOk" />
       <event v-if="event2021" @close="event2021 = false" />
     </div>

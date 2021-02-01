@@ -1,0 +1,50 @@
+@import "~~/less/constants";
+
+.x-page {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  color: @baseColor;
+}
+
+.x-container-left {
+  padding-top: 20px;
+  flex: 0 0 350px;
+  margin-right: 20px;
+}
+
+.x-container-right {
+  padding-top: 20px;
+  flex: 0 0 750px;
+  padding-right: 8px;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+.x-title {
+  padding: 0 10px;
+  font-size: 19px;
+  margin-bottom: 10px;
+}
+
+.x-node {
+  cursor: pointer;
+  padding: 5px 10px;
+}
+
+.x-node:hover, .x-node[selected] {
+  background-color: #efefef;
+}
+
+.x-node-item:hover {
+  transform: scale(1.05);
+  transition: transform .1s linear;
+}
+
+.x-node-item-title {
+  border-top: 1px solid #ccc;
+  padding: 10px;
+  text-align: center;
+}

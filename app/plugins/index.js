@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuetify from 'vuetify'
 import VuetifyRu from 'vuetify/es5/locale/ru.js'
+import VMask from 'v-mask'
 import VueApiHelper from './vue-api-helper.js'
 import VueWsInterface from './vue-ws-interface.js'
 import VueAuthInterface from './vue-auth-interface.js'
@@ -40,6 +41,9 @@ const initBasePlugins = function (context, inject) {
 
   // Инициализация состояний
   initStoreData(context.$axios, context.store)
+
+  // v-mask
+  Vue.use(VMask)
 }
 
 export default initBasePlugins

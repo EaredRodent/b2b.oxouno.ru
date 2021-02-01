@@ -73,17 +73,15 @@
       v-model="createLegalEntityDialog.state"
       title="Создание юр. лица"
       ok-label="Сохранить"
-      class="kek"
-      no-body-padding
       :loading="createLegalEntityDialog.postIndicator"
       :fullscreen="$isMobile()"
       @ok="createLEOk"
     >
-      <vue-custom-scrollbar class="x-form-create-legal-entity">
+      <div class="x-form-create-legal-entity">
         <validation-observer ref="createLEObserver">
           <div
             v-for="(legalEntity, i) in createLegalEntityDialog.form.legalEntities"
-            :key="legalEntity[createLegalEntityDialog.id]"
+            :key="i"
             class="x-le"
           >
             <div class="x-header">
@@ -153,7 +151,7 @@
             </v-btn>
           </div>
         </validation-observer>
-      </vue-custom-scrollbar>
+      </div>
     </dialog-ex>
   </div>
 </template>

@@ -3,7 +3,8 @@ export const state = function () {
     indexMode: 'login',
     messaging: false,
     showLoginDialog: false,
-    currentSlide: 0
+    currentSlide: 0,
+    axiosCancelTokenSource: {}
   }
 }
 
@@ -25,5 +26,8 @@ export const mutations = {
   },
   setCurrentSlide (state, number) {
     state.currentSlide = number
+  },
+  setAxiosCancelTokenSource (state, source) {
+    state.axiosCancelTokenSource = source
   }
 }

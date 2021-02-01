@@ -16,7 +16,7 @@
       </div>
       <v-treeview
         v-model="topTreeSelection"
-        :selectable="!disabledFilters.tree"
+        :selectable="true"
         return-object
         :items="topTreeCopy.items"
         :open="topTreeOpen"
@@ -57,7 +57,7 @@
       </div>
       <v-treeview
         v-model="bottomTreeSelection"
-        :selectable="!disabledFilters.tree"
+        :selectable="true"
         return-object
         :items="bottomTreeCopy.items"
         :open="bottomTreeOpen"
@@ -73,7 +73,7 @@
       v-model="dialogCollectionDescription.state"
       :title="dialogCollectionDescription.collectionNode.name"
       :cancel-button="false"
-      :width="1000"
+      :width="600"
       :persistent="false"
       @ok="closeCollectionDescription"
     >

@@ -371,3 +371,26 @@
     border: 1px solid @borderColor;
   }
 }
+
+.x-tbao-prep-list {
+  display: flex;
+  border-bottom: 1px solid @borderColor;
+}
+
+.x-tbao-prep {
+  min-width: auto;
+  border: 1px solid transparent;
+  padding: 4px 8px 8px 8px;
+  transform: translateY(2px);
+  cursor: pointer;
+  border-radius: 2px;
+  color: @baseColor;
+}
+
+.x-tbao-prep[active] {
+  background: white;
+  color: @baseColor;
+  font-weight: 500;
+  border: 1px solid @borderColor;
+  border-bottom: none;
+}

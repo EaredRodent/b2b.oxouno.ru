@@ -1,0 +1,85 @@
+@import "~~/less/constants";
+
+.x-page {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+
+  * {
+    color: @baseColor;
+  }
+}
+
+.x-left-block {
+  flex: 0 0 420px;
+}
+
+.x-right-block {
+  margin-left: 20px;
+  flex: 0 0 420px;
+}
+
+.x-title {
+  margin: 20px 0 10px 0;
+  font-size: 19px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.x-table {
+  border-collapse: collapse;
+  width: 100%;
+
+  tr {
+    height: 30px;
+  }
+
+  td:first-child:not(.x-entity-name) {
+    width: 150px;
+    font-style: italic;
+    color: #555;
+  }
+
+  td {
+    border-bottom: 1px solid @borderColor;
+  }
+}
+
+.x-entity-name {
+  text-align: center;
+  font-weight: 500;
+  color: #333;
+  background: #eee;
+}
+
+.x-btn {
+  width: 155px;
+}
+
+.x-page[mobile] {
+  flex-flow: column;
+  justify-content: normal;
+
+  .x-left-block {
+    flex: 0 0 auto;
+  }
+
+  .x-right-block {
+    margin-left: 0;
+    flex: 0 0 auto;
+  }
+
+  .x-title {
+    font-size: 1.1rem;
+    padding: 0 10px;
+    font-weight: 500;
+    margin: 10px 0;
+  }
+
+  .x-table {
+    td {
+      padding: 0 10px;
+    }
+  }
+}

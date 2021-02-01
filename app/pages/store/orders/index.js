@@ -96,31 +96,25 @@ export default {
   methods: {
     async updateAll () {
       await this.apiGetForClient()
-      this.selectOrder({})
-      // let selectedOrderId = Number(localStorage.getItem('orders/selectedOrderId'))
-      // if (selectedOrderId) {
-      //   this.selectOrder(selectedOrderId)
-      // }
+      this.selectOrder()
     },
 
     async selectOrder (id) {
-      if (!this.orders.some(el => el.id === id)) {
-        return
-      }
-
-      const timeStamp = Date.now()
-      this.timeStamp = timeStamp
-      const { data } = await this.$axios.get('/v1/sls-order/get-details', { params: { id } })
-      if (this.timeStamp === timeStamp) {
-        this.selectedOrder = data
-        localStorage.setItem('orders/selectedOrderId', this.selectedOrder.id)
+      if (id) {
+        const timeStamp = Date.now()
+        this.timeStamp = timeStamp
+        const { data } = await this.$axios.get('/v1/sls-order/get-details', { params: { id } })
+        if (this.timeStamp === timeStamp) {
+          this.selectedOrder = data
+        }
+      } else {
+        this.selectedOrder = {}
       }
     },
     creatorName (order) {
       return (order.contactFk && order.contactFk.name) || (order.userFk && order.userFk.name) || '-'
     },
     editOrder (order) {
-      localStorage.setItem('activeOrderId', order.id)
       this.$router.push('/store')
     },
     async deleteOrderByID (id) {

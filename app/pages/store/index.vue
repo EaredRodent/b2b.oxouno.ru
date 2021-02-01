@@ -1,6 +1,9 @@
 <template>
   <div v-if="$isDesktop()" class="x-page x-catalog-padding">
-    <div class="x-toolbar x-toolbar-left-right">
+    <tool-bar />
+    <div
+      class="x-head x-head-left-right"
+    >
       <div class="x-tb-filters x-tb-filters-flex">
         <!--        <div class="x-tb-title">Фильтры:</div>-->
       </div>
@@ -44,6 +47,16 @@
               mdi-download
             </v-icon>
           </v-btn>
+          <v-btn
+            class="x-tb-btn"
+            icon
+            title="Загрузка прайс листа"
+            @click="priceUploadDialog.state = true"
+          >
+            <v-icon color="blue-grey darken-2">
+              cloud_upload
+            </v-icon>
+          </v-btn>
         </div>
       </div>
 
@@ -67,6 +80,7 @@
           </v-btn>
         </div>
       </div>
+      </tool->
     </div>
     <div class="x-cat-box">
       <loading v-if="filtersLoading" />
@@ -126,27 +140,32 @@
           Используйте фильтры для обзора изделий. Кликните по интересующему товару
         </div>
       </div>
-
-      <viewer
-        v-model="viewer"
-        :order-create-processing="viewer.createOrderProcessing"
-        :order-edit-item-processing="viewer.editOrderItemProcessing"
-        :order-delete-item-processing="viewer.deleteOrderItemProcessing"
-        @add-item-to-order="addItemToOrder"
-        @edit-item-from-order="editItemFromOrder"
-        @delete-item="itemDelete"
-      />
-
-      <dialogs
-        :send-order-dialog="sendOrderDialog"
-        :info-order-dialog="infoOrderDialog"
-        :create-legal-entity-dialog="createLegalEntityDialog"
-        @send-order="sendOrder"
-        @add-legal-entity="addLegalEntity"
-        @remove-legal-entity="removelegalEntity"
-        @create-legal-enities="createlegalEntities"
-      />
     </div>
+
+    <viewer
+      v-model="viewer"
+      :order-create-processing="viewer.createOrderProcessing"
+      :order-edit-item-processing="viewer.editOrderItemProcessing"
+      :order-delete-item-processing="viewer.deleteOrderItemProcessing"
+      @add-item-to-order="addItemToOrder"
+      @edit-item-from-order="editItemFromOrder"
+      @delete-item="itemDelete"
+    />
+
+    <dialogs
+      :send-order-dialog="sendOrderDialog"
+      :info-order-dialog="infoOrderDialog"
+      :create-legal-entity-dialog="createLegalEntityDialog"
+      @send-order="sendOrder"
+      @add-legal-entity="addLegalEntity"
+      @remove-legal-entity="removelegalEntity"
+      @create-legal-entities="createLegalEntities"
+    />
+    <price-upload-dialog
+      v-if="priceUploadDialog.state"
+      :price-upload-dialog="priceUploadDialog"
+      @update-orders="updateOrders"
+    />
   </div>
   <div v-else-if="$isMobile()" class="xm-page">
     <loading v-if="filtersLoading" />
@@ -205,6 +224,7 @@
       @send-order="sendOrder"
       @add-legal-entity="addLegalEntity"
       @remove-legal-entity="removelegalEntity"
+      @create-legal-entities="createLegalEntities"
     />
   </div>
 </template>

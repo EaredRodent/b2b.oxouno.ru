@@ -1,4 +1,5 @@
 import VueCustomScrollbar from 'vue-custom-scrollbar'
+import { max } from 'vee-validate/dist/rules.esm'
 import Filters from './-filters.vue'
 import Gallery from './-gallery.vue'
 import Viewer from './-viewer.vue'
@@ -6,13 +7,22 @@ import GalleryActiveOrder from './-gallery-active-order.vue'
 import Dialogs from './-dialogs.vue'
 import CollectionDescript from './-collection-description.vue'
 import PhoneFilters from './-phone-filters.vue'
+import ToolBar from './-tool-bar.vue'
+import PriceUploadDialog from './-price-upload-dialog.vue'
 import config from '~/config/base-config.js'
 import Loading from '~/components/loading/index.vue'
 import { isPostSuccessful } from '~/plugins/axios-prepare.js'
 
+class CurrentOrderInfo {
+  prepareOrderIDs = []
+  currentOrderID = 0
+}
+
 export default {
   name: 'Index',
   components: {
+    PriceUploadDialog,
+    ToolBar,
     PhoneFilters,
     Loading,
     CollectionDescript,
@@ -69,7 +79,10 @@ export default {
         postIndicator: false
       },
       createOrderProcessing: false,
-      organization: {}
+      organization: {},
+      priceUploadDialog: {
+        state: false
+      }
     }
   },
   computed: {
@@ -99,29 +112,69 @@ export default {
     },
     search () {
       return this.$store.state.filters.search
-    },
-    disabledFilters () {
-      return this.$store.state.filters.disabledFilters
     }
   },
-  async created () {
-    await this.updateOrders()
-    await this.updateOrganization()
-    await this.updateLegalEntities()
+  created () {
+    this.updateOrders()
+    this.updateOrganization()
+    this.updateLegalEntities()
+    this.updateTrees()
   },
   methods: {
+    async updateTrees () {
+      const promiseTreeAssort = this.$axios.get('/v1/card-prod/get-app-bar-assort')
+      const promiseTreeDiscount = this.$axios.get('/v1/card-prod/get-app-bar-discount')
+      this.$store.commit('filters/setTreeAssort', (await promiseTreeAssort).data)
+      this.$store.commit('filters/setTreeDiscount', (await promiseTreeDiscount).data)
+    },
     async updateOrders () {
       this.prepOrders = await new Promise(this.apiGetPrepOrders)
       this.getActiveOrder()
     },
     setActiveOrder (orderID) {
-      localStorage.setItem('activeOrderId', orderID)
+      const currentOrderInfo = new CurrentOrderInfo()
+
+      currentOrderInfo.prepareOrderIDs = this.prepOrders.map(order => order.id)
+      currentOrderInfo.currentOrderID = orderID
+      localStorage.setItem('currentOrderInfo', JSON.stringify(currentOrderInfo))
+
       this.getActiveOrder()
     },
     getActiveOrder () {
-      const activeOrderId = Number(localStorage.getItem('activeOrderId'))
-      this.activeOrder = this.prepOrders.find(e => Number(e.id) === activeOrderId) ||
-        (this.prepOrders.length ? this.prepOrders[this.prepOrders.length - 1] : {})
+      if (localStorage.getItem('activeOrderId')) {
+        console.log('activeOrderId is deprecated')
+        localStorage.removeItem('activeOrderId')
+      }
+
+      const prepareOrderIDs = this.prepOrders.map(order => order.id)
+      if (!prepareOrderIDs.length) {
+        return
+      }
+      const currentMaxOrderID = Math.max(...prepareOrderIDs)
+
+      let currentOrderInfo = localStorage.getItem('currentOrderInfo')
+      if (currentOrderInfo) {
+        currentOrderInfo = JSON.parse(currentOrderInfo)
+      } else {
+        this.setActiveOrder(currentMaxOrderID)
+        return
+      }
+
+      const lastMaxOrderID = Math.max(...currentOrderInfo.prepareOrderIDs)
+
+      if (currentMaxOrderID !== lastMaxOrderID) {
+        this.setActiveOrder(currentMaxOrderID)
+        return
+      }
+
+      const activeOrderID = currentOrderInfo.currentOrderID
+      const activeOrder = this.prepOrders.find(order => order.id === activeOrderID)
+
+      if (activeOrder) {
+        this.activeOrder = activeOrder
+      } else {
+        this.setActiveOrder(currentMaxOrderID)
+      }
     },
     async createOrder () {
       await this.$axios.post('/v1/sls-order/create-order')
@@ -293,10 +346,7 @@ export default {
         return
       }
 
-      const firstLegalEntity = {
-        [this.createLegalEntityDialog.id]: Math.random()
-      }
-      this.createLegalEntityDialog.form.legalEntities.push(firstLegalEntity)
+      this.createLegalEntityDialog.form.legalEntities.push({})
     },
     openCreateLegalEntityDialog () {
       this.addLegalEntity(true)
@@ -305,7 +355,7 @@ export default {
     removelegalEntity (i) {
       this.createLegalEntityDialog.form.legalEntities.splice(i, 1)
     },
-    async createlegalEntities (callback) {
+    async createLegalEntities () {
       // createLegalEntityDialog.form
       try {
         this.createLegalEntityDialog.postIndicator = true

@@ -38,6 +38,28 @@ const authorizedTabs = [
   }
 ]
 
+const mobileTabs = [
+  {
+    name: 'Главная',
+    path: config.PAGES.Common.url,
+    slide: 1
+  },
+  {
+    name: 'Кабинет клиента',
+    path: config.PAGES.Catalog.url,
+    slide: 1
+  },
+  {
+    name: 'Журнал заказов',
+    path: config.PAGES.Orders.url,
+    slide: 1
+  },
+  {
+    name: 'Карточка клиента',
+    path: config.PAGES.ClientCard.url
+  }
+]
+
 export default {
   name: 'MainAppBar',
   data () {
@@ -55,6 +77,9 @@ export default {
       return unauthorizedTabs
         .concat(this.showAuthorizedTabs ? authorizedTabs : [])
     }
+  },
+  beforeCreate () {
+    this.mobileTabs = mobileTabs
   },
   mounted () {
   },

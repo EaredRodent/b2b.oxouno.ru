@@ -45,9 +45,9 @@ export default {
       type: Boolean,
       default: () => false
     },
-    noBodyPadding: {
-      type: Boolean,
-      default: () => false
+    maxBodyHeight: {
+      type: String,
+      default: () => '400px'
     }
   },
   watch: {},

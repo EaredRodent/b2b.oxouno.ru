@@ -3,8 +3,9 @@ export default function (context) {
     '/',
     '/mobile',
     '/registration',
-    '/services',
     '/restore',
+    '/common',
+    '/common/client-card',
     '/store',
     '/store/orders'
   ]

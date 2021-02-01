@@ -16,7 +16,8 @@
             Ваша заявка на регистрацию успешно отправлена!
           </p>
           <p>
-            Данные для входа в учетную запись OXOUNO отправлены на ваш телефон ({{ postForm.contact.phone }}).
+            Информация для входа в учетную запись OXOUNO отправлена вам на телефон и почту
+            ({{ postForm.contact.phone }} / {{ postForm.contact.login }}).
           </p>
         </div>
       </div>
@@ -58,6 +59,7 @@
         <validation-provider name="Телефон" rules="required|min:5|regex:^[^\s].*[^\s]$">
           <v-text-field
             v-model="postForm.contact.phone"
+            v-mask="'+#(###)###-##-##'"
             label="Телефон"
             type="tel"
             @keyup.enter="beginRegister"

@@ -20,9 +20,6 @@ export default {
     this.$root.$on('currentSlide', this.slideTo)
   },
   mounted () {
-    this.$refs.hooper.$el.addEventListener('touchstart', (e) => {
-      e.preventDefault()
-    })
     this.$root.$emit('homePageDone')
   },
   destroyed () {
