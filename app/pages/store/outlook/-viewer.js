@@ -88,7 +88,7 @@ export default {
       } else if (dirName === '29.07.2020') {
         window.open(`/outlook/${this.name}/thermals_fall_winter_2020-21.pdf`)
       } else if (dirName === '17.08.2020') {
-        window.open(`/outlook/${this.name}/document.pdf`)
+        window.open(`/outlook/${this.name}/underwear_fall_winter_2020-21.pdf`)
       }
     }
   }
