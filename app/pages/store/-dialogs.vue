@@ -108,7 +108,7 @@
                 />
               </validation-provider>
 
-              <validation-provider v-slot="{errors}" name="Наименование юр. лица" rules="required">
+              <validation-provider v-slot="{errors}" name="Наименование юр. лица" rules="required|regex:^[a-zA-Zа-яА-Я0-9\.-\s//&quot;]*$">
                 <v-text-field
                   v-model="legalEntity.full_name"
                   label="Наименование юр. лица"

@@ -13,7 +13,7 @@
   background-position: center top;
 
   .brand-box {
-    width: 200px;
+    width: 220px;
     margin-bottom: 20px;
     position: relative;
     opacity: 0;
@@ -35,10 +35,32 @@
   }
 
   .about {
-    font-size: 18px;
+    margin-top: 40px;
+    padding: 5px 10px;
+    background: #eef8;
+    font-size: 14px;
     animation: about .5s ease-out 1s forwards;
     opacity: 0;
-    margin-bottom: 50px;
+    text-align: center;
+    text-transform: uppercase;
+    backdrop-filter: blur(10px) saturate(150%);
+    //font-style: italic;
+
+    div:not(:first-child) {
+      margin-top: 5px;
+    }
+  }
+
+  .login-box {
+    opacity: 0;
+    animation: about .5s ease-out 2s forwards;
+    margin-top: 50px;
+  }
+
+  .login-box-btn {
+    box-shadow: none;
+    border: 2px solid #507279 !important;
+    background: #ffffffb0 !important;
   }
 
   .table-label {
@@ -47,34 +69,5 @@
     margin-bottom: 20px;
     font-size: 16px;
     font-weight: 500;
-  }
-
-  .table-box {
-    width: 100%;
-    background: #ffffffd0;
-    border-radius: 5px;
-    padding: 10px;
-    font-size: 13px;
-    opacity: 0;
-    animation: table-box .5s ease-out 1.5s forwards;
-  }
-
-  .m-table {
-    width: 100%;
-
-    .m-caption {
-      text-align: center;
-      padding: 10px;
-    }
-
-    td:nth-child(3n) {
-      font-style: italic;
-      opacity: 0.8;
-      font-size: 15px;
-    }
-
-    td {
-      padding: 2px 3px;
-    }
   }
 }

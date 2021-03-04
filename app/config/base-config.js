@@ -13,6 +13,8 @@ config.API = {
   baseUrl: process.env.API_BASE_URL
 }
 
+config.API_SOCIETY_URL = process.env.API_SOCIETY_URL
+
 /**
  * Web Socket Client
  * Адрес сервера
@@ -94,6 +96,31 @@ config.PAGES = {
   Unrealized: {
     name: 'Unrealized',
     url: '/unrealized'
+  },
+  Promotion: {
+    name: 'Рекламные материалы',
+    url: '/store/promotion',
+    permission: 'pageB2BAny'
+  },
+  Society: {
+    name: 'Социальная сеть',
+    url: '/society',
+    permission: 'pageB2BAny'
+  },
+  SocietyDraft: {
+    name: 'Черновик',
+    url: '/society/draft',
+    permission: 'pageB2BAny'
+  },
+  SocietyPage: {
+    name: 'Черновик',
+    url: '/society/page',
+    permission: 'pageB2BAny'
+  },
+  SocietyAdmin: {
+    name: 'Админ Вход',
+    url: '/society/admin',
+    permission: 'pageB2BAny'
   }
 }
 /**

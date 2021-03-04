@@ -7,13 +7,17 @@ export const state = function () {
      * Данные пользователя
      * @property {object} user пользователь
      */
-    user: {}
+    user: {},
+    societyIsAdmin: false
   }
 }
 
 export const mutations = {
   setUser (state, user) {
     state.user = user || {}
+  },
+  setSocietyIsAdmin (state, flag) {
+    state.societyIsAdmin = flag
   }
 }
 

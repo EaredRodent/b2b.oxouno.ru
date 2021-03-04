@@ -12,46 +12,27 @@
     >
       <slide class="slide">
         <div class="m-container">
-          <div class="brand-sfx">
-            B2B
-          </div>
-          <img class="brand" src="/base/oxouno-black.svg">
-          <div class="about">
-            Портал для оптовых клиентов
-          </div>
-          <div class="table-box">
-            <div class="table-label">
-              Единая система скидок
+          <div class="brand-container">
+            <img class="brand" width="700" src="/base/oxouno-black.svg">
+            <div class="brand-sfx">
+              B2B
             </div>
-            <table class="m-table">
-              <thead />
-              <tbody>
-                <tr>
-                  <td>Розница ★</td>
-                  <td>- 5%</td>
-                  <td>(покупка от 50 000 р.)</td>
-                  <td>Опт SILVER</td>
-                  <td>- 20%</td>
-                  <td>(от 500 000 р.)</td>
-                </tr>
-                <tr>
-                  <td>Розница ★★</td>
-                  <td>- 10%</td>
-                  <td>(от 100 000 р.)</td>
-                  <td>Опт GOLD</td>
-                  <td>- 25%</td>
-                  <td>(от 700 000 р.)</td>
-                </tr>
-                <tr>
-                  <td>Розница ★★★</td>
-                  <td>- 15%</td>
-                  <td>(от 200 000 р.)</td>
-                  <td>Опт PLATINUM</td>
-                  <td>- 29%</td>
-                  <td>(от 1 000 000 р.)</td>
-                </tr>
-              </tbody>
-            </table>
+          </div>
+          <div class="about">
+            <div>
+              SARTORIA UNO производит трикотажные изделия под торговой маркой OXOUNO
+            </div>
+            <div>
+              B2B.OXOUNO.RU портал создан для партнеров компании SARTORIA UNO
+            </div>
+            <div>
+              Для наших партнеров теперь доступны новые сервисы
+            </div>
+          </div>
+          <div class="login-box">
+            <v-btn large outline @click="$store.commit('setShowLoginDialog', true)">
+              Войти
+            </v-btn>
           </div>
         </div>
       </slide>
@@ -62,13 +43,13 @@
           </div>
           <div>
             <div class="short-text">
-              Кабинет доступен с любых устройств
+              Легкий поиск товара
+            </div>
+            <div class="short-text">
+              Оформление заказа одной кнопкой
             </div>
             <div class="short-text">
               Электронный документооборот
-            </div>
-            <div class="short-text">
-              Консультации и техподдержка
             </div>
           </div>
         </div>
@@ -80,14 +61,14 @@
           </div>
           <div>
             <div class="short-text">
-              Торгуйте напрямую с нашего склада
+              Предлагайте товар вашим клиентам с нашего склада
             </div>
             <div class="short-text">
-              Бесплатная доставка
+              Отправим заказ по адресу вашего партнера
             </div>
-            <div class="short-text">
-              Электронный документооборот
-            </div>
+            <!--            <div class="short-text">-->
+            <!--              Электронный документооборот-->
+            <!--            </div>-->
           </div>
         </div>
       </slide>
@@ -105,14 +86,14 @@
           </div>
           <div class="m-sub-container">
             <div class="short-text">
-              У вас каталог с новыми коллекциями
+              Планируйте закупку товара с горизонтом в один год
             </div>
-            <div class="short-text">
-              Размещаете предзаказ
-            </div>
-            <div class="short-text">
-              Получаете новинки OXOUNO первыми!
-            </div>
+            <!--            <div class="short-text">-->
+            <!--              Размещаете предзаказ-->
+            <!--            </div>-->
+            <!--            <div class="short-text">-->
+            <!--              Получаете новинки OXOUNO первыми!-->
+            <!--            </div>-->
           </div>
         </div>
       </slide>
@@ -123,13 +104,13 @@
           </div>
           <div>
             <div class="short-text">
-              Бесплатная доставка на ваш склад
+              Дилерские цены
             </div>
             <div class="short-text">
-              Тут несомненные преимущества
+              Единая ценовая политика
             </div>
             <div class="short-text">
-              Еще одно неоспоримое преимущество
+              Рекламные и обучающие материалы
             </div>
           </div>
         </div>
@@ -137,17 +118,17 @@
       <slide class="slide">
         <div class="m-container">
           <div class="m-label">
-            Социальная сеть
+            Дополнительные преимущества
           </div>
           <div>
             <div class="short-text">
-              Доступ к рекламным материалам
+              Базовый ассортимент на нашем складе всегда в наличии
             </div>
             <div class="short-text">
-              Общение и техподдержка
+              Подсортировка от одной единицы
             </div>
             <div class="short-text">
-              Что-то еще про социальную сеть
+              Проинформируем вас о новинках по почте или в мессенджере
             </div>
           </div>
         </div>
@@ -165,47 +146,20 @@
       <img class="brand" src="/base/oxouno-black.svg">
     </div>
     <div class="about">
-      Портал для оптовых клиентов
-    </div>
-    <div class="table-box">
-      <div class="table-label">
-        Единая система скидок
+      <div>
+        SARTORIA UNO производит трикотажные изделия под торговой маркой OXOUNO
       </div>
-      <table class="m-table">
-        <thead />
-        <tbody>
-          <tr>
-            <td>Розница ★</td>
-            <td>- 5%</td>
-            <td>(покупка от 50 000 р.)</td>
-          </tr>
-          <tr>
-            <td>Розница ★★</td>
-            <td>- 10%</td>
-            <td>(от 100 000 р.)</td>
-          </tr>
-          <tr>
-            <td>Розница ★★★</td>
-            <td>- 15%</td>
-            <td>(от 200 000 р.)</td>
-          </tr>
-          <tr>
-            <td>Опт SILVER</td>
-            <td>- 20%</td>
-            <td>(от 500 000 р.)</td>
-          </tr>
-          <tr>
-            <td>Опт GOLD</td>
-            <td>- 25%</td>
-            <td>(от 700 000 р.)</td>
-          </tr>
-          <tr>
-            <td>Опт PLATINUM</td>
-            <td>- 29%</td>
-            <td>(от 1 000 000 р.)</td>
-          </tr>
-        </tbody>
-      </table>
+      <div>
+        B2B.OXOUNO.RU портал создан для партнеров компании SARTORIA UNO
+      </div>
+      <div>
+        Для наших партнеров теперь доступны новые сервисы
+      </div>
+    </div>
+    <div class="login-box">
+      <v-btn large class="login-box-btn" @click="$store.commit('setShowLoginDialog', true)">
+        Войти
+      </v-btn>
     </div>
     <form-login v-if="$store.state.showLoginDialog" />
   </div>

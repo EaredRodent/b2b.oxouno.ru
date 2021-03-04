@@ -21,7 +21,6 @@
         :items="topTreeCopy.items"
         :open="topTreeOpen"
         open-on-click
-        :disabled="true"
         on-icon="lens"
         off-icon="radio_button_unchecked"
         indeterminate-icon="remove_circle_outline"

@@ -13,7 +13,20 @@
       &nbsp;К журналам
     </v-btn>
 
-    <div style="display: none">
+    <v-btn
+      class="x-download-btn"
+      outline
+      color="#263238"
+      title="Скачать"
+      @click="download"
+    >
+      <v-icon>
+        mdi-download
+      </v-icon>
+      &nbsp;Скачать
+    </v-btn>
+
+    <div class="x-hidden">
       <img v-for="(src, i) in imgUrls" :key="i" :src="src" alt="image">
     </div>
     <flip-book
@@ -37,5 +50,5 @@ export { default } from './-viewer.js'
 </script>
 
 <style scoped lang="less">
-
+@import "-viewer";
 </style>

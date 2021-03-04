@@ -4,10 +4,11 @@ import LegalEntityDialog from './legal-entity-dialog.vue'
 import { isPostSuccessful } from '~/plugins/axios-prepare'
 import getTypeSale from '~/helpers/getTypeSale'
 import getStatusFromDiscount from '~/helpers/getStatusFromDiscount'
+import ChangePasswordDialog from '~/pages/common/client-card/change-password-dialog'
 
 export default {
   name: 'Index',
-  components: { VueCustomScrollbar, ContactDialog, LegalEntityDialog },
+  components: { ChangePasswordDialog, VueCustomScrollbar, ContactDialog, LegalEntityDialog },
   data () {
     return {
       client: {},
@@ -19,6 +20,11 @@ export default {
         loading: false
       },
       legalEntityDialog: {
+        state: false,
+        form: {},
+        loading: false
+      },
+      changePasswordDialog: {
         state: false,
         form: {},
         loading: false
@@ -69,6 +75,9 @@ export default {
         this.updateLE()
       }
       this.legalEntityDialog.loading = false
+    },
+    beginChangePassword () {
+      this.changePasswordDialog.state = true
     }
   }
 }

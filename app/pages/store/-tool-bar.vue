@@ -15,9 +15,15 @@
       >
         Акционный товар
       </div>
-      <!--      <div class="x-category" @click="$router.push('/store/outlook')"-->
-      <!--           :matrix-selected="$route.fullPath === '/store/outlook'">-->
-      <!--        Осень-Зима 2020/2021-->
+      <div
+        class="x-category"
+        :matrix-selected="$route.fullPath === '/store/outlook'"
+        @click="$router.push('/store/outlook')"
+      >
+        Весна-Лето 2021
+      </div>
+      <!--      <div class="x-category" @click="$router.push('/store/promotion')">-->
+      <!--        Рекламные материалы-->
       <!--      </div>-->
       <div class="x-category" @click="$router.push('/store/orders')">
         Журнал заказов

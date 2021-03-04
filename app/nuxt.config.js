@@ -27,6 +27,8 @@ export default async function () {
       script: [
         // if('production') push({ src: '/browser-update.js' })
       ],
+      noscript: [
+      ],
       link: [
         {
           rel: 'icon',
@@ -46,42 +48,42 @@ export default async function () {
       // Static defined
     },
     hooks: {
-      webpack: {
-        config (config) {
-          const replacer = (key, value) => {
-            if (value instanceof RegExp) {
-              return value.toString()
-            } else if (
-              value instanceof Object && // Is Object instance
-              !Array.isArray(value) && // Is Not Array instance
-              Object.getPrototypeOf(value) !== Object.prototype // Is Not simple Object instance, only named Class/Function instance
-            ) {
-              value._className = Object.getPrototypeOf(value).constructor.name
-              return value
-            } else {
-              return value
-            }
-          }
-
-          const configJSON = JSON.stringify(config, replacer)
-
-          // IDE support
-
-          fs.writeFile(
-            'webpack.config.js',
-            'module.exports = ' + configJSON,
-            () => {
-            })
-
-          // Developers support
-
-          fs.writeFile(
-            'webpack.config.json',
-            configJSON,
-            () => {
-            })
-        }
-      }
+      // webpack: {
+      //   config (config) {
+      //     const replacer = (key, value) => {
+      //       if (value instanceof RegExp) {
+      //         return value.toString()
+      //       } else if (
+      //         value instanceof Object && // Is Object instance
+      //         !Array.isArray(value) && // Is Not Array instance
+      //         Object.getPrototypeOf(value) !== Object.prototype // Is Not simple Object instance, only named Class/Function instance
+      //       ) {
+      //         value._className = Object.getPrototypeOf(value).constructor.name
+      //         return value
+      //       } else {
+      //         return value
+      //       }
+      //     }
+      //
+      //     const configJSON = JSON.stringify(config, replacer)
+      //
+      //     // IDE support
+      //
+      //     fs.writeFile(
+      //       'webpack.config.js',
+      //       'module.exports = ' + configJSON,
+      //       () => {
+      //       })
+      //
+      //     // Developers support
+      //
+      //     fs.writeFile(
+      //       'webpack.config.json',
+      //       configJSON,
+      //       () => {
+      //       })
+      //   }
+      // }
     },
     /*
     ** Customize the progress-bar color

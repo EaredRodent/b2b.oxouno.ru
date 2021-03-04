@@ -80,7 +80,6 @@
           </v-btn>
         </div>
       </div>
-      </tool->
     </div>
     <div class="x-cat-box">
       <loading v-if="filtersLoading" />

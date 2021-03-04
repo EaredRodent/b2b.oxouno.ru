@@ -47,7 +47,7 @@
           Регистрация
         </div>
 
-        <validation-provider name="Ф.И.О." rules="required|min:5|regex:^[^\s].*[^\s]$">
+        <validation-provider name="Ф.И.О." rules="required|regex:^[a-zA-Zа-яА-Я0-9\.-\s//&quot;]*$">
           <v-text-field
             v-model="postForm.contact.name"
             label="Ф.И.О."
@@ -56,7 +56,7 @@
           />
         </validation-provider>
 
-        <validation-provider name="Телефон" rules="required|min:5|regex:^[^\s].*[^\s]$">
+        <validation-provider name="Телефон" rules="required">
           <v-text-field
             v-model="postForm.contact.phone"
             v-mask="'+#(###)###-##-##'"
@@ -66,7 +66,7 @@
           />
         </validation-provider>
 
-        <validation-provider name="E-Mail" rules="required|min:5|email">
+        <validation-provider name="E-Mail" rules="required">
           <v-text-field
             v-model="postForm.contact.login"
             label="E-Mail"
@@ -74,7 +74,7 @@
           />
         </validation-provider>
 
-        <validation-provider name="Наименование организации" rules="required|min:3|regex:^[^\s].*[^\s]$">
+        <validation-provider name="Наименование организации" rules="required|regex:^[a-zA-Zа-яА-Я0-9\.-\s//&quot;]*$">
           <v-text-field
             v-model="postForm.client.name"
             label="Наименование организации"

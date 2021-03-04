@@ -75,6 +75,16 @@
               </td>
               <td>{{ contact.phone }}</td>
             </tr>
+            <!--            <tr :key="'e' + i">-->
+            <!--              <td>-->
+            <!--                Пароль:-->
+            <!--              </td>-->
+            <!--              <td style="text-align: right">-->
+            <!--                <v-btn small outline class="x-table-ch-ps-btn" @click="beginChangePassword">-->
+            <!--                  Сменить пароль-->
+            <!--                </v-btn>-->
+            <!--              </td>-->
+            <!--            </tr>-->
           </template>
         </tbody>
       </table>
@@ -136,6 +146,7 @@
 
     <contact-dialog :contact-dialog="contactDialog" @add="addContact" />
     <legal-entity-dialog :legal-entity-dialog="legalEntityDialog" @add="addLE" />
+    <change-password-dialog :change-password-dialog="changePasswordDialog" />
   </vue-custom-scrollbar>
 </template>
 

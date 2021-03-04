@@ -36,54 +36,20 @@
     }
 
     .about {
-      font-size: 39px;
-      margin-bottom: 50px;
+      font-size: 16px;
       margin-top: 40px;
-      letter-spacing: 5px;
+      letter-spacing: 1.5px;
+      line-height: 2;
+      text-transform: uppercase;
       animation: about .5s ease-out 1.5s forwards;
       opacity: 0;
-    }
-
-    .table-label {
       text-align: center;
-      line-height: 1;
-      margin-bottom: 20px;
-      font-size: 16px;
-      font-weight: 500;
     }
 
-    .table-box {
-      background: #ffffff60;
-      border-radius: 5px;
-      padding: 20px;
-      font-size: 15px;
-      width: 700px;
+    .login-box {
       opacity: 0;
-      //height: 0;
-      animation: table-box .5s ease-out 2s forwards;
-    }
-
-    .m-table {
-      width: 100%;
-
-      .m-caption {
-        text-align: center;
-        padding: 10px;
-      }
-
-      td:nth-child(3n) {
-        font-style: italic;
-        opacity: 0.8;
-        font-size: 14px;
-      }
-
-      td:nth-child(3n+1) {
-        width: 130px;
-      }
-
-      td:nth-child(3n+2) {
-        width: 70px;
-      }
+      animation: about .5s ease-out 2s forwards;
+      margin-top: 40px;
     }
 
     .brand {
@@ -91,6 +57,10 @@
       transform: scale(0.8);
       shape-rendering: crispEdges;
       animation: brand 1s ease .5s forwards;
+    }
+
+    .brand-container {
+      position: relative;
     }
   }
 
@@ -209,6 +179,10 @@
       margin: 0 auto;
     }
 
+    .short-text {
+      margin-bottom: 0;
+    }
+
     .m-container {
       position: absolute;
       z-index: 2;
@@ -218,6 +192,7 @@
       width: 100%;
       display: flex;
       align-items: center;
+      padding-right: 70px;
     }
   }
 
@@ -302,11 +277,12 @@
   }
 
   .m-label {
-    font-size: 80px;
+    font-size: 70px;
     font-weight: 500;
     margin-bottom: 80px;
     text-shadow: #fff 0 0 1px;
     opacity: 0;
+    text-align: center;
   }
 
   .slide.is-current {
@@ -345,7 +321,7 @@
 
   .slide-indicator {
     top: 50%;
-    right: 60px;
+    right: 20px;
     transform: translateY(-50%);
   }
 }

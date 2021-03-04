@@ -35,9 +35,40 @@ export default {
     document.getElementsByTagName('html')[0].style.overflow = this.oldOverflow
   },
   methods: {
-    async fetchArchives () {
-      const { data } = await this.$axios.get('/v1/outlook/get-outlook-meta')
-      this.archives = data
+    fetchArchives () {
+      // const { data } = await this.$axios.get('/v1/outlook/get-outlook-meta')
+      this.archives = [
+        {
+          name: '12.02.2021',
+          previewImg: '/outlook/12.02.2021/(1).jpg',
+          width: 1654,
+          height: 2339
+        },
+        {
+          name: '09.02.2021',
+          previewImg: '/outlook/09.02.2021/1.min.jpg',
+          width: 2126,
+          height: 2834
+        },
+        {
+          name: '28.07.2020',
+          previewImg: '/outlook/28.07.2020/0001_7WJBn7_k.jpg',
+          width: 1754,
+          height: 2480
+        },
+        {
+          name: '29.07.2020',
+          previewImg: '/outlook/29.07.2020/001t_j9Afccjl.jpg',
+          width: 1754,
+          height: 2480
+        },
+        {
+          name: '17.08.2020',
+          previewImg: '/outlook/17.08.2020/0001_ox4UhuF2.jpg',
+          width: 1754,
+          height: 2480
+        }
+      ]
     },
     calcCarouselSize () {
       if (!this.archives.length) {

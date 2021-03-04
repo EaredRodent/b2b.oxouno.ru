@@ -1,3 +1,4 @@
+import md5 from 'md5'
 import config from '~/config/base-config'
 
 export default async function ({
@@ -28,6 +29,11 @@ export default async function ({
   if (!store.getters['auth/isGuest'] &&
     route.fullPath === '/') {
     redirect(config.ROLES.roleB2bClient.startPage.url)
+  }
+
+  const societyAdminKey = localStorage.getItem('society/admin')
+  if (societyAdminKey && md5(societyAdminKey) === '41bc3629a514ed9651332f89a4f9cdca') {
+    store.commit('auth/setSocietyIsAdmin', true)
   }
 
   let pageConfigFound = false

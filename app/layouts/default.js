@@ -41,8 +41,24 @@ export default {
         resultPadding = defaultPadding
       }
 
+      const backgroundImage = null
+      const backgroundSize = null
+      const backgroundPosition = null
+
+      // if (this.$route.fullPath.startsWith('/store') ||
+      //   this.$route.fullPath.startsWith('/common/client-card') ||
+      //   this.$route.fullPath.startsWith('/common/documents')
+      // ) {
+      //   backgroundImage = 'url("/layout.jpg")'
+      //   backgroundSize = 'contain'
+      //   backgroundPosition = 'bottom'
+      // }
+
       return {
-        paddingTop: `${resultPadding}px`
+        paddingTop: `${resultPadding}px`,
+        backgroundImage,
+        backgroundSize,
+        backgroundPosition
       }
     }
   },
