@@ -23,7 +23,7 @@ const unauthorizedTabs = [
   },
   {
     name: 'Социальная сеть',
-    path: config.PAGES.Unrealized.url,
+    path: config.PAGES.Society.url,
     slide: 5
   }
 ]
