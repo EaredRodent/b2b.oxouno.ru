@@ -44,7 +44,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: auto;
+  overflow-y: scroll;
   flex-wrap: wrap;
 }
 

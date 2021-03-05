@@ -97,13 +97,13 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="less">
 .page {
   height: 100%;
   padding: 20px 0;
   display: flex;
   justify-content: center;
-  overflow: auto;
+  overflow-y: scroll;
   flex-wrap: wrap;
 }
 
@@ -138,8 +138,13 @@ export default {
   padding-left: 10px;
 }
 
-.html-content {
+.html-content::v-deep {
   margin: 20px 0 40px 0;
+
+  img {
+    max-width: calc(100%);
+    height: auto !important;
+  }
 }
 
 .subject-comments {

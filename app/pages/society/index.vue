@@ -66,7 +66,7 @@ export default {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  overflow: auto;
+  overflow-y: scroll;
 }
 
 .content {

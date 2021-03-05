@@ -33,6 +33,17 @@
       </div>
     </div>
 
+    <v-btn
+      class="x-nstagram"
+      icon
+      title="Instagram"
+      @click="openInstagram"
+    >
+      <v-icon color="white">
+        mdi-instagram
+      </v-icon>
+    </v-btn>
+
     <div class="x-contact">
       Тел:
       <nobr>8 800 201 01 09</nobr>

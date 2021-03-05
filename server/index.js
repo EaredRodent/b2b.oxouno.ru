@@ -75,7 +75,7 @@ async function main () {
       '-' +
       file.name
 
-    const uploadPath = path.join(process.cwd(), '../app/static/society-resource/', newFileName)
+    const uploadPath = path.join(__dirname, '../app/static/society-resource/', newFileName)
 
     console.log(uploadPath)
 
