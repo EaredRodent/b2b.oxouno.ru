@@ -117,6 +117,9 @@ export default {
       } else {
         return this.$store.state.currentSlide === tab.slide
       }
+    },
+    openInstagram () {
+      window.open('https://www.instagram.com/oxouno/?hl=ru')
     }
   }
 }
