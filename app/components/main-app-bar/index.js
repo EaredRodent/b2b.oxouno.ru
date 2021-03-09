@@ -3,31 +3,46 @@ import config from '~/config/base-config'
 const unauthorizedTabs = [
   {
     name: 'Кабинет клиента',
-    path: config.PAGES.Catalog.url,
     slide: 1
   },
   {
     name: 'Дропшиппинг',
-    path: config.PAGES.Unrealized.url,
     slide: 2
   },
   {
     name: 'Предзаказы',
-    path: config.PAGES.Unrealized.url,
     slide: 3
   },
   {
     name: 'Региональным дилерам',
-    path: config.PAGES.Unrealized.url,
     slide: 4
   },
   {
     name: 'Социальная сеть',
-    path: config.PAGES.Society.url,
     slide: 5
   }
 ]
 const authorizedTabs = [
+  {
+    name: 'Кабинет клиента',
+    path: config.PAGES.Catalog.url
+  },
+  {
+    name: 'Дропшиппинг',
+    path: config.PAGES.Unrealized.url
+  },
+  {
+    name: 'Предзаказы',
+    path: config.PAGES.Unrealized.url
+  },
+  {
+    name: 'Рекламные материалы',
+    path: config.PAGES.Promotion.url
+  },
+  {
+    name: 'Социальная сеть',
+    path: config.PAGES.Society.url
+  },
   {
     name: 'Карточка клиента',
     path: config.PAGES.ClientCard.url
@@ -74,8 +89,7 @@ export default {
         this.$route.fullPath !== config.PAGES.Registration.url
     },
     tabs () {
-      return unauthorizedTabs
-        .concat(this.showAuthorizedTabs ? authorizedTabs : [])
+      return this.showAuthorizedTabs ? authorizedTabs : unauthorizedTabs
     }
   },
   beforeCreate () {

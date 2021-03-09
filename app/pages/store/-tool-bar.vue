@@ -22,9 +22,9 @@
       >
         Весна-Лето 2021
       </div>
-      <div class="x-category" @click="$router.push('/store/promotion')">
-        Рекламные материалы
-      </div>
+      <!--      <div class="x-category" @click="$router.push('/promotion')">-->
+      <!--        Рекламные материалы-->
+      <!--      </div>-->
       <div class="x-category" @click="$router.push('/store/orders')">
         Журнал заказов
       </div>

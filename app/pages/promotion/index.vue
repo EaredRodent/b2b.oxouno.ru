@@ -36,7 +36,7 @@
     <div class="x-container-right">
       <div class="x-head-right">
         Рекламные материалы
-        <v-btn outline small>
+        <v-btn outline small @click="download">
           <v-icon>mdi-download</v-icon>Скачать все
         </v-btn>
       </div>

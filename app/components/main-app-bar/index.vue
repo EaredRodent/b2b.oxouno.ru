@@ -39,7 +39,7 @@
       title="Instagram"
       @click="openInstagram"
     >
-      <v-icon color="white">
+      <v-icon :color="$isGuest() ? 'black' : 'white'">
         mdi-instagram
       </v-icon>
     </v-btn>

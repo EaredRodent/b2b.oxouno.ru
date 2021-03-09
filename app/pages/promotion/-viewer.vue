@@ -33,7 +33,7 @@
           </v-icon>
           Предыдущий слайд
         </v-btn>
-        <a class="x-bottom-item" :href="item.src" download="">
+        <a class="x-bottom-item" :href="item.src" download>
           <v-btn outline class="x-btn">
             Скачать
             <v-icon color="#444">

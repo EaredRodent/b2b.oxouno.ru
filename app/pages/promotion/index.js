@@ -14,59 +14,59 @@ export default {
         state: false,
         current: 0
       },
-      selectionTree: [
-        {
-          name: 'Домашняя одежда',
-          type: 'category',
-          children: [
-            {
-              name: 'DAILY RELAX',
-              type: 'collection',
-              promotionMaterials: [
-                {
-                  src: '/cat.png',
-                  title: 'Кот'
-                }
-              ]
-            }
-          ]
-        },
-        {
-          name: 'Повседневная одежда',
-          type: 'category',
-          children: [
-            {
-              name: 'CARBON',
-              type: 'collection',
-              promotionMaterials: [
-                {
-                  src: '/documents/offer/offer_06.11.2019.pdf',
-                  title: 'PDF offer 2019'
-                },
-                {
-                  src: '/cat.png',
-                  title: 'Еще Кот Еще Кот Еще Кот Еще Кот'
-                }
-              ]
-            },
-            {
-              name: 'MISS SONYA',
-              type: 'collection',
-              promotionMaterials: [
-                {
-                  src: '/main-page-slider/4.min.mp4',
-                  title: 'Видео с производства'
-                }
-              ]
-            }
-          ]
-        }
-      ]
+      selectionTree: []
+      // selectionTree: [
+      //   {
+      //     name: 'Домашняя одежда',
+      //     type: 'category',
+      //     children: [
+      //       {
+      //         name: 'DAILY RELAX',
+      //         type: 'collection',
+      //         promotionMaterials: [
+      //           {
+      //             src: '/cat.png',
+      //             title: 'Кот'
+      //           }
+      //         ]
+      //       }
+      //     ]
+      //   },
+      //   {
+      //     name: 'Повседневная одежда',
+      //     type: 'category',
+      //     children: [
+      //       {
+      //         name: 'CARBON',
+      //         type: 'collection',
+      //         promotionMaterials: [
+      //           {
+      //             src: '/documents/offer/offer_06.11.2019.pdf',
+      //             title: 'PDF offer 2019'
+      //           },
+      //           {
+      //             src: '/cat.png',
+      //             title: 'Еще Кот Еще Кот Еще Кот Еще Кот'
+      //           }
+      //         ]
+      //       },
+      //       {
+      //         name: 'MISS SONYA',
+      //         type: 'collection',
+      //         promotionMaterials: [
+      //           {
+      //             src: '/main-page-slider/4.min.mp4',
+      //             title: 'Видео с производства'
+      //           }
+      //         ]
+      //       }
+      //     ]
+      //   }
+      // ]
     }
   },
   computed: {
     preparedSelectionTree () {
-      console.log(JSON.stringify(this.selectionTree))
       let id = 0
 
       for (const category of this.selectionTree) {
@@ -152,7 +152,39 @@ export default {
     this.fetchAll()
   },
   methods: {
-    fetchAll () {
+    async fetchAll () {
+      const { data: hTree } = await this.$axios.get('/v1/oxouno-api/get-advertising')
+
+      const tree = []
+
+      hTree.forEach((hCategory) => {
+        const category = {}
+        category.name = hCategory.Folder
+        category.type = 'category'
+        category.children = []
+
+        hCategory.Collection.forEach((hCollection) => {
+          const collection = {}
+          collection.name = hCollection.CollectionName
+          collection.type = 'collection'
+          collection.archive = hCollection.CollectionLink
+          collection.promotionMaterials = []
+
+          hCollection.Files.forEach((hFile) => {
+            const material = {}
+            material.title = hFile.FileName
+            material.src = hFile.FileLink
+
+            collection.promotionMaterials.push(material)
+          })
+
+          category.children.push(collection)
+        })
+
+        tree.push(category)
+      })
+
+      this.selectionTree = tree
     },
     getItemBackground (src) {
       if (/\.(png|jpg|jpeg)$/.test(src)) {
@@ -176,6 +208,15 @@ export default {
     },
     updateViewer (current) {
       this.viewer.current = current
+    },
+    download () {
+      const selectedCollections = this.selectedNodes.filter(node => node.type === 'collection')
+      const archives = selectedCollections.map(collection => collection.archive)
+      archives.forEach((archive, i) => {
+        setTimeout(() => {
+          window.open(archive, '_blank')
+        }, i * 550)
+      })
     }
   }
 }

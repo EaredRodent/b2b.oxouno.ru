@@ -66,9 +66,10 @@ export default {
       editorConfig: {
         content_css: '/css/tiny-mce.css',
         plugins: 'autoresize paste',
-        toolbar: 'addyt',
+        toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | outdent indent | addyt',
         images_upload_url: config.API_SOCIETY_URL + '/society/save-image',
         paste_data_images: true,
+        language: 'ru',
         setup: (editor) => {
           editor.ui.registry.addButton('addyt', {
             text: 'Вставить видео',

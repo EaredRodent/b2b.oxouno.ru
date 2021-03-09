@@ -99,7 +99,7 @@ config.PAGES = {
   },
   Promotion: {
     name: 'Рекламные материалы',
-    url: '/store/promotion',
+    url: '/promotion',
     permission: 'pageB2BAny'
   },
   Society: {
